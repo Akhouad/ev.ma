@@ -1,0 +1,45 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import '../bootstrap';
+@import "../variables";
+@import "libraries";
+@import "typography";
+@import "components/buttons";
+@import "libraries/tags-input";
+@import "components/forms";
+@import "components/list-group";
+
+
+// Bootstrap
+// @import '~bootstrap/scss/bootstrap';
+@import 'manager';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body.light-gray-bg{
+  background-color: #f5f5f5;
+}
+
+html{
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #434a54;
+}
+
+a, a:hover{
+  color: #3bafda
+}
+
+.no-margin{ margin:0 }

@@ -1,0 +1,15 @@
+.btn{
+    border:0!important;
+    height:50px;
+    line-height:50px!important;
+    padding: 0 30px!important;
+    transition: all .2s;
+
+    &.btn-primary{ background-color: $secondary-color;}
+    &.btn-success{ background-color: $primary-color }
+    &.btn-block{
+        font-size: 13px!important;
+        text-transform: uppercase;
+    }
+    &:hover{ opacity: .75!important }
+}
