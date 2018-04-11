@@ -32,16 +32,15 @@ const app = new Vue({
             e.preventDefault()
             this.dateFixe = !this.dateFixe
             this.eventRecurrent = !this.eventRecurrent
-            if(this.dateFixe){
-                Vue.nextTick(function () {
-                    $('input.datetimepicker').daterangepicker({
-                        singleDatePicker: true,
-                        showDropdowns: true
-                    }, function(start, end, label) {
-                        var years = moment().diff(start, 'years');
-                    });
-                })
-            }
+            
+            Vue.nextTick(function () {
+                $('input.datetimepicker').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true
+                }, function(start, end, label) {
+                    var years = moment().diff(start, 'years');
+                });
+            })
         },
         eventTypeChanged(){
             console.log(this.eventType)

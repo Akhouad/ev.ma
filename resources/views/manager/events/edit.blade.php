@@ -34,7 +34,7 @@
                     Informations générales
                 </div>
                 <form action="" method="post" enctype="multipart/form-data">
-                    @csrf
+                    {{csrf_field()}}
                     <div class="card-body">
                         <div class="form-group">
                             <label for=""><strong>Nom de l'événement *</strong></label><span title="Merci de mettre les majuscules uniquement en début de titre et aux noms propres SVP."> (?)</span>
@@ -130,7 +130,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>Heure début *</strong></label>
-                                    <input type="text" value="{{date('G:i', strtotime(explode(" ", $event->start_timestamp)[1]))}}" class="form-control" placeholder="hh : mm" name="start_time">
+                                    <input type="time" value="{{date('H:i', strtotime(explode(" ", $event->start_timestamp)[1]))}}" class="form-control" placeholder="hh : mm" name="start_time">
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>Heure Fin *</strong></label>
-                                    <input type="text" value="{{date('G:i', strtotime(explode(" ", $event->end_timestamp)[1]))}}" class="form-control" placeholder="hh : mm" name="end_time">
+                                    <input type="time" value="{{ date('H:i', strtotime(explode(" ", $event->end_timestamp)[1])) }}" class="form-control" placeholder="hh : mm" name="end_time">
                                 </div>
                             </div>
                         </div>

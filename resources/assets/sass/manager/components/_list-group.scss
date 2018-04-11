@@ -57,10 +57,10 @@
 }
 
 .card{
-    &.bg-success{
-        border:0;
-        background-color: #fff!important;
+    border:0;
+    background-color: #fff!important;
 
+    &.bg-success{
         .card-header{
             background-color: $primary-color;
             color: #fff;
@@ -68,6 +68,13 @@
         
         .card-body{
             background-color: #fff;
+        }
+    }
+
+    &.bg-primary{
+        .card-header{
+            background-color: $secondary-color;
+            color:#fff;
         }
     }
 }

@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Hash;
 
 class EventController extends Controller
 {
-    public function addView(){
+    public function add_index(){
+        abort_if(! Auth::user()->is_organizer, 404);
         $categories = Category::get();
         $types = Type::get();
         $pending_events = Event::where('status', 'pending')->get();
@@ -32,13 +33,15 @@ class EventController extends Controller
         return view('manager.events.add', compact('categories', 'types', 'pending_events', 'cities'));
     }
 
-    public function eventView($id){
+    public function index($id){
+        abort_if(! Auth::user()->is_organizer, 404);
         $pending_events = Event::where('status', 'pending')->get();
         $event = Event::where('id', $id)->first();
         return view('manager.events.event', compact('pending_events', 'event'));
     }
 
-    public function editEvent($id){
+    public function edit_index($id){
+        abort_if(! Auth::user()->is_organizer, 404);
         $categories = Category::get();
         $types = Type::get();
         $pending_events = Event::where('status', 'pending')->get();
@@ -51,7 +54,7 @@ class EventController extends Controller
         return view('manager.events.edit', compact('categories', 'types', 'pending_events', 'event', 'event_categories', 'cities', 'venue'));
     }
 
-    public function addEvent(StoreEvent $request){
+    public function store(Request $request){
         $data = $request->input();
         $e = new Event();
         
@@ -64,30 +67,33 @@ class EventController extends Controller
         
         $e->name = $data['name'];
         $e->slug = str_slug($data['name'], '-');
-        $e->description = (!empty($data['description']) ? $data['description'] : null);
-        $e->youtube_url = (!empty($data['youtube_url']) ? $data['youtube_url'] : null);
+        $e->description = $data['description'];
+        $e->youtube_url = $data['youtube_url'];
         
-        $start_date = $data['start_date'];
-        $start_time = $data['start_time'];
-        $e->start_timestamp = date('Y-m-d H:i:s', strtotime("$start_date $start_time") );
+        // FIXED DATE
+        if(isset($data['start_date']) && isset($data['end_date'])){
+            $start_date = $data['start_date'];
+            $start_time = $data['start_time'];
+            $e->start_timestamp = date('Y-m-d H:i:s', strtotime("$start_date $start_time") );
 
-        $end_date = $data['end_date'];
-        $end_time = $data['end_time'];
-        $e->end_timestamp = date('Y-m-d H:i:s', strtotime("$end_date $end_time") );
+            $end_date = $data['end_date'];
+            $end_time = $data['end_time'];
+            $e->end_timestamp = date('Y-m-d H:i:s', strtotime("$end_date $end_time") );
+        }
 
         $e->type_id = $data['type_id'];
         $e->access_type = $data['access_type'];
-        $e->tickets_url = (!empty($data['tickets_url'])) ? $data['tickets_url'] : null;
-        $e->email = (!empty($data['email'])) ? $data['email'] : null;
-        $e->website = (!empty($data['website'])) ? $data['website'] : null;
-        $e->phone = (!empty($data['phone'])) ? $data['phone'] : null;
+        $e->tickets_url = $data['tickets_url'];
+        $e->email = $data['email'];
+        $e->website = $data['website'];
+        $e->phone = $data['phone'];
         // $e->schedule
         // $e->is_sponsored
         // $e->is_editor_choice
         $e->organizer_id = Organizer::where('user_id', Auth::user()->id)->first()->id;
-        $e->youtube = (!empty($data['youtube'])) ? $data['youtube'] : null;
-        $e->facebook = (!empty($data['facebook'])) ? $data['facebook'] : null;
-        $e->twitter = (!empty($data['twitter'])) ? $data['twitter'] : null;
+        $e->youtube = $data['youtube'];
+        $e->facebook = $data['facebook'];
+        $e->twitter = $data['twitter'];
         $e->is_organizer_owner = 1;
         $e->status_date = date("dd/mm/Y");
         $e->status = $data['submit'] == 'Publier' ? 'pending' : 'draft';
@@ -101,6 +107,47 @@ class EventController extends Controller
         else $e->venue_id = $data['venue']['id'];
 
         $e->save();
+        
+        // RECURRENT
+        if( isset($data['recurrent']) ){
+            $options = [];
+
+            $options['label'] = "recurrent";
+            $option['value']['time_from'] = $data['recurrent']['time']['from'];
+            $option['value']['time_to'] = $data['recurrent']['time']['to'];
+            $option['value']['date_from'] = $data['recurrent']['date']['from'];
+            $option['value']['date_to'] = $data['recurrent']['date']['to'];
+
+            // weekly
+            if( isset($data['recurrent']['weekly']) ){
+                $options['value']['type'] = 'weekly';
+                $options['value']['weekday'] = $data['recurrent']['weekly'];
+            }
+            // monthly
+            else if( isset($data['recurrent']['monthly']) ){
+                // day number
+                if( isset($data['recurrent']['monthly']['day_number']) ){
+                    $options['value']['type'] = 'monthly';
+                    $options['value']['monthly_type'] = 'day_number';
+                    $options['value']['monthly_type']['day_number'] = $data['recurrent']['monthly']['day_number'];
+                }
+                // week number
+                else if( isset($data['recurrent']['monthly']['week_number']) ){
+                    $options['value']['type'] = 'monthly';
+                    $options['value']['monthly_type'] = 'week_number';
+                    $options['value']['monthly']['week_number'] = $data['recurrent']['monthly']['week_number'];
+                    $options['value']['monthly']['day'] = $data['recurrent']['monthly']['day'];
+                }
+            }else{
+                $options['value']['type'] = 'daily';
+            }
+
+            $event_option = new EventsOption();
+            $event_option->event_id = $e->id;
+            $event_option->label = $options['label'];
+            $event_option->value = serialize($options['value']);
+            $event_option->save();
+        }
         
         // ADD CATEGORIES
         if(isset($data['categories']) && count($data['categories']) > 0){
@@ -117,7 +164,7 @@ class EventController extends Controller
             $eo = new EventsOption();
             $eo->event_id = $e->id;
             $eo->label = "queued";
-            $eo->value = $data['plan']['date'];
+            $eo->value = date('Y-m-d', strtotime($data['plan']['date']));
             $eo->save();
         }
 
@@ -133,7 +180,7 @@ class EventController extends Controller
         return redirect(route('manager'));
     }
 
-    public function editEventPost($id, EditEvent $request){
+    public function update($id, EditEvent $request){
         $event = Event::where('id', $id)->first();
         $venue = Venue::where('id', $event->venue_id)->first();
         $data = $request->input();
@@ -174,12 +221,6 @@ class EventController extends Controller
         $event->youtube = ($event->youtube !== $data['youtube']) ? $data['youtube'] : $event->youtube;
         $event->save();
         return redirect()->back();
-    }
-
-    public function intervenantsView($id){
-        $event = Event::where('id', $id)->first();
-        $pending_events = Event::where('status', 'pending')->get();
-        return view('manager.events.intervenants', compact('event', 'pending_events'));
     }
 
     public function publishEvent($id){

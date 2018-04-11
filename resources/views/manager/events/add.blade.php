@@ -28,7 +28,7 @@
                         Informations générales
                     </div>
                     <form action="" method="post" enctype="multipart/form-data">
-                        @csrf
+                        {{csrf_field()}}
                         <div class="card-body">
                             <div class="form-group">
                                 <label for=""><strong>Nom de l'événement *</strong></label><span title="Merci de mettre les majuscules uniquement en début de titre et aux noms propres SVP."> (?)</span>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <label for=""><strong>Type d'accès</strong></label>
-                                <select name="access_type" class="form-control" id="EventAccessType" required="required">
+                                <select name="access_type" class="form-control" id="EventAccessType">
                                     <option value="" disabled selected>Choisir le type d'accès</option>
                                     <option value="1">Gratuit</option>
                                     <option value="2">Payant</option>
@@ -93,7 +93,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>Heure début *</strong></label>
-                                        <input type="text" class="form-control" placeholder="hh : mm" name="start_time">
+                                        <input type="time" class="form-control" placeholder="hh : mm" name="start_time">
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>Heure Fin *</strong></label>
-                                        <input type="text" class="form-control" placeholder="hh : mm" name="end_time">
+                                        <input type="time" class="form-control" placeholder="hh : mm" name="end_time">
                                     </div>
                                 </div>
                             </div>
@@ -130,9 +130,10 @@
                                             <option value="Mensuel">Mensuel</option>
                                         </select>
                                     </div>
+                                    <!-- HEBDOMADAIRE -->
                                     <div class="form-group" v-if="eventType == 'Hebdomadaire'">
                                         <label for=""><strong>Tous les</strong></label>
-                                        <select name="period[Weekly][days][]" class="form-control" multiple="multiple" id="PeriodWeeklyDays">
+                                        <select name="recurrent[weekly]" class="form-control" multiple>
                                             <option value="7">Dimanche</option>
                                             <option value="1">Lundi</option>
                                             <option value="2">Mardi</option>
@@ -142,9 +143,10 @@
                                             <option value="6">Samedi</option>
                                         </select>
                                     </div>
+                                    <!-- MENSUEL -->
                                     <div class="form-group" v-if="eventType == 'Mensuel'">
                                         <label for=""><strong>Tous les</strong></label>
-                                        <select v-if="!joursSemaine" name="period[Monthly][day_number]" class="form-control" id="PeriodMonthlyDayNumber">
+                                        <select v-if="!joursSemaine" name="recurrent[monthly][day_number]" class="form-control">
                                             <option value="1">1er</option>
                                             @for ($i = 2; $i <= 31; $i++)
                                             <option value="{{$i}}">{{$i}}e</option>
@@ -152,14 +154,14 @@
                                         </select>
                                         <p v-if="!joursSemaine"></p>
                                         <p v-if="!joursSemaine"><label for=""><strong>jour du mois.</strong></label></p>
-                                        <select v-if="joursSemaine" name="period[Monthly][week_number]" class="form-control" id="PeriodMonthlyWeekNumber">
+                                        <select v-if="joursSemaine" name="recurrent[monthly][week_number]" class="form-control">
                                             <option value="1">Premier</option>
                                             <option value="2">Deuxième</option>
                                             <option value="3">Troisième</option>
                                             <option value="4">Quatrième</option>
                                         </select>
                                         <p v-if="joursSemaine"></p>
-                                        <select v-if="joursSemaine" name="period[Monthly][day][]" class="form-control" multiple="multiple" id="PeriodMonthlyDay">
+                                        <select v-if="joursSemaine" name="recurrent[monthly][day]" class="form-control" multiple="multiple">
                                             <option value="7">Dimanche</option>
                                             <option value="1">Lundi</option>
                                             <option value="2">Mardi</option>
@@ -180,13 +182,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>De:</strong></label>
-                                        <input type="text" class="form-control" placeholder="hh : mm">
+                                        <input type="time" class="form-control" name="recurrent[time][from]">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>À:</strong></label>
-                                        <input type="text" class="form-control" placeholder="hh : mm">
+                                        <input type="time" class="form-control" name="recurrent[time][to]">
                                     </div>
                                 </div>
                             </div>
@@ -194,13 +196,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>Répéter à partir du:</strong></label>
-                                        <input type="text" class="form-control" placeholder="jj / mm / aaaa">
+                                        <input type="text" class="form-control datetimepicker" name="recurrent[date][from]">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>Au:</strong></label>
-                                        <input type="text" class="form-control" placeholder="jj / mm / aaaa">
+                                        <input type="text" class="form-control datetimepicker" name="recurrent[date][to]">
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +221,7 @@
                         <div class="card-footer">
                             <div class="form-group">
                                 <label for=""><strong>Ville *</strong></label>
-                                <select name="venue[city_id]" class="form-control" id="VenueCityId" required="required" v-model="city_id">
+                                <select name="venue[city_id]" class="form-control" id="VenueCityId" v-model="city_id">
                                     <option value="-1" selected disabled>Choisissez une ville</option>
                                     @foreach($cities as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
@@ -316,7 +318,7 @@
                                         <input type="text" class="form-control datetimepicker" name="plan[date]" placeholder="Ex: 10/05/2015">
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" class="form-control" name="plan[time]" placeholder="Ex: 20:30">
+                                        <input type="time" class="form-control" name="plan[time]" placeholder="Ex: 20:30">
                                     </div>
                                 </div>
                             </div>

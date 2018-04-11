@@ -35,13 +35,13 @@
                     <ul class="deletable-list">
                         <li v-for="(i, index) in intervenants">
                             <img :src="'/storage/images/avatars/' + i['avatar']" width="20" alt="">
-                            <span>@{{i.fullname}}</span>
+                            <span v-text="i.fullname"></span>
                             <i class="fa fa-close close-icon" @click="removeIntervenant(index)"></i>
                         </li>
                         <li class="loader"><loader-component v-if="show_loader"></loader-component></li>
                     </ul>
                 </div>
-                <hr>
+                <hr class="no-margin">
                 <div class="card-body">
                     <form action="">
                         <div class="form-group add-intervenant-form">
@@ -56,6 +56,7 @@
                             <li v-for="(s, index) in suggestedUsers" 
                                 class="suggested_user"
                                 @click="chooseSuggestedUser(index)">
+                                <img :src="'/storage/images/avatars/' + s['avatar']" width="20" class="rounded">
                                 @{{s.fullname}}
                             </li>
                             <li @click="addUser()"><strong>+ Ajouter</strong></li>

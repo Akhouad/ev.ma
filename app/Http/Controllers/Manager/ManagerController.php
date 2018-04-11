@@ -10,7 +10,8 @@ use Auth;
 
 class ManagerController extends Controller
 {
-    public function index(){
+    public function index(){      
+        abort_if(! Auth::user()->is_organizer, 404);  
         $organizer = Organizer::where('user_id', Auth::user()->id)->first();
         $events = Event::where("organizer_id", $organizer->id)->get();
         $pending_events = Event::where('status', 'pending')->get();
@@ -18,6 +19,7 @@ class ManagerController extends Controller
     }
 
     public function validation(){
+        abort_if(! Auth::user()->is_organizer, 404);
         $pending_events = Event::where('status', 'pending')->get();
         return view('manager/validation', compact('pending_events'));
     }

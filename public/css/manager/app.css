@@ -13626,6 +13626,11 @@ a.text-dark:hover {
   border: 0;
 }
 
+.krajee-default.file-preview-frame {
+  -webkit-box-shadow: 0 0 0 transparent;
+          box-shadow: 0 0 0 transparent;
+}
+
 .list-group .list-group-item {
   color: rgba(0, 0, 0, 0.5);
 }
@@ -13694,7 +13699,7 @@ a.text-dark:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.card.bg-success {
+.card {
   border: 0;
   background-color: #fff !important;
 }
@@ -13706,6 +13711,11 @@ a.text-dark:hover {
 
 .card.bg-success .card-body {
   background-color: #fff;
+}
+
+.card.bg-primary .card-header {
+  background-color: #50c1e9;
+  color: #fff;
 }
 
 ul.deletable-list {
