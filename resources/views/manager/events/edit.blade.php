@@ -119,6 +119,7 @@
                             <input type="text" value="{{$event->tickets_url}}" name="tickets_url" class="form-control" placeholder="http://www.exemple.com/tickets">
                         </div>
                     </div>
+                    <input type="hidden" value="{{ ($event_options == null) ? 'null' : json_encode(unserialize($event_options->value)) }}" class="event_options">
                     <div v-if="dateFixe" class="card-footer">
                         <div class="row">
                             <div class="col-6">
@@ -169,6 +170,45 @@
                                 </div>
                                 <div class="form-group" v-if="eventType == 'Hebdomadaire'">
                                     <label for=""><strong>Tous les</strong></label>
+                                    @if($event_options != null && isset( (unserialize($event_options->value))['weekday'] ) )
+                                    <select name="data[Period][Weekly][days][]" class="form-control" multiple value="{{(unserialize($event_options->value))['weekday']}}">
+                                        @if( (unserialize($event_options->value))['weekday'] == 7 )
+                                        <option value="7" selected>Dimanche</option>
+                                        @else
+                                        <option value="7">Dimanche</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['weekday'] == 1 )
+                                        <option value="1" selected>Lundi</option>
+                                        @else
+                                        <option value="1">Lundi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['weekday'] == 2 )
+                                        <option value="2" selected>Mardi</option>
+                                        @else
+                                        <option value="2">Mardi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['weekday'] == 3 )
+                                        <option value="3" selected>Mercredi</option>
+                                        @else
+                                        <option value="3">Mercredi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['weekday'] == 4 )
+                                        <option value="4" selected>Jeudi</option>
+                                        @else
+                                        <option value="4">Jeudi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['weekday'] == 5 )
+                                        <option value="5" selected>Vendredi</option>
+                                        @else
+                                        <option value="5">Vendredi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['weekday'] == 6 )
+                                        <option value="6" selected>Samedi</option>
+                                        @else
+                                        <option value="6">Samedi</option>
+                                        @endif
+                                    </select>
+                                    @else
                                     <select name="data[Period][Weekly][days][]" class="form-control" multiple="multiple" id="PeriodWeeklyDays">
                                         <option value="7">Dimanche</option>
                                         <option value="1">Lundi</option>
@@ -178,6 +218,7 @@
                                         <option value="5">Vendredi</option>
                                         <option value="6">Samedi</option>
                                     </select>
+                                    @endif
                                 </div>
                                 <div class="form-group" v-if="eventType == 'Mensuel'">
                                     <label for=""><strong>Tous les</strong></label>
@@ -189,14 +230,78 @@
                                     </select>
                                     <p v-if="!joursSemaine"></p> <!-- to add space -->
                                     <p v-if="!joursSemaine"><label for=""><strong>jour du mois.</strong></label></p>
-                                    <select v-if="joursSemaine" name="data[Period][Monthly][week_number]" class="form-control" id="PeriodMonthlyWeekNumber">
+                                    @if($event_options != null && isset( (unserialize($event_options->value))['monthly']['week_number'] ) )
+                                    <select v-if="joursSemaine" name="data[Period][Monthly][week_number]" class="form-control" value="{{(unserialize($event_options->value))['monthly']['week_number']}}">
+                                        @if( (unserialize($event_options->value))['monthly']['week_number'] == 1 )
+                                        <option value="1" selected>Premier</option>
+                                        @else
+                                        <option value="1">Premier</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['week_number'] == 2 )
+                                        <option value="2" selected>Deuxième</option>
+                                        @else
+                                        <option value="2">Deuxième</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['week_number'] == 3 )
+                                        <option value="3" selected>Troisième</option>
+                                        @else
+                                        <option value="3">Troisième</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['week_number'] == 4 )
+                                        <option value="4" selected>Quatrième</option>
+                                        @else
+                                        <option value="4">Quatrième</option>
+                                        @endif
+                                    </select>
+                                    @else
+                                    <select v-if="joursSemaine" name="data[Period][Monthly][week_number]" class="form-control">
                                         <option value="1">Premier</option>
                                         <option value="2">Deuxième</option>
                                         <option value="3">Troisième</option>
                                         <option value="4">Quatrième</option>
                                     </select>
+                                    @endif
                                     <p v-if="joursSemaine"></p> <!-- to add space -->
-                                    <select v-if="joursSemaine" name="data[Period][Monthly][day][]" class="form-control" multiple="multiple" id="PeriodMonthlyDay">
+                                    @if($event_options != null && isset( (unserialize($event_options->value))['monthly']['day'] ) )
+                                    <select v-if="joursSemaine" name="data[Period][Monthly][day][]" class="form-control" multiple value="{{(unserialize($event_options->value))['monthly']['day']}}">
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 7 )
+                                        <option value="7" selected>Dimanche</option>
+                                        @else
+                                        <option value="7">Dimanche</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 1 )
+                                        <option value="1" selected>Lundi</option>
+                                        @else
+                                        <option value="1">Lundi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 2 )
+                                        <option value="2" selected>Mardi</option>
+                                        @else
+                                        <option value="2">Mardi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 3 )
+                                        <option value="3" selected>Mercredi</option>
+                                        @else
+                                        <option value="3">Mercredi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 4 )
+                                        <option value="4" selected>Jeudi</option>
+                                        @else
+                                        <option value="4">Jeudi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 5 )
+                                        <option value="5" selected>Vendredi</option>
+                                        @else
+                                        <option value="5">Vendredi</option>
+                                        @endif
+                                        @if( (unserialize($event_options->value))['monthly']['day'] == 6 )
+                                        <option value="6" selected>Samedi</option>
+                                        @else
+                                        <option value="6">Samedi</option>
+                                        @endif
+                                    </select>
+                                    @else
+                                    <select v-if="joursSemaine" name="data[Period][Monthly][day][]" class="form-control" multiple>
                                         <option value="7">Dimanche</option>
                                         <option value="1">Lundi</option>
                                         <option value="2">Mardi</option>
@@ -205,6 +310,7 @@
                                         <option value="5">Vendredi</option>
                                         <option value="6">Samedi</option>
                                     </select>
+                                    @endif
                                     <p></p>
                                     <a class="primary-color" v-if="!joursSemaine" href="" onclick="" @click="toggleJoursSemaine($event)">Choisir par jour de la semaine</a>
                                     <a class="primary-color" v-if="joursSemaine" href="" @click="toggleJoursSemaine($event)">Choisir en fonction du jour du mois</a>
@@ -217,13 +323,21 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>De:</strong></label>
-                                    <input type="text" class="form-control" placeholder="hh : mm">
+                                    @if( $event_options != null )
+                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_from']}}">
+                                    @else
+                                    <input type="time" class="form-control">
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>À:</strong></label>
-                                    <input type="text" class="form-control" placeholder="hh : mm">
+                                    @if( $event_options != null )
+                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_to']}}">
+                                    @else
+                                    <input type="time" class="form-control">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -231,13 +345,21 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>Répéter à partir du:</strong></label>
-                                    <input type="text" class="form-control" placeholder="jj / mm / aaaa">
+                                    @if( $event_options != null )
+                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_from']}}">
+                                    @else
+                                    <input type="text" class="form-control">
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>Au:</strong></label>
-                                    <input type="text" class="form-control" placeholder="jj / mm / aaaa">
+                                    @if( $event_options != null )
+                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_to']}}">
+                                    @else
+                                    <input type="text" class="form-control">
+                                    @endif
                                 </div>
                             </div>
                         </div>

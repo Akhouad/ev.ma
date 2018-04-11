@@ -63560,6 +63560,17 @@ var app = new Vue({
     },
     created: function created() {
         if (document.querySelector("input[name='venue[name]']") !== null) this.venue = document.querySelector("input[name='venue[name]']").value;
+        if (document.querySelector('.event_options') !== null && document.querySelector('.event_options').value !== 'null') {
+            this.dateFixe = false;
+            this.eventRecurrent = true;
+            var recurrent = JSON.parse(document.querySelector('.event_options').value);
+            this.eventType = recurrent.type == "monthly" ? "Mensuel" : recurrent.type == "weekly" ? "Hebdomadaire" : "Quotidien";
+            if (this.eventType == "Mensuel") {
+                this.joursSemaine = recurrent.monthly_type == "week_number" ? true : false;
+            }
+            console.log(this.eventType);
+            console.log(recurrent);
+        }
     }
 });
 

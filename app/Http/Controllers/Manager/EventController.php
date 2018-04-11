@@ -51,10 +51,11 @@ class EventController extends Controller
         foreach($tmp as $t){ $event_categories[] = $t->category_id; }
         $venue = Venue::where('id', $event->venue_id)->first();
         $cities = City::orderBy('name')->get();
-        return view('manager.events.edit', compact('categories', 'types', 'pending_events', 'event', 'event_categories', 'cities', 'venue'));
+        $event_options = EventsOption::where('event_id', $id)->where('label', 'recurrent')->first();
+        return view('manager.events.edit', compact('categories', 'types', 'pending_events', 'event', 'event_categories', 'cities', 'venue', 'event_options'));
     }
 
-    public function store(Request $request){
+    public function store(StoreEvent $request){
         $data = $request->input();
         $e = new Event();
         
@@ -113,10 +114,10 @@ class EventController extends Controller
             $options = [];
 
             $options['label'] = "recurrent";
-            $option['value']['time_from'] = $data['recurrent']['time']['from'];
-            $option['value']['time_to'] = $data['recurrent']['time']['to'];
-            $option['value']['date_from'] = $data['recurrent']['date']['from'];
-            $option['value']['date_to'] = $data['recurrent']['date']['to'];
+            $options['value']['time_from'] = $data['recurrent']['time']['from'];
+            $options['value']['time_to'] = $data['recurrent']['time']['to'];
+            $options['value']['date_from'] = $data['recurrent']['date']['from'];
+            $options['value']['date_to'] = $data['recurrent']['date']['to'];
 
             // weekly
             if( isset($data['recurrent']['weekly']) ){
@@ -129,7 +130,7 @@ class EventController extends Controller
                 if( isset($data['recurrent']['monthly']['day_number']) ){
                     $options['value']['type'] = 'monthly';
                     $options['value']['monthly_type'] = 'day_number';
-                    $options['value']['monthly_type']['day_number'] = $data['recurrent']['monthly']['day_number'];
+                    $options['value']['monthly']['day_number'] = $data['recurrent']['monthly']['day_number'];
                 }
                 // week number
                 else if( isset($data['recurrent']['monthly']['week_number']) ){
