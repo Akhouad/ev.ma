@@ -7,6 +7,7 @@
     <meta name="author" content="Synergie Media" />
     <link href="{{asset('storage/images/favicon.ico')}}" type="image/x-icon" rel="icon" />
     <link href="{{asset('storage/images/favicon.ico')}}" type="image/x-icon" rel="shortcut icon" /> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ev: Event manager</title>
 
     <link rel="stylesheet" href="{{asset('css/manager/app.css')}}">

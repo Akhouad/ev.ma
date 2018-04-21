@@ -15,7 +15,7 @@ class Image extends Model
         $this->file = $filename;
         $this->user_id = Auth::user()->id;
         $this->save();
-        echo "done";
+        
         return $filename;
     }
 

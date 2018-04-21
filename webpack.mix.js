@@ -13,4 +13,6 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/manager/app.js', 'public/js/manager')
     .js('resources/assets/js/manager/intervenants.js', 'public/js/manager')
+    .js('resources/assets/js/manager/schedule.js', 'public/js/manager')
+    .js('resources/assets/js/manager/images.js', 'public/js/manager')
    .sass('resources/assets/sass/manager/app.scss', 'public/css/manager');

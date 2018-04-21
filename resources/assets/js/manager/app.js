@@ -30,8 +30,37 @@ const app = new Vue({
     methods: {
         toggleEvents(e){
             e.preventDefault()
-            this.dateFixe = !this.dateFixe
-            this.eventRecurrent = !this.eventRecurrent
+            let self = this
+            if(!this.eventRecurrent){
+                document.querySelector("input[name='start_date']").value = ""
+                document.querySelector("input[name='start_time']").value = ""
+                document.querySelector("input[name='end_date']").value = ""
+                document.querySelector("input[name='end_time']").value = ""
+            }
+            else{
+                if(self.eventType == 'Hebdomadaire'){
+                    document.querySelector("input[name='recurrent[weekly]']").value = ""
+                }
+                else if(self.eventType == 'Mensuel'){
+                    if(!self.joursSemaine){
+                        document.querySelector("input[name='recurrent[monthly][day_number]']").value = ""
+                    }
+                    else{
+                        document.querySelector("input[name='recurrent[monthly][week_number]']").value = ""
+                        document.querySelector("input[name='recurrent[monthly][day]']").value = ""
+                    }
+                }
+                
+                document.querySelector("input[name='recurrent[time][from]']").value = ""
+                document.querySelector("input[name='recurrent[time][to]']").value = ""
+                document.querySelector("input[name='recurrent[date][from]']").value = ""
+                document.querySelector("input[name='recurrent[date][to]']").value = ""
+            }
+
+            setTimeout(function(){
+                self.dateFixe = !self.dateFixe
+                self.eventRecurrent = !self.eventRecurrent   
+            }, 100)
             
             Vue.nextTick(function () {
                 $('input.datetimepicker').daterangepicker({
@@ -47,7 +76,15 @@ const app = new Vue({
         },
         toggleJoursSemaine(e){
             e.preventDefault()
-            this.joursSemaine = !this.joursSemaine
+            if(!this.joursSemaine){
+                $("body").find("input[name='recurrent[monthly][day_number]']").value = null
+            }
+            else{
+                $("body").find("input[name='recurrent[monthly][week_number]']").value = null
+                $("body").find("input[name='recurrent[monthly][day]']").value = null
+            }
+            let self = this
+            setTimeout(function(){ self.joursSemaine = !self.joursSemaine }, 100)
         },
         searchVenues(){
             this.venue = document.querySelector("input[name='venue[name]']").value
@@ -129,8 +166,6 @@ const app = new Vue({
             if(this.eventType == "Mensuel"){
                 this.joursSemaine = (recurrent.monthly_type == "week_number") ? true : false
             }
-            console.log(this.eventType)
-            console.log(recurrent)
         }
     }
 });

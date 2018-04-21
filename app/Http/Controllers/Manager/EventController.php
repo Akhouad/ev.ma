@@ -36,7 +36,7 @@ class EventController extends Controller
     public function index($id){
         abort_if(! Auth::user()->is_organizer, 404);
         $pending_events = Event::where('status', 'pending')->get();
-        $event = Event::where('id', $id)->first();
+        $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
         return view('manager.events.event', compact('pending_events', 'event'));
     }
 
@@ -45,7 +45,7 @@ class EventController extends Controller
         $categories = Category::get();
         $types = Type::get();
         $pending_events = Event::where('status', 'pending')->get();
-        $event = Event::where('id', $id)->first();
+        $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
         $tmp = EventCategory::where('event_id', $id)->select('category_id')->get();
         $event_categories = [];
         foreach($tmp as $t){ $event_categories[] = $t->category_id; }
@@ -126,15 +126,15 @@ class EventController extends Controller
             }
             // monthly
             else if( isset($data['recurrent']['monthly']) ){
+                $options['value']['type'] = 'monthly';
+
                 // day number
                 if( isset($data['recurrent']['monthly']['day_number']) ){
-                    $options['value']['type'] = 'monthly';
                     $options['value']['monthly_type'] = 'day_number';
                     $options['value']['monthly']['day_number'] = $data['recurrent']['monthly']['day_number'];
                 }
                 // week number
                 else if( isset($data['recurrent']['monthly']['week_number']) ){
-                    $options['value']['type'] = 'monthly';
                     $options['value']['monthly_type'] = 'week_number';
                     $options['value']['monthly']['week_number'] = $data['recurrent']['monthly']['week_number'];
                     $options['value']['monthly']['day'] = $data['recurrent']['monthly']['day'];
@@ -181,8 +181,8 @@ class EventController extends Controller
         return redirect(route('manager'));
     }
 
-    public function update($id, EditEvent $request){
-        $event = Event::where('id', $id)->first();
+    public function update($id, Request $request){
+        $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
         $venue = Venue::where('id', $event->venue_id)->first();
         $data = $request->input();
 
@@ -197,19 +197,59 @@ class EventController extends Controller
         $event->slug = ($event->slug !== $data['slug']) ? $data['slug'] : $event->slug;
         $event->description = ($event->description !== $data['description']) ? $data['description'] : $event->description;
         $event->description = ($event->description !== $data['description']) ? $data['description'] : $event->description;
-        
-        $start_date = $data['start_date'];
-        $start_time = $data['start_time'];
-        $event->start_timestamp = ($event->start_timestamp !== date('Y-m-d H:i:s', strtotime("$start_date $start_time")) ) ? date('Y-m-d H:i:s', strtotime("$start_date $start_time") ) : $event->start_timestamp;
-        
-        $end_date = $data['end_date'];
-        $end_time = $data['end_time'];
-        $event->end_timestamp = ($event->end_timestamp !== date('Y-m-d H:i:s', strtotime("$end_date $end_time")) ) ? date('Y-m-d H:i:s', strtotime("$end_date $end_time") ) : $event->end_timestamp;
+
+        // RECURRENT
+        if( isset($data['recurrent']) ){
+            $options = $event->options;
+            foreach($options as $o){
+                if($o->label == 'recurrent'){
+                    $options_value = unserialize($o->value);
+                    // dd($options, $data);
+                    $options_value['time_from'] = ($options_value['time_from'] !== $data['recurrent']['time']['from']) ? $data['recurrent']['time']['from'] : $options_value['time_from'];
+                    $options_value['time_to'] = ($options_value['time_to'] !== $data['recurrent']['time']['to']) ? $data['recurrent']['time']['to'] : $options_value['time_to'];
+                    $options_value['date_from'] = ($options_value['date_from'] !== $data['recurrent']['date']['from']) ? $data['recurrent']['date']['from'] : $options_value['date_from'];
+                    $options_value['date_to'] = ($options_value['date_to'] !== $data['recurrent']['date']['to']) ? $data['recurrent']['date']['to'] : $options_value['date_to'];
+                    $options_value['type'] = (isset($data['recurrent']['monthly'])) ? 'monthly' : (isset($data['recurrent']['weekly']) ? 'weekly' : 'daily');
+
+                    // weekly
+                    if( isset($data['recurrent']['weekly']) ){
+                        // dd($options_value, $data);
+                        $options_value['weekday'] = $data['recurrent']['weekly']['day'];
+                    }
+                    // monthly
+                    else if( isset($data['recurrent']['monthly']) ){
+                        // day number
+                        if( isset($data['recurrent']['monthly']['day_number']) ){
+                            // dd($data, $options_value);
+                            $options_value['monthly']['day_number'] = $data['recurrent']['monthly']['day_number'];
+                        }
+                        // week number
+                        else if( isset($data['recurrent']['monthly']['week_number']) ){
+                            $options_value['monthly']['week_number'] = $data['recurrent']['monthly']['week_number'];
+                            $options_value['monthly']['day'] = $data['recurrent']['monthly']['day'];
+                        }
+                    }
+
+                    // dd($options_value);
+                    $o->value = serialize($options_value);
+                    $o->save();
+                }
+            }
+        }
+        else{
+            $start_date = $data['start_date'];
+            $start_time = $data['start_time'];
+            $event->start_timestamp = ($event->start_timestamp !== date('Y-m-d H:i:s', strtotime("$start_date $start_time")) ) ? date('Y-m-d H:i:s', strtotime("$start_date $start_time") ) : $event->start_timestamp;
+            
+            $end_date = $data['end_date'];
+            $end_time = $data['end_time'];
+            $event->end_timestamp = ($event->end_timestamp !== date('Y-m-d H:i:s', strtotime("$end_date $end_time")) ) ? date('Y-m-d H:i:s', strtotime("$end_date $end_time") ) : $event->end_timestamp;
+        }
 
         $event->type_id = ($event->type_id !== $data['type_id']) ? $data['type_id'] : $event->type_id;
         $event->access_type = ($event->access_type !== $data['access_type']) ? $data['access_type'] : $event->access_type;
         $event->tickets_url = ($event->tickets_url !== $data['tickets_url']) ? $data['tickets_url'] : $event->tickets_url;
-        // cover & cover original
+
         $event->youtube_url = ($event->youtube_url !== $data['youtube_url']) ? $data['youtube_url'] : $event->youtube_url;
         $event->venue_id = ($event->venue_id !== $data['venue']['id']) ? $data['venue']['id'] : $event->venue_id;
         

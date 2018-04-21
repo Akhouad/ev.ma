@@ -162,7 +162,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for=""><strong>Événement récurrent</strong></label>
-                                    <select name="" name="data[Period][type]" v-model="eventType" class="form-control" @change="eventTypeChanged()">
+                                    <select name="" name="period[type]" v-model="eventType" class="form-control" @change="eventTypeChanged()">
                                         <option value="Quotidien">Quotidien</option>
                                         <option value="Hebdomadaire">Hebdomadaire</option>
                                         <option value="Mensuel">Mensuel</option>
@@ -171,7 +171,7 @@
                                 <div class="form-group" v-if="eventType == 'Hebdomadaire'">
                                     <label for=""><strong>Tous les</strong></label>
                                     @if($event_options != null && isset( (unserialize($event_options->value))['weekday'] ) )
-                                    <select name="data[Period][Weekly][days][]" class="form-control" multiple value="{{(unserialize($event_options->value))['weekday']}}">
+                                    <select name="recurrent[weekly][day]" class="form-control" multiple value="{{(unserialize($event_options->value))['weekday']}}">
                                         @if( (unserialize($event_options->value))['weekday'] == 7 )
                                         <option value="7" selected>Dimanche</option>
                                         @else
@@ -209,7 +209,7 @@
                                         @endif
                                     </select>
                                     @else
-                                    <select name="data[Period][Weekly][days][]" class="form-control" multiple="multiple" id="PeriodWeeklyDays">
+                                    <select name="recurrent[weekly][day]" class="form-control" multiple="multiple">
                                         <option value="7">Dimanche</option>
                                         <option value="1">Lundi</option>
                                         <option value="2">Mardi</option>
@@ -222,16 +222,29 @@
                                 </div>
                                 <div class="form-group" v-if="eventType == 'Mensuel'">
                                     <label for=""><strong>Tous les</strong></label>
-                                    <select v-if="!joursSemaine" name="data[Period][Monthly][day_number]" class="form-control" id="PeriodMonthlyDayNumber">
+                                    @if($event_options != null && isset(unserialize($event_options->value)['monthly']['day_number']))
+                                    <select v-if="!joursSemaine" name="recurrent[monthly][day_number]" class="form-control">
+                                        <option value="1">1er</option>
+                                        @for ($i = 2; $i <= 31; $i++)
+                                        @if($i == unserialize($event_options->value)['monthly']['day_number'])
+                                        <option value="{{$i}}" selected>{{$i}}e</option>
+                                        @else
+                                        <option value="{{$i}}">{{$i}}e</option>
+                                        @endif
+                                        @endfor
+                                    </select>
+                                    @else
+                                    <select v-if="!joursSemaine" name="recurrent[monthly][day_number]" class="form-control">
                                         <option value="1">1er</option>
                                         @for ($i = 2; $i <= 31; $i++)
                                         <option value="{{$i}}">{{$i}}e</option>
                                         @endfor
                                     </select>
+                                    @endif
                                     <p v-if="!joursSemaine"></p> <!-- to add space -->
                                     <p v-if="!joursSemaine"><label for=""><strong>jour du mois.</strong></label></p>
                                     @if($event_options != null && isset( (unserialize($event_options->value))['monthly']['week_number'] ) )
-                                    <select v-if="joursSemaine" name="data[Period][Monthly][week_number]" class="form-control" value="{{(unserialize($event_options->value))['monthly']['week_number']}}">
+                                    <select v-if="joursSemaine" name="recurrent[monthly][week_number]" class="form-control" value="{{(unserialize($event_options->value))['monthly']['week_number']}}">
                                         @if( (unserialize($event_options->value))['monthly']['week_number'] == 1 )
                                         <option value="1" selected>Premier</option>
                                         @else
@@ -254,7 +267,7 @@
                                         @endif
                                     </select>
                                     @else
-                                    <select v-if="joursSemaine" name="data[Period][Monthly][week_number]" class="form-control">
+                                    <select v-if="joursSemaine" name="recurrent[monthly][week_number]" class="form-control">
                                         <option value="1">Premier</option>
                                         <option value="2">Deuxième</option>
                                         <option value="3">Troisième</option>
@@ -263,7 +276,7 @@
                                     @endif
                                     <p v-if="joursSemaine"></p> <!-- to add space -->
                                     @if($event_options != null && isset( (unserialize($event_options->value))['monthly']['day'] ) )
-                                    <select v-if="joursSemaine" name="data[Period][Monthly][day][]" class="form-control" multiple value="{{(unserialize($event_options->value))['monthly']['day']}}">
+                                    <select v-if="joursSemaine" name="recurrent[monthly][day]" class="form-control" multiple value="{{(unserialize($event_options->value))['monthly']['day'][0]}}">
                                         @if( (unserialize($event_options->value))['monthly']['day'] == 7 )
                                         <option value="7" selected>Dimanche</option>
                                         @else
@@ -301,7 +314,7 @@
                                         @endif
                                     </select>
                                     @else
-                                    <select v-if="joursSemaine" name="data[Period][Monthly][day][]" class="form-control" multiple>
+                                    <select v-if="joursSemaine" name="recurrent[monthly][day]" class="form-control" multiple>
                                         <option value="7">Dimanche</option>
                                         <option value="1">Lundi</option>
                                         <option value="2">Mardi</option>
@@ -324,9 +337,9 @@
                                 <div class="form-group">
                                     <label for=""><strong>De:</strong></label>
                                     @if( $event_options != null )
-                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_from']}}">
+                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_from']}}" name="recurrent[time][from]">
                                     @else
-                                    <input type="time" class="form-control">
+                                    <input type="time" class="form-control" name="recurrent[time][from]">
                                     @endif
                                 </div>
                             </div>
@@ -334,9 +347,9 @@
                                 <div class="form-group">
                                     <label for=""><strong>À:</strong></label>
                                     @if( $event_options != null )
-                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_to']}}">
+                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_to']}}" name="recurrent[time][to]">
                                     @else
-                                    <input type="time" class="form-control">
+                                    <input type="time" class="form-control" name="recurrent[time][to]">
                                     @endif
                                 </div>
                             </div>
@@ -346,9 +359,9 @@
                                 <div class="form-group">
                                     <label for=""><strong>Répéter à partir du:</strong></label>
                                     @if( $event_options != null )
-                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_from']}}">
+                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_from']}}" name="recurrent[date][from]">
                                     @else
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="recurrent[date][from]">
                                     @endif
                                 </div>
                             </div>
@@ -356,9 +369,9 @@
                                 <div class="form-group">
                                     <label for=""><strong>Au:</strong></label>
                                     @if( $event_options != null )
-                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_to']}}">
+                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_to']}}" name="recurrent[date][to]">
                                     @else
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="recurrent[date][to]">
                                     @endif
                                 </div>
                             </div>

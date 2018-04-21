@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 164);
+/******/ 	return __webpack_require__(__webpack_require__.s = 179);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69098,196 +69098,50 @@ module.exports = webpackContext;
 webpackContext.id = 163;
 
 /***/ }),
-/* 164 */
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(165);
-module.exports = __webpack_require__(167);
+module.exports = __webpack_require__(180);
 
 
 /***/ }),
-/* 165 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
 var moment = __webpack_require__(161);
 __webpack_require__(162);
-var tagsInput = __webpack_require__(166);
 
 window.Vue = __webpack_require__(158);
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 var app = new Vue({
-    el: '#app',
+    el: "#schedule",
     data: {
-        dateFixe: true,
-        eventRecurrent: false,
-        eventType: 'Quotidien',
-        joursSemaine: false,
-        tags: '',
-        tagsList: [],
-        showMap: false,
-        city_id: -1,
-        allowSearch: true,
-        venue: '',
-        venues: [],
-        addNewPlace: false,
-        suggestedVenues: [],
-        addNewUser: false,
-        suggestedUsers: []
-        // venue_data: {city_lat: '', city_lng: '', venue_lat: '', venue_lng: '', venue_id: '', foursquare_id: ''}
+        formErrors: {
+            date: { error: false, message: '' },
+            heure: { error: false, message: '' },
+            titre: { error: false, message: '' }
+        }
     },
     methods: {
-        toggleEvents: function toggleEvents(e) {
+        addSchedule: function addSchedule(e) {
             e.preventDefault();
-            var self = this;
-            if (!this.eventRecurrent) {
-                document.querySelector("input[name='start_date']").value = "";
-                document.querySelector("input[name='start_time']").value = "";
-                document.querySelector("input[name='end_date']").value = "";
-                document.querySelector("input[name='end_time']").value = "";
-            } else {
-                if (self.eventType == 'Hebdomadaire') {
-                    document.querySelector("input[name='recurrent[weekly]']").value = "";
-                } else if (self.eventType == 'Mensuel') {
-                    if (!self.joursSemaine) {
-                        document.querySelector("input[name='recurrent[monthly][day_number]']").value = "";
-                    } else {
-                        document.querySelector("input[name='recurrent[monthly][week_number]']").value = "";
-                        document.querySelector("input[name='recurrent[monthly][day]']").value = "";
-                    }
-                }
-
-                document.querySelector("input[name='recurrent[time][from]']").value = "";
-                document.querySelector("input[name='recurrent[time][to]']").value = "";
-                document.querySelector("input[name='recurrent[date][from]']").value = "";
-                document.querySelector("input[name='recurrent[date][to]']").value = "";
-            }
-
-            setTimeout(function () {
-                self.dateFixe = !self.dateFixe;
-                self.eventRecurrent = !self.eventRecurrent;
-            }, 100);
-
-            Vue.nextTick(function () {
-                $('input.datetimepicker').daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true
-                }, function (start, end, label) {
-                    var years = moment().diff(start, 'years');
-                });
-            });
-        },
-        eventTypeChanged: function eventTypeChanged() {
-            console.log(this.eventType);
-        },
-        toggleJoursSemaine: function toggleJoursSemaine(e) {
-            e.preventDefault();
-            if (!this.joursSemaine) {
-                $("body").find("input[name='recurrent[monthly][day_number]']").value = null;
-            } else {
-                $("body").find("input[name='recurrent[monthly][week_number]']").value = null;
-                $("body").find("input[name='recurrent[monthly][day]']").value = null;
-            }
-            var self = this;
-            setTimeout(function () {
-                self.joursSemaine = !self.joursSemaine;
-            }, 100);
-        },
-        searchVenues: function searchVenues() {
-            var _this = this;
-
-            this.venue = document.querySelector("input[name='venue[name]']").value;
-            this.city_id = document.querySelector("select[name='venue[city_id]']").value;
-            if (this.city_id == -1) return;
-
-            this.suggestedVenues = [];
-            if (this.venue.length == 0) {
-                return;
-            }
-
-            axios.get("/api/venues/" + this.city_id).then(function (data) {
-                _this.venues = data['data'];
-                _this.venues.forEach(function (v) {
-                    if (v['name'].toLowerCase().startsWith(_this.venue.toLowerCase())) {
-                        var exists = false;
-                        _this.suggestedVenues.forEach(function (sv) {
-                            if (sv.id == v.id) exists = true;
-                        });
-                        if (!exists) _this.suggestedVenues.push(v);
-                    }
-                });
-                if (_this.suggestedVenues.length == 0) _this.addNewPlace = true;
-            });
-        },
-        chooseSuggestedVenue: function chooseSuggestedVenue(index) {
-            document.querySelector("input[name='city[lat]']").value = this.suggestedVenues[index]['city_lat'];
-            document.querySelector("input[name='city[lng]']").value = this.suggestedVenues[index]['city_lng'];
-            document.querySelector("input[name='venue[lat]']").value = this.suggestedVenues[index]['lat'];
-            document.querySelector("input[name='venue[lng]']").value = this.suggestedVenues[index]['lng'];
-            document.querySelector("input[name='venue[id]']").value = this.suggestedVenues[index]['id'];
-            document.querySelector("input[name='venue[foursquare_id]']").value = this.suggestedVenues[index]['foursquare_id'];
-            document.querySelector("input[name='venue[adress_1]']").value = this.suggestedVenues[index]['adress_1'];
-            document.querySelector("input[name='venue[name]']").value = this.suggestedVenues[index]['name'];
-
-            this.suggestedVenues = [];
-            this.addNewPlace = false;
-        },
-        addPlace: function addPlace() {
-            this.venue_data.city_lat = "";
-            this.venue_data.city_lng = "";
-            this.venue_data.venue_lat = "";
-            this.venue_data.venue_lng = "";
-            this.venue_data.venue_id = "";
-            this.venue_data.foursquare_id = "";
-            this.suggestedVenues = [];
-            this.addNewPlace = false;
-            this.showMap = true;
-        },
-        searchUsers: function searchUsers() {
-            var _this2 = this;
-
-            var current_user_id = document.querySelector("input[name='current_user_id']").value;
-            var key = document.querySelector("input[name='user[name]']").value;
-            axios.get('/api/users/' + current_user_id + '/' + key).then(function (users) {
-                _this2.suggestedUsers = users.data;
-                if (_this2.suggestedUsers.length == 0) _this2.addNewUser = true;
-            });
-        },
-        chooseSuggestedUser: function chooseSuggestedUser(index) {
-            document.querySelector("input[name='user[name]']").value = this.suggestedUsers[index]['fullname'];
-            document.querySelector("input[name='user[id]']").value = this.suggestedUsers[index]['id'];
-            this.suggestedUsers = [];
-        },
-        addIntervenant: function addIntervenant(e) {
-            e.preventDefault();
-            var event_id = document.querySelector("input[name='event_id']").value;
-            var data = {
-                user_id: document.querySelector("input[name='user[id]']").value
-            };
-            axios.post('/api/add-intervenant/' + event_id, data).then(function (data) {
-                console.log(data);
-            });
-        }
-    },
-    created: function created() {
-        if (document.querySelector("input[name='venue[name]']") !== null) this.venue = document.querySelector("input[name='venue[name]']").value;
-        if (document.querySelector('.event_options') !== null && document.querySelector('.event_options').value !== 'null') {
-            this.dateFixe = false;
-            this.eventRecurrent = true;
-            var recurrent = JSON.parse(document.querySelector('.event_options').value);
-            this.eventType = recurrent.type == "monthly" ? "Mensuel" : recurrent.type == "weekly" ? "Hebdomadaire" : "Quotidien";
-            if (this.eventType == "Mensuel") {
-                this.joursSemaine = recurrent.monthly_type == "week_number" ? true : false;
-            }
         }
     }
-});
-
-$(".checkbox-fn").on("click", function () {
-    $(this).toggleClass("checked");
-    $(this).find("input[type='checkbox']").prop("checked", $(this).hasClass("checked"));
 });
 
 $(function () {
@@ -69297,171 +69151,7 @@ $(function () {
     }, function (start, end, label) {
         var years = moment().diff(start, 'years');
     });
-
-    tagsInput(document.querySelector('input[type="tags"]'));
-
-    if ($("#map").length) {
-        var updateMarkerPositionTxt = function updateMarkerPositionTxt(latLng) {
-            document.querySelector("input[name='venue[lat]']").value = latLng.lat();
-            document.querySelector("input[name='venue[lng]']").value = latLng.lng();
-        };
-
-        var initialize = function initialize(lat, lnt) {
-            var latLng = new google.maps.LatLng(lat, lnt);
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 5,
-                center: latLng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            var marker = new google.maps.Marker({
-                position: latLng,
-                title: 'Draggable Marker',
-                map: map,
-                draggable: true
-            });
-
-            updateMarkerPositionTxt(latLng);
-
-            google.maps.event.addListener(marker, 'dragend', function () {
-                updateMarkerPositionTxt(marker.getPosition());
-            });
-        };
-
-        if ($("#map").attr("data-lat") !== undefined) {
-            google.maps.event.addDomListener(window, 'load', initialize($("#map").data("lat"), $("#map").data("lng")));
-        } else {
-            google.maps.event.addDomListener(window, 'load', initialize(31.7917, -7.0926));
-        }
-
-        $(document).on("click", ".suggested_venue", function () {
-            initialize($(this).data("lat"), $(this).data("lng"));
-        });
-    }
 });
-
-/***/ }),
-/* 166 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-(function (global, factory) {
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, module], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
-    factory(exports, module);
-  } else {
-    var mod = { exports: {} };factory(mod.exports, mod);global.tagsInput = mod.exports;
-  }
-})(this, function (exports, module) {
-  'use strict';
-  module.exports = tagsInput;var BACKSPACE = 8,
-      TAB = 9,
-      ENTER = 13,
-      LEFT = 37,
-      RIGHT = 39,
-      DELETE = 46,
-      COMMA = 188;var SEPERATOR = ',';var COPY_PROPS = 'placeholder pattern spellcheck autocomplete autocapitalize autofocus accessKey accept lang minLength maxLength required'.split(' ');function tagsInput(input) {
-    function createElement(type, name, text, attributes) {
-      var el = document.createElement(type);if (name) el.className = name;if (text) el.textContent = text;for (var key in attributes) {
-        el.setAttribute('data-' + key, attributes[key]);
-      }return el;
-    }function $(selector, all) {
-      return all === true ? Array.prototype.slice.call(base.querySelectorAll(selector)) : base.querySelector(selector);
-    }function getValue() {
-      return $('.tag', true).map(function (tag) {
-        return tag.textContent;
-      }).concat(base.input.value || []).join(SEPERATOR);
-    }function setValue(value) {
-      $('.tag', true).forEach(function (t) {
-        return base.removeChild(t);
-      });savePartialInput(value);
-    }function save() {
-      input.value = getValue();input.dispatchEvent(new Event('change'));
-    }function addTag(text) {
-      if (~text.indexOf(SEPERATOR)) text = text.split(SEPERATOR);if (Array.isArray(text)) return text.forEach(addTag);var tag = text && text.trim();if (!tag) return false;if (!input.getAttribute('duplicates')) {
-        var _ret = function () {
-          var exisingTag = $('[data-tag="' + tag + '"]');if (exisingTag) {
-            exisingTag.classList.add('dupe');setTimeout(function () {
-              return exisingTag.classList.remove('dupe');
-            }, 100);return { v: false };
-          }
-        }();if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === 'object') return _ret.v;
-      }base.insertBefore(createElement('span', 'tag', tag, { tag: tag }), base.input);
-    }function select(el) {
-      var sel = $('.selected');if (sel) sel.classList.remove('selected');if (el) el.classList.add('selected');
-    }function setInputWidth() {
-      var last = $('.tag', true).pop(),
-          w = base.offsetWidth;if (!w) return;base.input.style.width = Math.max(w - (last ? last.offsetLeft + last.offsetWidth : 5) - 5, w / 4) + 'px';
-    }function savePartialInput(value) {
-      if (typeof value !== 'string' && !Array.isArray(value)) {
-        value = base.input.value;
-      }if (addTag(value) !== false) {
-        base.input.value = '';save();setInputWidth();
-      }
-    }function refocus(e) {
-      if (e.target.classList.contains('tag')) select(e.target);if (e.target === base.input) return select();base.input.focus();e.preventDefault();return false;
-    }var base = createElement('div', 'tags-input'),
-        sib = input.nextSibling;input.parentNode[sib ? 'insertBefore' : 'appendChild'](base, sib);input.style.cssText = 'position:absolute;left:0;top:-99px;width:1px;height:1px;opacity:0.01;';input.tabIndex = -1;base.input = createElement('input');base.input.setAttribute('type', 'text');COPY_PROPS.forEach(function (prop) {
-      if (input[prop] !== base.input[prop]) {
-        base.input[prop] = input[prop];try {
-          delete input[prop];
-        } catch (e) {}
-      }
-    });base.appendChild(base.input);input.addEventListener('focus', function () {
-      base.input.focus();
-    });base.input.addEventListener('focus', function () {
-      base.classList.add('focus');select();
-    });base.input.addEventListener('blur', function () {
-      base.classList.remove('focus');select();savePartialInput();
-    });base.input.addEventListener('keydown', function (e) {
-      var el = base.input,
-          key = e.keyCode || e.which,
-          selectedTag = $('.tag.selected'),
-          pos = el.selectionStart === el.selectionEnd && el.selectionStart,
-          last = $('.tag', true).pop();setInputWidth();if (key === ENTER || key === COMMA || key === TAB) {
-        if (!el.value && key !== COMMA) return;savePartialInput();
-      } else if (key === DELETE && selectedTag) {
-        if (selectedTag.nextSibling !== base.input) select(selectedTag.nextSibling);base.removeChild(selectedTag);setInputWidth();save();
-      } else if (key === BACKSPACE) {
-        if (selectedTag) {
-          select(selectedTag.previousSibling);base.removeChild(selectedTag);setInputWidth();save();
-        } else if (last && pos === 0) {
-          select(last);
-        } else {
-          return;
-        }
-      } else if (key === LEFT) {
-        if (selectedTag) {
-          if (selectedTag.previousSibling) {
-            select(selectedTag.previousSibling);
-          }
-        } else if (pos !== 0) {
-          return;
-        } else {
-          select(last);
-        }
-      } else if (key === RIGHT) {
-        if (!selectedTag) return;select(selectedTag.nextSibling);
-      } else {
-        return select();
-      }e.preventDefault();return false;
-    });base.input.addEventListener('input', function () {
-      input.value = getValue();input.dispatchEvent(new Event('input'));
-    });base.input.addEventListener('paste', function () {
-      return setTimeout(savePartialInput, 0);
-    });base.addEventListener('mousedown', refocus);base.addEventListener('touchstart', refocus);base.setValue = setValue;base.getValue = getValue;savePartialInput(input.value);
-  }tagsInput.enhance = tagsInput.tagsInput = tagsInput;
-});
-
-/***/ }),
-/* 167 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

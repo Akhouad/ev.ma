@@ -28,6 +28,10 @@ Route::middleware('auth')->group(function(){
                 
                 Route::get('intervenants', 'IntervenantController@index')->name('event-intervenants');
                 Route::get('images', 'ImageController@index')->name('event-images');
+                Route::post('images', 'ImageController@store')->name('event-images');
+                Route::post('images/delete', 'ImageController@delete')->name('delete-image');
+
+                Route::get('programme', 'ScheduleController@index')->name('event-programme');
             });
         });
     });

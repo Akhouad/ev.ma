@@ -1,5 +1,7 @@
 {
     "/js/manager/app.js": "/js/manager/app.js",
     "/css/manager/app.css": "/css/manager/app.css",
-    "/js/manager/intervenants.js": "/js/manager/intervenants.js"
+    "/js/manager/schedule.js": "/js/manager/schedule.js",
+    "/js/manager/intervenants.js": "/js/manager/intervenants.js",
+    "/js/manager/images.js": "/js/manager/images.js"
 }

@@ -60,5 +60,24 @@
 }
 
 .krajee-default.file-preview-frame{
-    box-shadow: 0 0 0 transparent;
+    box-shadow:0 0 0 transparent!important;
+    border: solid 1px rgba($gray, .5)!important;
+    border-radius:4px;
+}
+
+.input-group > .custom-select:not(:last-child), .input-group > .form-control:not(:last-child){
+    line-height: 35px!important
+}
+
+.file-caption-icon{
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.image-frame{
+    width:120px;
+
+    img{
+        width:100%;
+    }
 }

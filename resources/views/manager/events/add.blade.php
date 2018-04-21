@@ -87,7 +87,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for=""><strong>Date début *</strong></label>
-                                        <input type="text" name="start_date" placeholder="jj/mm/aaaa" class="form-control datetimepicker"/>
+                                        <input type="text" name="start_date" placeholder="jj/mm/aaaa" class="form-control datetimepicker" />
                                     </div>
                                 </div>
                                 <div class="col-6">

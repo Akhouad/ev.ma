@@ -4,7 +4,7 @@
         <li><a href="{{route('edit-event', ['id' => $event->id])}}" class="btn btn-lg {{(Route::current()->getName() == 'edit-event') ? 'btn-primary' : 'btn-default'}} btn-block">Informations générales</a></li>
         <li><a href="{{route('event-intervenants', ['id' => $event->id])}}" class="btn btn-lg {{(Route::current()->getName() == 'event-intervenants') ? 'btn-primary' : 'btn-default'}} btn-block">Intervenants</a></li>
         <li><a href="{{route('event-images', ['id' => $event->id])}}" class="btn btn-lg {{(Route::current()->getName() == 'event-images') ? 'btn-primary' : 'btn-default'}} btn-block">Album photo</a></li>
-        <li><a href="" class="btn btn-lg {{(Route::current()->getName() == 'event-program') ? 'btn-primary' : 'btn-default'}} btn-block">Programme</a></li>
+        <li><a href="{{route('event-programme', ['id' => $event->id])}}" class="btn btn-lg {{(Route::current()->getName() == 'event-programme') ? 'btn-primary' : 'btn-default'}} btn-block">Programme</a></li>
         <li><a href="" class="btn btn-lg {{(Route::current()->getName() == 'event-emails') ? 'btn-primary' : 'btn-default'}} btn-block">E-mails aux participants</a></li>
         <li><a href="" class="btn btn-lg {{(Route::current()->getName() == 'event-attendings') ? 'btn-primary' : 'btn-default'}} btn-block">Attendings (0)</a></li>
         <li><a href="" class="btn btn-lg {{(Route::current()->getName() == 'event-participants') ? 'btn-primary' : 'btn-default'}} btn-block">Participants (0)</a></li>

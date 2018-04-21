@@ -41,4 +41,16 @@ class Event extends Model
         $event->status = "pending";
         $event->save();
     }
+
+    public function options(){
+        return $this->hasMany('App\EventsOption');
+    }
+
+    public function images(){
+        return $this->hasMany('App\Image');
+    }
+
+    public function schedules(){
+        return $this->hasMany('App\Schedule');
+    }
 }
