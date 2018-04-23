@@ -1,0 +1,51 @@
+.sidebar-widget{
+    .sidebar-heading{
+        text-transform: uppercase;
+        color:$dark-gray;
+        font-weight: bold;
+    }
+
+    .sidebar-users{
+        li{
+            display:inline-block;
+            width:100%;
+            margin-top:10px;
+
+            .user-info{
+                width:calc(100% - 50px);
+                display:inline-block;
+
+                img{
+                    width:40px;
+                    border-radius:3px;
+                    float:left;
+                }
+
+                p{
+                    display:inline-block;
+                    width:calc(100% - 40px);
+                    float:left;
+                    margin-bottom:0;
+                    padding-left:10px;
+
+                    &.fullname{ color:$dark-gray }
+                    &.username{ color: rgba($dark-gray, .5) }
+                }
+            }
+
+            .user-actions{
+                width:50px;
+                float:right;
+                text-align:right;
+
+                .btn{
+                    height:20px;
+                    line-height:17px;
+                    padding:0;
+                    width:20px;
+                    text-align:center;
+                }
+            }
+        }
+    }
+}

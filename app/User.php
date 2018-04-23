@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function organizer(){
         return $this->hasOne('App\Organizer');
     }
+
+    public function city(){
+        return $this->belongsTo('App\City');
+    }
 }

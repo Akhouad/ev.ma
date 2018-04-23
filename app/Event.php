@@ -11,7 +11,7 @@ class Event extends Model
     }
 
     public function venue(){
-        return $this->hasOne('App\Venue');
+        return $this->belongsTo('App\Venue');
     }
 
     public function organizer(){
@@ -52,5 +52,9 @@ class Event extends Model
 
     public function schedules(){
         return $this->hasMany('App\Schedule');
+    }
+
+    public function city(){
+        return $this->belongsTo('App\City');
     }
 }

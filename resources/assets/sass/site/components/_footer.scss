@@ -1,0 +1,67 @@
+footer{
+    &.main-footer{
+        padding:60px 0;
+
+        p{
+            text-align:center;
+            color: #777;
+            font-size:12px;
+
+            a{
+                margin:20px 0;
+                display:inline-block;
+            }
+        }
+
+        img{
+            height:40px;
+        }
+
+        .cities{
+            li{
+                display:inline-block;
+                margin:0 5px 5px 0;
+
+                a{
+                    display:inline-block;
+                    border:solid 1px rgba(white, .25);
+                    border-radius:3px;
+                    padding:3px 5px;
+                    color:rgba(white, .25);
+                    text-decoration:none;
+                    font-size:12px;
+                    font-weight:100;
+                    transition: all .2s;
+
+                    &:hover{ border-color: #fff; color: #fff }
+                }
+            }
+        }
+
+        .footer-heading{
+            text-transform:uppercase;
+            color:#fff;
+            font-size:16px;
+        }
+
+        .footer-links{
+            margin-bottom:20px;
+            
+            li{
+                display:inline-block;
+
+                a{
+                    color:rgba(white, .25);
+                    margin-right:10px;
+                    display:inline-block;
+                    text-decoration:none;
+                    transition: all .2s;
+
+                    &:hover{
+                        color:#fff;
+                    }
+                }
+            }
+        }
+    }
+}

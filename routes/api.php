@@ -27,3 +27,9 @@ Route::namespace("Manager")->group(function(){
         Route::delete('{event_id}/delete/{user_id}', ['permissions_require_all' => true, 'uses' => 'ApiController@deleteIntervenant'])->where('event_id', '[0-9]+')->where('user_id', '[0-9]+');
     });
 });
+
+Route::namespace("Site")->group(function(){
+    Route::get('events', ['permissions_require_all' => true, 'uses' => 'ApiController@events']);
+    Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'ApiController@usersByCity'])
+            ->where('city', '[a-zA-Z-]+')->where('limit','[0-9]+');
+});

@@ -36,3 +36,11 @@ Route::middleware('auth')->group(function(){
         });
     });
 });
+
+Route::namespace('Site')->group(function(){
+    Route::get('/', 'HomeController@index')->name('homepage');
+    Route::prefix('cities')->group(function(){
+        Route::get('/', 'CityController@index')->name('cities');
+        Route::get('{city}', 'CityController@show')->name('city')->where('city', '[a-zA-Z-]+');
+    });
+});

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 169);
+/******/ 	return __webpack_require__(__webpack_require__.s = 173);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -35837,130 +35837,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46923,10 +46800,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(159).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(36).setImmediate))
 
 /***/ }),
-/* 159 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -46979,7 +46856,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(160);
+__webpack_require__(37);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -46993,7 +46870,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 160 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -47186,14 +47063,130 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(8)))
 
 /***/ }),
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */
 /***/ (function(module, exports) {
 
 /*
@@ -47275,198 +47268,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(170);
-
-
-/***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(13);
-window.Vue = __webpack_require__(158);
-
-Vue.component('loader-component', __webpack_require__(171));
-var app = new Vue({
-    el: '#app',
-    data: {
-        suggestedUsers: [],
-        intervenants: [],
-        event_id: -1,
-        show_loader: false,
-        users_loader: false,
-        add_new_intervenant: false,
-        add_new_intervenant_form: false
-    },
-    methods: {
-        searchUsers: function searchUsers() {
-            var _this = this;
-
-            var current_user_id = document.querySelector("input[name='current_user_id']").value;
-            var key = document.querySelector("input[name='user[name]']").value;
-            if (key.length == 0) {
-                this.suggestedUsers = [];this.add_new_intervenant = false;return;
-            }
-            this.users_loader = true;
-            axios.get('/api/users/' + current_user_id + '/' + key).then(function (users) {
-                _this.users_loader = false;
-                _this.suggestedUsers = users.data;
-                if (_this.suggestedUsers.length == 0) _this.add_new_intervenant = true;
-            });
-        },
-        chooseSuggestedUser: function chooseSuggestedUser(index) {
-            this.add_new_intervenant_form = false;
-            this.add_new_intervenant = false;
-            document.querySelector("input[name='user[name]']").value = this.suggestedUsers[index]['fullname'];
-            document.querySelector("input[name='user[id]']").value = this.suggestedUsers[index]['id'];
-            this.suggestedUsers = [];
-        },
-        addIntervenant: function addIntervenant(e) {
-            var _this2 = this;
-
-            e.preventDefault();
-            this.show_loader = true;
-            var data = {
-                user_id: document.querySelector("input[name='user[id]']").value
-            };
-            axios.post('/api/intervenants/' + this.event_id + '/add', data).then(function (data) {
-                _this2.show_loader = false;
-                _this2.fillIntervenants(data.data);
-                document.querySelector("input[name='user[name]']").value = "";
-                document.querySelector("input[name='user[id]']").value = "";
-            });
-        },
-        addUser: function addUser() {
-            this.add_new_intervenant_form = true;
-            this.add_new_intervenant = false;
-            this.suggestedUsers = [];
-            setTimeout(function () {
-                document.querySelector("input[name='fullname']").value = document.querySelector("input[name='user[name]']").value;
-                document.querySelector("input[name='user[name]']").value = "";
-                document.querySelector("input[name='user[id]']").value = "";
-            }, 100);
-        },
-        removeIntervenant: function removeIntervenant(index) {
-            var _this3 = this;
-
-            this.show_loader = true;
-            this.intervenants[index]['loader'] = true;
-            axios.delete('/api/intervenants/' + this.event_id + '/delete/' + this.intervenants[index]['user_id']).then(function (data) {
-                _this3.show_loader = false;
-                _this3.fillIntervenants(data.data);
-            });
-        },
-        fillIntervenants: function fillIntervenants(data) {
-            this.intervenants = data;
-        }
-    },
-    created: function created() {
-        var _this4 = this;
-
-        this.show_loader = true;
-        this.event_id = document.querySelector("input[name='event_id']").value;
-        axios.get('/api/intervenants/' + this.event_id + '/get').then(function (data) {
-            _this4.fillIntervenants(data.data);
-            _this4.show_loader = false;
-        });
-    }
-});
-
-/***/ }),
-/* 171 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(172)
-}
-var normalizeComponent = __webpack_require__(176)
-/* script */
-var __vue_script__ = __webpack_require__(177)
-/* template */
-var __vue_template__ = __webpack_require__(178)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Loader.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8e36f8ec", Component.options)
-  } else {
-    hotAPI.reload("data-v-8e36f8ec", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 172 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(173);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(174)("415f55a6", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8e36f8ec\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Loader.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8e36f8ec\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Loader.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 173 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(168)(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-/* 174 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -47485,7 +47287,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(175)
+var listToStyles = __webpack_require__(167)
 
 /*
 type StyleObject = {
@@ -47694,40 +47496,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 175 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-/* 176 */
+/* 163 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -47836,7 +47605,239 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(174);
+
+
+/***/ }),
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(13);
+window.Vue = __webpack_require__(35);
+
+Vue.component('loader-component', __webpack_require__(175));
+var app = new Vue({
+    el: '#app',
+    data: {
+        suggestedUsers: [],
+        intervenants: [],
+        event_id: -1,
+        show_loader: false,
+        users_loader: false,
+        add_new_intervenant: false,
+        add_new_intervenant_form: false
+    },
+    methods: {
+        searchUsers: function searchUsers() {
+            var _this = this;
+
+            var current_user_id = document.querySelector("input[name='current_user_id']").value;
+            var key = document.querySelector("input[name='user[name]']").value;
+            if (key.length == 0) {
+                this.suggestedUsers = [];this.add_new_intervenant = false;return;
+            }
+            this.users_loader = true;
+            axios.get('/api/users/' + current_user_id + '/' + key).then(function (users) {
+                _this.users_loader = false;
+                _this.suggestedUsers = users.data;
+                if (_this.suggestedUsers.length == 0) _this.add_new_intervenant = true;
+            });
+        },
+        chooseSuggestedUser: function chooseSuggestedUser(index) {
+            this.add_new_intervenant_form = false;
+            this.add_new_intervenant = false;
+            document.querySelector("input[name='user[name]']").value = this.suggestedUsers[index]['fullname'];
+            document.querySelector("input[name='user[id]']").value = this.suggestedUsers[index]['id'];
+            this.suggestedUsers = [];
+        },
+        addIntervenant: function addIntervenant(e) {
+            var _this2 = this;
+
+            e.preventDefault();
+            this.show_loader = true;
+            var data = {
+                user_id: document.querySelector("input[name='user[id]']").value
+            };
+            axios.post('/api/intervenants/' + this.event_id + '/add', data).then(function (data) {
+                _this2.show_loader = false;
+                _this2.fillIntervenants(data.data);
+                document.querySelector("input[name='user[name]']").value = "";
+                document.querySelector("input[name='user[id]']").value = "";
+            });
+        },
+        addUser: function addUser() {
+            this.add_new_intervenant_form = true;
+            this.add_new_intervenant = false;
+            this.suggestedUsers = [];
+            setTimeout(function () {
+                document.querySelector("input[name='fullname']").value = document.querySelector("input[name='user[name]']").value;
+                document.querySelector("input[name='user[name]']").value = "";
+                document.querySelector("input[name='user[id]']").value = "";
+            }, 100);
+        },
+        removeIntervenant: function removeIntervenant(index) {
+            var _this3 = this;
+
+            this.show_loader = true;
+            this.intervenants[index]['loader'] = true;
+            axios.delete('/api/intervenants/' + this.event_id + '/delete/' + this.intervenants[index]['user_id']).then(function (data) {
+                _this3.show_loader = false;
+                _this3.fillIntervenants(data.data);
+            });
+        },
+        fillIntervenants: function fillIntervenants(data) {
+            this.intervenants = data;
+        }
+    },
+    created: function created() {
+        var _this4 = this;
+
+        this.show_loader = true;
+        this.event_id = document.querySelector("input[name='event_id']").value;
+        axios.get('/api/intervenants/' + this.event_id + '/get').then(function (data) {
+            _this4.fillIntervenants(data.data);
+            _this4.show_loader = false;
+        });
+    }
+});
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(176)
+}
+var normalizeComponent = __webpack_require__(163)
+/* script */
+var __vue_script__ = __webpack_require__(178)
+/* template */
+var __vue_template__ = __webpack_require__(179)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Loader.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8e36f8ec", Component.options)
+  } else {
+    hotAPI.reload("data-v-8e36f8ec", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(177);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(162)("415f55a6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8e36f8ec\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Loader.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8e36f8ec\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Loader.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
 /* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(161)(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 178 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47870,7 +47871,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
