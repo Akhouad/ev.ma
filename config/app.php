@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'key' => 'iT2dPRdod86ewHllwCmFg93Kv4UKtug2T/QxxOcmCIE=',
+    'key' => env('APP_KEY', $_ENV['APP_KEY']),
 
     'cipher' => 'AES-256-CBC',
 
