@@ -7,16 +7,18 @@
 
 @section('content')
 <div id="app">
+    @if(Auth::user() !== null)
     <input type="hidden" value="{{Auth::user()->city->slug}}" ref="city">
+    @endif
     <div class="row">
         <div class="col-9">
             <div class="row">
                 <div class="col-3" v-for="index in 7" v-if="events.length == 0">
                     <event-skeleton :index="index" />
                 </div>
-                <div class="col-3" v-for="e in events" v-if="events.length > 0">
+                <div class="col-3" v-for="e in events" v-if="events.length > 0" v-cloak>
                     <div href="" class="event-block">
-                        <a href="">
+                        <a :href="'/ev/' + e.slug + '/' + e.id">
                             <div class="event-image" data-toggle="tooltip" data-placement="bottom" :title="e.name" v-if="e.name.length >= 40">
                                 <img :src="'/storage/images/manager/events/' + e.cover" alt="">
                             </div>
@@ -41,11 +43,12 @@
             </div>
         </div>
         <div class="col-3">
+            @if(Auth::user() !== null)
             <div class="sidebar-widget">
                 <div class="sidebar-heading">utilisateurs prés de vous</div>
                 <div v-if="users.length == 0"><user-skeleton v-for="index in 5" :index="index" /></div>
                 <ul class="sidebar-users" v-if="users.length > 0">
-                    <li v-for="u in users">
+                    <li v-for="u in users" v-cloak>
                         <div class="user-info">
                             <a href="">
                                 <img :src="'/storage/images/avatars/' + u.avatar" alt="">
@@ -59,6 +62,7 @@
                     </li>
                 </ul>
             </div>
+            @endif
         </div>
     </div>
 </div>

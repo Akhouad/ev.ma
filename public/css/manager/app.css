@@ -13476,7 +13476,7 @@ a.text-dark:hover {
   color: #37bc9b !important;
 }
 
-.btn {
+.btn:not(.btn-sm):not(.btn-xs) {
   border: 0 !important;
   height: 50px;
   line-height: 50px !important;
@@ -13500,6 +13500,26 @@ a.text-dark:hover {
 
 .btn:hover {
   opacity: 0.75 !important;
+}
+
+.btn:focus {
+  -webkit-box-shadow: 0 0 0 transparent;
+          box-shadow: 0 0 0 transparent;
+}
+
+.btn:active {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+.btn.btn-outline-primary {
+  border: solid 1px #37bc9b !important;
+  color: #37bc9b;
+}
+
+.btn.btn-outline-primary:hover {
+  background-color: #37bc9b;
+  color: #fff;
 }
 
 .tags-input {
@@ -13789,6 +13809,110 @@ ul.deletable-list li.loader {
   height: 10px;
 }
 
+ul.deletable-list li p {
+  width: calc(100% - 30px);
+  display: inline-block;
+}
+
+ul.deletable-list li .fa-level-up {
+  display: inline-block;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.comments .comment {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.comments .comment:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.comments .comment .check-comment {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.comments .comment .author-image {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.comments .comment .author-image img {
+  width: 100%;
+}
+
+.comments .comment .author-info {
+  width: calc(100% - 50px);
+  float: right;
+  padding: 0 10px;
+}
+
+.comments .comment .author-info .date-rating .comment-date {
+  color: #aab2bd;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.comments .comment .author-info .date-rating .comment-rating {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.comments .comment .author-info .date-rating .comment-rating .fa {
+  color: #f39c12;
+  display: inline-block;
+  margin-right: -2px;
+}
+
+.comments .comment + .comment {
+  border-top: solid 1px rgba(170, 178, 189, 0.25);
+  padding-top: 20px;
+}
+
+.comments .comment .reports {
+  color: #aab2bd;
+}
+
+.users-list {
+  padding: 0;
+}
+
+.users-list li {
+  list-style: none;
+}
+
+.users-list li a {
+  display: block;
+  text-decoration: none;
+  padding: 5px;
+  background-color: rgba(170, 178, 189, 0.15);
+  border-radius: 3px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.users-list li a img {
+  height: 20px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.users-list li a:hover {
+  background-color: rgba(170, 178, 189, 0.25);
+}
+
 .docs-header {
   background-color: rgba(255, 255, 255, 0.8);
   position: fixed;
@@ -14001,5 +14125,37 @@ a:hover {
 
 .no-margin {
   margin: 0;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.slide-fade-leave-active {
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  -webkit-transform: translateX(10px);
+          transform: translateX(10px);
+  opacity: 0;
 }
 

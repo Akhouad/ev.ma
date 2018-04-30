@@ -2,6 +2,10 @@ header{
     &.main-header{
         width:100%;
         display:inline-block;
+        position:fixed;
+        top:0;
+        left:0;
+        z-index: 999;
         
         .top-bar{
             width:100%;
@@ -10,6 +14,7 @@ header{
             line-height:30px;
             background-color: #fff;
             font-size:12px;
+            transition: all .2s;
 
             span{
                 display:inline-block;
@@ -52,6 +57,7 @@ header{
             width:100%;
             display:inline-block;
             padding: 10px 0;
+            background-color: #111;
 
             .logo{
                 float:left;
@@ -59,10 +65,12 @@ header{
                 width:70px;
                 margin-top:-35px;
                 margin-right: 10px;
+                transition: all .2s;
     
                 img{
                     display:inline-block;
                     width:70px;
+                    transition: all .2s;
                 }
             }
     
@@ -230,6 +238,27 @@ header{
                             }
                         }
                     }
+
+                    .dropdown-footer{
+                        margin-top:-17px;
+                        padding:15px;
+
+                        .btn-logout a{
+                            width:30px;
+                            height:30px;
+                            display:inline-block;
+                            text-align:center;
+                            line-height:30px;
+                            background-color: $danger-color;
+                            border-radius:3px;
+                            color:#fff;
+                            transition: all .2s;
+
+                            &:hover{
+                                background-color: darken($danger-color, 10%);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -238,6 +267,7 @@ header{
             background-color: #fff;
             line-height:40px;
             height:40px;
+            transition: all .2s;
 
             nav.categories{
                 ul{
@@ -278,6 +308,26 @@ header{
                                 background: linear-gradient(to left, white, transparent);
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        &.sticky-header{
+            .top-bar, .bottom-bar{
+                float:left;
+                height:0;
+                overflow:hidden;
+                padding:0;
+            }
+
+            .middle-bar{
+                .logo{
+                    width:30px;
+                    margin-top:0;
+
+                    img{
+                        width:30px;
                     }
                 }
             }

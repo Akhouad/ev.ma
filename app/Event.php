@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     public function type(){
-        return $this->hasOne('App\Type');
+        return $this->belongsTo('App\Type');
     }
 
     public function venue(){
@@ -15,7 +15,7 @@ class Event extends Model
     }
 
     public function organizer(){
-        return $this->hasOne('App\Organizer');
+        return $this->belongsTo('App\Organizer');
     }
 
     public function tags(){
@@ -56,5 +56,17 @@ class Event extends Model
 
     public function city(){
         return $this->belongsTo('App\City');
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+    public function attendings(){
+        return $this->hasMany('App\Attending');
+    }
+
+    public function checkins(){
+        return $this->hasMany('App\Checkin');
     }
 }

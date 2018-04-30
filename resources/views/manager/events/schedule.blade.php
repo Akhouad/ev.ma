@@ -16,26 +16,70 @@
             @endcomponent
         </div>
         <div class="col-9">
-            <form action="{{route('event-programme', ['id' => $event->id])}}" method="post">
-                <div class="card bg-success">
-                    <div class="card-header">Programme</div>
-                    <div class="card-body">
-                        
+            <div class="card bg-success">
+                <div class="card-header">Programme</div>
+                <div class="card-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="card-footer">
+                    @endif
+                    @if(count($event->schedules->where('deleted_at', null)) > 0)
+                    <ul class="deletable-list mb-5">
+                        <?php $currentDate = null ?>
+                        @foreach($event->schedules->where('deleted_at', null)->sortBy('time') as $schedule)
+                        <?php $date = date("d M Y",strtotime($schedule->time)); ?>
+                        @if($currentDate != $date)
+                        <?php $currentDate = $date; ?>
+                        <h5 class="day">{{date('d-m', strtotime($schedule->time))}}</h5>
+                        @endif
+                        <li>
+                            <strong>{{date('H:i', strtotime($schedule->time))}} - </strong>
+                            <span>
+                                {{$schedule->title}}
+                                @if($schedule->intervention != null)
+                                <small> / 
+                                    <a href="{{route('user', ['username' => $schedule->intervention->user->username])}}" target="_blank">
+                                        {{$schedule->intervention->user->fullname}}
+                                    </a>
+                                </small>
+                                @endif
+                            </span>
+                            <a href="{{route('delete-schedule', ['id' => $event->id, 'schedule_id' => $schedule->id])}}" class="close-icon"><i class="fa fa-close"></i></a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+
+                    <form action="{{route('event-programme', ['id' => $event->id])}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="event_id" value="{{$event->id}}">
                         <div class="row">
+                            <?php
+                                $begin = new DateTime( $event->start_timestamp ); 
+                                $end = new DateTime( $event->end_timestamp );
+                                $interval = new DateInterval('P1D'); 
+                                $daterange = new DatePeriod($begin, $interval ,$end);
+                                $dates = "";
+                                foreach($daterange as $date){ 
+                                    $dates .= $date->format("m/d/Y") . "-"; 
+                                }
+                            ?>
+                            <input type="hidden" value="{{$dates}}" class="valid_dates">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><strong>Date *</strong></label>
-                                    <input type="text" class="form-control datetimepicker" :class="{'border-danger': formErrors.date.error}" ref="date">
-                                    <div class="alert alert-danger mt-2" v-if="formErrors.date.error" v-text="formErrors.date.message"></div>
+                                    <input type="text" class="form-control datetimepicker" name="date">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><strong>Heure *</strong></label>
-                                    <input type="time" class="form-control" :class="{'border-danger': formErrors.heure.error}" ref="heure">
-                                    <div class="alert alert-danger mt-2" v-if="formErrors.heure.error" v-text="formErrors.heure.message"></div>
+                                    <input type="time" class="form-control" name="time">
                                 </div>
                             </div>
                         </div>
@@ -44,16 +88,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><strong>Titre *</strong></label>
-                                    <input type="text" class="form-control" :class="{'border-danger': formErrors.titre.error}" ref="titre">
-                                    <div class="alert alert-danger mt-2" v-if="formErrors.titre.error" v-text="formErrors.titre.message"></div>
+                                    <input type="text" class="form-control" name="title">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><strong>Intervenant</strong></label>
-                                    <select name="" id="" class="form-control" ref="intervenant">
+                                    <select name="intervenant" class="form-control">
                                         <option value="0" selected disabled>Choisir un intervenant</option>
-                                        @foreach($intervenants as $i)
+                                        @foreach($event->interventions as $i)
                                         <option value="{{$i->user_id}}">{{$i->user->fullname}}</option>
                                         @endforeach
                                     </select>
@@ -65,23 +108,22 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for=""><strong>Description</strong></label>
-                                    <textarea name="" rows="5" class="form-control" ref="description"></textarea>
+                                    <textarea name="description" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
+
                         <div class="row">
                             <div class="col-md-8">
                                 <p>Les informations suivies d'une * sont à saisir obligatoirement.</p>
                             </div>
                             <div class="col-md-4">
-                                <a href="" class="btn btn-success pull-right" @click="addSchedule($event)">Ajouter</a>
+                                <button type="submit" class="btn btn-success pull-right">Ajouter</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

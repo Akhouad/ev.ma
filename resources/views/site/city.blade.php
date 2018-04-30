@@ -42,6 +42,7 @@
             </div>
         </div>
         <div class="col-3">
+            @if(Auth::user() !== null)
             <div class="sidebar-widget">
                 <div class="sidebar-heading">utilisateurs prés de vous</div>
                 <div v-if="users.length == 0"><user-skeleton v-for="index in 5" :index="index" /></div>
@@ -60,6 +61,7 @@
                     </li>
                 </ul>
             </div>
+            @endif
         </div>
     </div>
 </div>

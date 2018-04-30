@@ -17,7 +17,9 @@
     <header class="main-header">
         <div class="top-bar">
             <div class="container">
+                @if(Auth::user() !== null)
                 <span>Vous êtes localisé à : {{Auth::user()->city->name}}</span>
+                @endif
                 <nav class="top-nav">
                     <ul>
                         <li><a href="{{route('cities')}}">Villes</a></li>
@@ -35,6 +37,7 @@
                     <button><i class="fa fa-search"></i></button>
                 </div>
                 <a href="" class="advanced-search">recherche avancée</a>
+                @if(Auth::user() !== null)
                 <div class="header-profile dropdown">
                     <a href="" class="avatar dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{asset('storage/images/avatars/' . Auth::user()->avatar)}}" alt="">
@@ -60,8 +63,32 @@
                                 <li><a href=""><i class="fa fa-cog"></i> Gérer mes collections</a></li>
                             </ul>
                         </nav>
+                        <div class="dropdown-footer">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <a href="{{route('manager')}}" class="btn btn-block btn-sm btn-primary">
+                                        <i class="fa fa-plus mr-2"></i>
+                                        Ajouter un événement
+                                    </a>
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <a href="{{ route('logout') }}" class="btn btn-danger btn-sm" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out"></i>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{csrf_field()}}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                @else
+                <div class="float-md-right">
+                    <a href="{{route('login')}}" class="btn btn-sm">Se connecter</a>
+                    <a href="{{route('register')}}" class="btn btn-secondary btn-sm">S'inscrire</a>
+                </div>
+                @endif
             </div>
         </div>
         <div class="bottom-bar">

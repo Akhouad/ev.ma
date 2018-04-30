@@ -125,5 +125,109 @@ ul.deletable-list{
         &.loader{
             height:10px;
         }
+
+        p{
+            width:calc(100% - 30px);
+            display:inline-block;
+        }
+
+        .fa-level-up{
+            display:inline-block;
+            transform:rotate(90deg);
+        }
+    }
+}
+
+.comments{
+    .comment{
+        &:not(:last-child){ margin-bottom:20px; }
+
+        display:inline-block;
+        width:100%;
+        position:relative;
+
+        .check-comment{
+            position:absolute;
+            top:0;
+            right:0;
+            height:30px;
+            width:30px;
+            line-height:30px;
+            text-align:center;
+        }
+        
+        .author-image{
+            width:50px;
+            height:50px;
+            overflow:hidden;
+            border-radius:4px;
+            display:inline-block;
+
+            img{
+                width:100%;
+            }
+        }
+
+        .author-info{
+            width:calc(100% - 50px);
+            float:right;
+            padding: 0 10px;
+
+            .date-rating{
+                .comment-date{
+                    color:$gray;
+                    font-size:12px;
+                    display:inline-block;
+                }
+
+                .comment-rating{
+                    display:inline-block;
+                    padding-left:10px;
+
+                    .fa{
+                        color:#f39c12;
+                        display:inline-block;
+                        margin-right:-2px;
+                    }
+                }
+            }
+        }
+
+        & + .comment{
+            border-top:solid 1px rgba($gray, .25);
+            padding-top:20px;
+        }
+
+        .reports{
+            color:$gray;
+        }
+    }
+}
+
+.users-list{
+    padding:0;
+
+    li{
+        list-style:none;
+
+        a{
+            display:block;
+            text-decoration:none;
+            padding:5px;
+            background-color: rgba($gray, .15);
+            border-radius:3px;
+            transition: all .2s;
+
+            img{
+                height:20px;
+                border-radius:3px;
+                display:inline-block;
+                margin-right:10px;
+            }
+
+            &:hover{
+                background-color: rgba($gray, .25);
+            }
+        }
     }
 }

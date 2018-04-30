@@ -13,7 +13,8 @@ class ApiController extends Controller
         $events = Event::join('venues', 'venues.id', '=', 'events.venue_id')
                         ->join('cities', 'venues.city_id', '=', 'cities.id')
                         ->select(
-                            'venues.id AS venues_id', 'events.id AS id', 
+                            'venues.id AS venues_id', 'events.id AS id',
+                            'events.slug AS slug',
                             'events.name as name', 'events.start_timestamp AS start_timestamp', 
                             'cities.name AS city', 'events.cover AS cover')
                         ->get();

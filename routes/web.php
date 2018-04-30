@@ -32,6 +32,15 @@ Route::middleware('auth')->group(function(){
                 Route::post('images/delete', 'ImageController@delete')->name('delete-image');
 
                 Route::get('programme', 'ScheduleController@index')->name('event-programme');
+                Route::post('programme', 'ScheduleController@create')->name('event-programme');
+                Route::get('delete-schedule/{schedule_id}', 'ScheduleController@destroy')->name('delete-schedule')->where('schedule_id', '[0-9]+');
+                
+                Route::get('comments', 'CommentController@index')->name('event-comments');
+                Route::post('comments/delete', 'CommentController@destroy')->name('delete-comments');
+                Route::get('attendings', 'AttendingController@index')->name('event-attendings');
+                Route::get('attendings/export', 'AttendingController@download')->name('export-attendings');
+                Route::get('checkins', 'CheckinController@index')->name('event-checkins');
+                Route::get('checkins/export', 'CheckinController@download')->name('export-checkins');
             });
         });
     });
@@ -39,6 +48,21 @@ Route::middleware('auth')->group(function(){
 
 Route::namespace('Site')->group(function(){
     Route::get('/', 'HomeController@index')->name('homepage');
+
+    Route::prefix('user')->group(function(){
+        Route::get('{username}', function(){ return $username; })->name('user')->where('username', '[a-zA-Z-]+');
+    });
+
+    Route::prefix('category')->group(function(){
+        Route::get('{category}', function(){ return $username; })->name('category')->where('category', '[a-zA-Z-]+');
+    });
+
+    Route::prefix('ev/{slug}/{id}')->middleware(App\Http\Middleware\CheckEvent::class)->group(function(){
+        Route::get('/', 'EventController@show')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
+        Route::post('/', 'CommentController@store')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
+        Route::post('attend', 'EventController@attend')->name('attend-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
+    });
+
     Route::prefix('cities')->group(function(){
         Route::get('/', 'CityController@index')->name('cities');
         Route::get('{city}', 'CityController@show')->name('city')->where('city', '[a-zA-Z-]+');

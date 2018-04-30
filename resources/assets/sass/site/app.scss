@@ -12,6 +12,8 @@
 @import 'components/footer';
 @import 'components/event';
 @import 'components/sidebar';
+@import 'components/buttons';
+@import 'components/forms';
 
 @import 'typography';
 
@@ -63,3 +65,9 @@ a{
     padding: 10px 0;
     margin:20px 0;
 }
+
+#wrapper{
+    margin-top:140px;
+}
+
+[v-cloak]{ display:none }

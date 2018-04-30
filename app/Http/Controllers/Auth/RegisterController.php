@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\City;
+use App\Organizer;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,6 +42,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm(){
+        $cities = City::orderBy('name')->get();
+        return view('auth.register', compact('cities'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,10 +56,20 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'fullname' => 'required|string|max:191',
+            'username' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+    }
+    /**
+     * Where to redirect users after login.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        return route('homepage');
     }
 
     /**
@@ -63,10 +80,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User();
+        $user->is_organizer = isset($data['organizer']) ? '1' : '0';
+        $user->fullname = $data['fullname'];
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->avatar = substr($data['fullname'], 1, 1) . ".png";
+        $user->city_id = $data['city'];
+        $user->save();
+
+        if(isset($data['organizer'])){
+            $organizer = new Organizer();
+            $organizer->user_id = $user->id;
+            $organizer->name = $user->fullname;
+            $organizer->slug = str_slug($user->fullname, '-');
+            $organizer->email = $user->email;
+            $organizer->avatar = $user->avatar;
+            $organizer->save();
+        }
+
+        auth()->login($user);
+        return $user;
     }
 }
