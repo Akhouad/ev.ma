@@ -147,7 +147,14 @@
                             @endif
                             <li>
                                 <strong>{{date('H:i', strtotime($schedule->time))}}</strong>
-                                <span>{{$schedule->title}}<small> / <a href="{{route('user', ['username' => $schedule->intervention->user->username])}}">{{$schedule->intervention->user->fullname}}</a></small></span>
+                                <span>
+                                    {{$schedule->title}}
+                                    <small> / 
+                                        @if($schedule->intervention != null) 
+                                        <a href="{{route('user', ['username' => $schedule->intervention->user->username])}}">{{$schedule->intervention->user->fullname}}</a> 
+                                        @endif
+                                    </small>
+                                </span>
                                 @if(strlen($schedule->description) > 0)
                                 <p>
                                     <i class="fa fa-level-up"></i>

@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function(){
             Route::get('add', 'EventController@add_index')->name('add-event');
             Route::post('add', 'EventController@store')->name('add-event');
             
-            Route::prefix('{id}')->group(function(){
+            Route::prefix('{id}')->middleware(App\Http\Middleware\Manager\CheckEvent::class)->group(function(){
                 Route::get('/', 'EventController@index')->name('event');
                 Route::get('edit', 'EventController@edit_index')->name('edit-event');
                 Route::post('edit', 'EventController@update')->name('edit-event');
@@ -59,7 +59,7 @@ Route::namespace('Site')->group(function(){
 
     Route::prefix('ev/{slug}/{id}')->middleware(App\Http\Middleware\CheckEvent::class)->group(function(){
         Route::get('/', 'EventController@show')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
-        Route::post('/', 'CommentController@store')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
+        Route::post('/', 'CommentController@store')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
         Route::post('attend', 'EventController@attend')->name('attend-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
     });
 

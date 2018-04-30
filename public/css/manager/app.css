@@ -13608,7 +13608,8 @@ a.text-dark:hover {
   height: 20px;
   line-height: 20px;
   border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(170, 178, 189, 0.15);
+  border: solid 1px rgba(170, 178, 189, 0.35);
 }
 
 .checkbox-fn.checked:after {
@@ -13618,6 +13619,7 @@ a.text-dark:hover {
   color: #fff;
   text-align: center;
   font-size: 12px;
+  border-color: #37bc9b;
 }
 
 .tags_area {
@@ -13820,19 +13822,30 @@ ul.deletable-list li .fa-level-up {
           transform: rotate(90deg);
 }
 
+ul.deletable-list li + .day {
+  margin-top: 20px;
+}
+
 .comments .comment {
   display: inline-block;
   width: 100%;
   position: relative;
+  padding: 20px 10px 0;
+  -webkit-transition: all .2s;
+  transition: all .2s;
 }
 
 .comments .comment:not(:last-child) {
-  margin-bottom: 20px;
+  border-bottom: solid 1px rgba(170, 178, 189, 0.25);
+}
+
+.comments .comment.checked {
+  background-color: rgba(170, 178, 189, 0.1);
 }
 
 .comments .comment .check-comment {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 0;
   height: 30px;
   width: 30px;
@@ -13875,13 +13888,8 @@ ul.deletable-list li .fa-level-up {
   margin-right: -2px;
 }
 
-.comments .comment + .comment {
-  border-top: solid 1px rgba(170, 178, 189, 0.25);
-  padding-top: 20px;
-}
-
 .comments .comment .reports {
-  color: #aab2bd;
+  color: #d44a4a;
 }
 
 .users-list {

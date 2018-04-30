@@ -18,7 +18,7 @@
         <nav class="navbar" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="{{route('manager')}}" class="navbar-brand"><img src="{{asset('storage/images/logo.png')}}" height="40" alt=""></a> 
+                    <a href="{{route('homepage')}}" target="_blank" class="navbar-brand"><img src="{{asset('storage/images/logo.png')}}" height="40" alt=""></a> 
                     <div class="header-nav">
                         <ul>
                             @if(Auth::user()->is_admin)

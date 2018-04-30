@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Information générales</li>
+            <li class="breadcrumb-item active" aria-current="page">Programme</li>
         </ol>
     </nav>
 
@@ -30,12 +30,15 @@
                     @endif
                     @if(count($event->schedules->where('deleted_at', null)) > 0)
                     <ul class="deletable-list mb-5">
-                        <?php $currentDate = null ?>
+                        <?php 
+                        $currentDate = null;
+                        $months = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+                        ?>
                         @foreach($event->schedules->where('deleted_at', null)->sortBy('time') as $schedule)
                         <?php $date = date("d M Y",strtotime($schedule->time)); ?>
                         @if($currentDate != $date)
                         <?php $currentDate = $date; ?>
-                        <h5 class="day">{{date('d-m', strtotime($schedule->time))}}</h5>
+                        <h5 class="day">{{date('d', strtotime($schedule->time))}} {{$months[ date('m', strtotime($schedule->time)) - 1 ]}}</h5>
                         @endif
                         <li>
                             <strong>{{date('H:i', strtotime($schedule->time))}} - </strong>

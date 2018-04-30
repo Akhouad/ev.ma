@@ -52,7 +52,7 @@
                             <input type="hidden" name="current_user_id" value="{{Auth::user()->id}}">
                             <input type="hidden" name="event_id" value="{{$event->id}}">
                         </div>
-                        <ul class="suggested_users" v-if="suggestedUsers.length > 0 || add_new_intervenant">
+                        <ul class="suggested_users" v-cloak v-if="suggestedUsers.length > 0 || add_new_intervenant">
                             <li v-for="(s, index) in suggestedUsers" 
                                 class="suggested_user"
                                 @click="chooseSuggestedUser(index)">
@@ -61,11 +61,11 @@
                             </li>
                             <li @click="addUser()"><strong>+ Ajouter</strong></li>
                         </ul>
-                        <a href="" class="btn btn-success pull-right" @click="addIntervenant($event)" v-if="!add_new_intervenant_form">Ajouter</a>
+                        <a href="" class="btn btn-success pull-right" @click="addIntervenant($event)" v-cloak v-if="!add_new_intervenant_form">Ajouter</a>
                     </form>
                 </div>
-                <hr v-if="add_new_intervenant_form" class="no-margin">
-                <div class="card-body" v-if="add_new_intervenant_form">
+                <hr v-if="add_new_intervenant_form" class="no-margin" v-cloak>
+                <div class="card-body" v-if="add_new_intervenant_form" v-cloak>
                     <form action="/register/intervenant/{{$event->id}}" method="post">
                         @csrf
                         <div class="form-group">

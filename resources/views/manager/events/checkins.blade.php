@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Information générales</li>
+            <li class="breadcrumb-item active" aria-current="page">Participants</li>
         </ol>
     </nav>
 

@@ -21629,10 +21629,10 @@ var app = new Vue({
         comments: []
     },
     methods: {
-        checkComment: function checkComment(comment_id, event) {
+        checkComment: function checkComment(comment_id, checked) {
             var _this = this;
 
-            if (!event.target.checked) {
+            if (!checked) {
                 this.comments.forEach(function (c, index) {
                     if (comment_id == c) _this.comments.splice(index, 1);
                 });
@@ -21647,6 +21647,7 @@ var app = new Vue({
                 this.comments.push(comment_id);
             }
             this.$refs.comments_ids.value = this.comments.join(",");
+            console.log(this.$refs.comments_ids.value);
         },
         handleCheck: function handleCheck(comment_id, event) {
             this.checkComment(comment_id, event);
@@ -21655,9 +21656,14 @@ var app = new Vue({
     created: function created() {}
 });
 
-$(".checkbox-fn").on("click", function () {
+$(".comment .checkbox-fn").on("click", function (e) {
     $(this).toggleClass("checked");
     $(this).find("input[type='checkbox']").prop("checked", $(this).hasClass("checked"));
+    $(this).parents('.comment').toggleClass('checked');
+
+    var ref = $(this).find("input:checkbox").data("id"),
+        checked = $(this).find("input[type='checkbox']").prop("checked");
+    app.checkComment(ref, checked);
 });
 
 /***/ }),

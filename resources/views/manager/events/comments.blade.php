@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Information générales</li>
+            <li class="breadcrumb-item active" aria-current="page">Commentaires</li>
         </ol>
     </nav>
 
@@ -21,26 +21,27 @@
                 <div class="card-body comments">
                     @if(count($event->comments->where('deleted_at', null)) > 0)
                         @if(Auth::user()->is_admin)
-                        <form action="{{route('delete-comments', ['id' => $event->id])}}" method="post" class="text-right">
+                        <form action="{{route('delete-comments', ['id' => $event->id])}}" method="post" class="text-right mb-2">
                             {{csrf_field()}}
                             <input type="hidden" name="comments_ids" ref="comments_ids">
                             <transition name="slide-fade">
-                                <button type="submit" class="btn btn-danger btn-sm" v-cloak v-if="comments.length > 0"><i class="fa fa-trash"></i></button>
+                                <button type="submit" class="btn btn-danger btn-sm" v-cloak v-if="comments.length > 0">
+                                    <i class="fa fa-trash mr-2"></i>
+                                    Supprimer
+                                </button>
                             </transition>
                         </form>
-                        <transition name="slide-fade"><hr v-if="comments.length > 0" v-cloak></transition>
                         @endif
                         @foreach($event->comments->where('deleted_at', null) as $comment)
                         <div class="comment">
                             @if(Auth::user()->is_admin)
                                 <div class="check-comment">
-                                    <div class="checkbox-fn" @click="handleCheck({{$comment->id}}, $event)">
+                                    <div class="checkbox-fn">
                                         <label for="" class="label-control">
-                                            <input type="checkbox" ref="checkbox-{{$comment->id}}" @change="checkComment({{$comment->id}}, $event)">
+                                            <input type="checkbox" ref="checkbox-{{$comment->id}}" data-id="{{$comment->id}}">
                                         </label>
                                     </div>
                                 </div>
-                                <div class="check-comment"><input type="checkbox" ref="checkbox-{{$comment->id}}" @change="checkComment({{$comment->id}}, $event)"></div>
                             @endif
                             <a href="{{route('user', ['username' => $comment->user->username])}}" class="author-image">
                                 <img src="{{asset('storage/images/avatars/' . $comment->user->avatar)}}" alt="">

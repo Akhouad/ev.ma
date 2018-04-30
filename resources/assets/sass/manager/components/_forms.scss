@@ -20,7 +20,8 @@
         height:20px;
         line-height: 20px;
         border-radius:3px;
-        background-color: rgba(black, .1);
+        background-color: rgba($gray, .15);
+        border: solid 1px rgba($gray, .35);
     }
 
     &.checked{
@@ -31,6 +32,7 @@
             color:#fff;
             text-align:center;
             font-size:12px;
+            border-color: $primary-color;
         }
     }
 }
