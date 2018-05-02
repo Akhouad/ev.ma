@@ -69,4 +69,8 @@ class Event extends Model
     public function checkins(){
         return $this->hasMany('App\Checkin');
     }
+
+    public function campaigns(){
+        return $this->hasMany('App\Campaign');
+    }
 }

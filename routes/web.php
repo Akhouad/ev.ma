@@ -41,6 +41,12 @@ Route::middleware('auth')->group(function(){
                 Route::get('attendings/export', 'AttendingController@download')->name('export-attendings');
                 Route::get('checkins', 'CheckinController@index')->name('event-checkins');
                 Route::get('checkins/export', 'CheckinController@download')->name('export-checkins');
+
+                Route::get('campaigns', 'CampaignController@index')->name('event-campaigns');
+                Route::post('campaigns', 'CampaignController@store')->name('event-campaigns');
+                Route::get('campaign/{campaign_id}', 'CampaignController@destroy')->name('delete-campaign');
+
+                Route::post('email/{campaign_id}/send', 'EmailController@store')->name('send-email');
             });
         });
     });
@@ -60,7 +66,7 @@ Route::namespace('Site')->group(function(){
     Route::prefix('ev/{slug}/{id}')->middleware(App\Http\Middleware\CheckEvent::class)->group(function(){
         Route::get('/', 'EventController@show')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
         Route::post('/', 'CommentController@store')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
-        Route::post('attend', 'EventController@attend')->name('attend-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
+        Route::post('attend', 'EventController@attend')->name('attend-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
     });
 
     Route::prefix('cities')->group(function(){

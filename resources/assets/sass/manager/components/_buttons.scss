@@ -1,5 +1,5 @@
 .btn{
-    &:not(.btn-sm):not(.btn-xs){
+    &:not(.btn-sm):not(.btn-xs):not([class*="btn-outline-"]){
         border:0!important;
         height:50px;
         line-height:50px!important;
@@ -23,6 +23,16 @@
 
         &:hover{
             background-color: $primary-color;
+            color:#fff;
+        }
+    }
+
+    &.btn-outline-secondary{
+        border:solid 1px $secondary-color!important;
+        color:$secondary-color;
+
+        &:hover{
+            background-color: $secondary-color;
             color:#fff;
         }
     }
