@@ -28,20 +28,53 @@
             @endcomponent
         </div>
         <div class="col-9">
-            <div class="card bg-success">
+            <div class="card bg-success" id="images">
                 <div class="card-header">Album photo</div>
                 <div class="card-body">
+                    <ul class="images-list">
+                        <li>
+                            <div class="upload-file">
+                                <form action="{{route('event-images', ['id' => $event->id])}}" method="post" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <div class="input">
+                                        <span>+</span>
+                                        <input type="file" ref="file_input" name="images[]" multiple @change="fileChosen($event)">
+                                        <span class="files" v-cloak>
+                                            @{{files.join(',').substring(0, 50)}} 
+                                            <span v-if="files.join(',').length > 0">...</span>
+                                        </span>
+                                    </div>
+                                    <button :class="{'active': files.length > 0}" type="submit">Ajouter</button>
+                                </form>
+                            </div>
+                            <div class="file-actions dropdown">
+                                <form action="{{route('delete-image', ['id' => $event->id])}}" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="images" ref="deleting_files">
+                                    <button :class="{'active': deleting_files.length > 0}" data-toggle="tooltip" data-placement="bottom" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </li>
+                        @if(count($event->images) > 0)
+                            @foreach($event->images->where('deleted_at', null) as $image)
+                            <li>
+                                <a href=""><img src="{{asset('storage/images/manager/events/' . $image->file)}}" alt=""></a>
+                                <div class="checkbox-fn" data-id="{{$image->id}}">
+                                    <label for="">
+                                        <input type="checkbox" name="" id="">
+                                    </label>
+                                </div>
+                            </li>
+                            @endforeach  
+                        @endif
+                    </ul> 
                     <form action="{{route('event-images', ['id' => $event->id])}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
-                        <div class="file-loading">
+                        <!-- <div class="file-loading">
                             <input id="images" name="input-freqd-3[]" multiple type="file" accept="image/*">
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-block btn-success btn-submit"><i class="fa fa-upload"></i> Submit</button>
-                        <!-- <div class="form-group">
-                            <label for="">Images</label>
-                            <input id="images" multiple type="file" name="images[]" class="file" data-preview-file-type="text" >
-                        </div> -->
+                        <button type="submit" class="btn btn-block btn-success btn-submit"><i class="fa fa-upload"></i> Submit</button> -->
                     </form>
                 </div>
             </div>
@@ -52,48 +85,4 @@
 
 @section('scripts')
 <script src="{{asset('js/manager/images.js')}}"></script>
-<script>
-    $("#images").fileinput({
-        theme: "fa",
-        // uploadUrl: "{{route('event-images', ['id' => $event->id])}}",
-        maxFileCount: 20,
-        multiple: true,
-        allowedFileExtensions: ['jpg', 'gif', 'png'],
-        maxFileSize: 500,
-        showUpload: false,
-        showRemove: false,
-        required: true,
-        fileActionSettings: {
-            removeClass: 'btn btn-outline-danger',
-            showZoom: false,
-            showDrag: false
-        },
-        layoutTemplates:{
-            actionDelete: "<a href=\"{{route('delete-image', ['id'=>$event->id])}}\" class=\"{removeClass}\" title=\"Supprimer l'image\"{dataUrl}{dataKey} style='height:30px!important;line-height:30px!important;padding:0 10px!important'>{removeIcon}</a>\n",
-        },
-        initialPreview: [
-            @if(count($event->images) > 0)
-            @foreach($event->images as $image)
-            "<img src=\"{{asset('storage/images/manager/events/' . $image->file)}}\" class='file-preview-image' style='max-width:100%;max-height:200px;'>",
-            @endforeach
-            @endif 
-        ],
-        initialPreviewConfig: [
-            @if(count($event->images) > 0)
-            @foreach($event->images as $image)
-            "{caption: '',  url:\"{{route('delete-image', ['id'=>$event->id])}}\", key:{{$image->id}} ",
-            @endforeach
-            @endif 
-        ],
-        uploadExtraData: function() {
-            return {
-                event_id: {{$event->id}},
-                organizer_id: {{$event->organizer_id}}
-            };
-        }
-    });
-    $(".btn-submit").on("click", function() {
-        $("#images").fileinput('upload');
-    });
-</script>
 @endsection

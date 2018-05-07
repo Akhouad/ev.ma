@@ -1,5 +1,6 @@
 require('../bootstrap');
 require('../trumbowyg.min');
+require('../trumbowyg_fr.min');
 
 window.Vue = require('vue');
 const app = new Vue({
@@ -13,21 +14,35 @@ const app = new Vue({
             this.add_campaign = true
             let self = this
             setTimeout( function(){ 
-                $('.editor').trumbowyg().on('tbwblur', function(){ 
-                    self.$refs.message.value = $('.editor').trumbowyg('html')
-                });
-            }, 100 )
+                self.initEditor()
+            }, 1 )
+        },
+
+        initEditor(){
+            let self = this
+            $('.editor').trumbowyg({
+                btns:[
+                    ['viewHTML'],
+                    ['undo', 'redo'], // Only supported in Blink browsers
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['insertImage'],
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                ],     
+                lang: 'fr'
+            }).on('tbwblur', function(){ 
+                self.$refs.message.value = $('.editor').trumbowyg('html')
+            });
         },
 
         editCampaign(id, event){
             event.preventDefault()
             this.add_campaign = true
             let self = this
-            setTimeout( function(){ 
-                $('.editor').trumbowyg().on('tbwblur', function(){ 
-                    self.$refs.message.value = $('.editor').trumbowyg('html')
-                });
-            }, 100 )
 
             let data = {
                 name: this.$refs['c-name-' + id].value,
@@ -39,6 +54,7 @@ const app = new Vue({
                 user_id: this.$refs['c-user-' + id].value
             }
             setTimeout( function(){ 
+                self.initEditor()
                 self.$refs.campaign_id.value = id
                 self.$refs.name.value = data.name
                 self.$refs.subject.value = data.subject
@@ -48,7 +64,7 @@ const app = new Vue({
                 self.$refs.organizer_id.value = data.organizer_id
                 self.$refs.user_id.value = data.user_id
                 self.$refs.editor_message.innerHTML = data.message
-            }, 100 )
+            }, 1 )
         }
     }
 })

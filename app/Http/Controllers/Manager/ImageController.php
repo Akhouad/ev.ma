@@ -16,18 +16,26 @@ class ImageController extends Controller
         return view('manager.events.images', compact('pending_events', 'event'));
     }
 
-    public function store($event_id){
-        if(!empty(Input::file()["images"])){
-            foreach(Input::file()['images'] as $img){
+    public function store(Request $request, $event_id){
+        $data = $request->images;
+        if(!empty($data)){
+            foreach($data as $img){
                 $image = new Image();
                 $filename = $image->storeImage($img);
                 $image->setEventId($event_id);
             }
         }
-        return redirect()->back();
+        return redirect(route('event-images', ['id' => $event_id]));
     }
 
-    public function delete($id){
-        echo $id;
+    public function delete(Request $request, $id){
+        $data = $request->post();
+        $images = explode(',', $data['images']);
+        foreach($images as $image_id){
+            $image = Image::where('id', $image_id)->first();
+            $image->deleted_at = date("Y-m-d H:i:s");
+            $image->save();
+        }
+        return redirect(route('event-images', ['id' => $id]));
     }
 }

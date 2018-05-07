@@ -30,6 +30,11 @@
                             <a href="" class="btn btn-outline-primary btn-sm" @click="addCampaign($event)">Nouveau message</a>
                         </div>
                         <div class="col-md-12 mt-3">
+                            @if(count($event->campaigns->where('deleted_at', null)) == 0)
+                            <p class="p-5 text-center text-muted">
+                                Vous n'avez aucune campagne.
+                            </p>
+                            @endif
                             <ul class="campaings-list">
                                 @foreach($event->campaigns->where('deleted_at', null) as $campaign)
                                 <li>
@@ -44,8 +49,8 @@
                                     <div class="date">{{date('d/m/Y', strtotime($campaign->created_at))}}</div>
                                     <div class="name">{{$campaign->name}}</div>
                                     <div class="actions">
-                                        <a href="{{route('delete-campaign', ['id' => $event->id, 'campaign_id' => $campaign->id])}}" class="btn btn-sm btn-outline-danger">Supprimer</a>
-                                        <a href="" class="btn btn-sm btn-outline-primary" @click="editCampaign({{$campaign->id}}, $event)">Editer</a>
+                                        <a href="{{route('delete-campaign', ['id' => $event->id, 'campaign_id' => $campaign->id])}}" class="btn btn-sm btn-outline-danger mr-1">Supprimer</a>
+                                        <a href="" class="btn btn-sm btn-outline-primary mr-1" @click="editCampaign({{$campaign->id}}, $event)">Editer</a>
                                         <form action="{{route('send-email', ['id' => $event->id, 'campaign_id' => $campaign->id])}}" method="post" class="d-inline-block">
                                             {{csrf_field()}}
                                             <button type="submit" class="btn btn-sm btn-outline-secondary">Envoyer</button>

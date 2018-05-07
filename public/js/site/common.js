@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 189);
+/******/ 	return __webpack_require__(__webpack_require__.s = 190);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -484,6 +484,7 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -21609,14 +21610,6 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 189:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(190);
-
-
-/***/ }),
-
 /***/ 19:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21707,9 +21700,17 @@ module.exports = Axios;
 /***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(191);
+
+
+/***/ }),
+
+/***/ 191:
+/***/ (function(module, exports, __webpack_require__) {
+
 __webpack_require__(13);
 window.Vue = __webpack_require__(35);
-__webpack_require__(191);
+__webpack_require__(192);
 
 $(document).ready(function () {
     $(window).scroll(function () {
@@ -21724,7 +21725,7 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 191:
+/***/ 192:
 /***/ (function(module, exports) {
 
 /**

@@ -21,11 +21,8 @@ class EmailController extends Controller
                 $mail_data = array('name'=> title_case($checkin->user->fullname), "body" => $campaign->message);
                 
                 Mail::send('emails.mail', $mail_data, function($message) use($checkin, $campaign) {
-                    $message->to($checkin->user->email, $checkin->user->username)
-                            ->subject($campaign->subject);
-                    $message->from($campaign->event->organizer->user->email, 
-                                '[Ev.ma] - ' . $campaign->event->organizer->user->fullname
-                            );
+                    $message->to($checkin->user->email, $checkin->user->username)->subject($campaign->subject);
+                    $message->from($campaign->event->organizer->user->email, '[Ev.ma] - ' . $campaign->event->organizer->user->fullname);
                 });
             }
         }else // les participants de tous les evenements

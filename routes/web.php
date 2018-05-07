@@ -10,7 +10,7 @@ Route::namespace('Manager')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
-    Route::prefix('manager')->namespace('Manager')->group(function(){
+    Route::prefix('manager')->middleware(App\Http\Middleware\Manager\CheckManager::class)->namespace('Manager')->group(function(){
         Route::get('settings', 'ManagerController@index')->name('settings');
         Route::get('/', 'ManagerController@index')->name('manager');
         Route::get('/validation', 'ManagerController@validation')->name('validation');
@@ -49,6 +49,21 @@ Route::middleware('auth')->group(function(){
                 Route::post('email/{campaign_id}/send', 'EmailController@store')->name('send-email');
             });
         });
+        
+        // API
+        Route::middleware(App\Http\Middleware\Manager\CheckManager::class)->group(function(){
+            Route::get('venues/{id}', ['permissions_require_all' => true, 'uses' => 'VenueController@index'])->where('id', '[0-9]+');
+            Route::get('users/{user_id}/{contains}', ['permissions_require_all' => true, 'uses' => 'UserController@index'])->where('user_id', '[0-9]+')->where('starts_with', '[a-zA-Z]+');
+        
+            Route::prefix("intervenants")->group(function(){
+                Route::post('/', ['permissions_require_all' => true, 'uses' => 'IntervenantController@store'])->where('event_id', '[0-9]+');
+            });
+    
+            Route::prefix('event')->group(function(){
+                Route::get('{event_id}/intervenants', ['permissions_require_all' => true, 'uses' => 'IntervenantController@index'])->where('event_id', '[0-9]+');
+                Route::delete('{event_id}/intervenants/{user_id}/delete', ['permissions_require_all' => true, 'uses' => 'IntervenantController@destroy'])->where('event_id', '[0-9]+')->where('user_id', '[0-9]+');
+            });
+        });
     });
 });
 
@@ -56,11 +71,11 @@ Route::namespace('Site')->group(function(){
     Route::get('/', 'HomeController@index')->name('homepage');
 
     Route::prefix('user')->group(function(){
-        Route::get('{username}', function(){ return $username; })->name('user')->where('username', '[a-zA-Z-]+');
+        Route::get('{username}', function(){ return 'test page'; })->name('user')->where('username', '[a-zA-Z-]+');
     });
 
     Route::prefix('category')->group(function(){
-        Route::get('{category}', function(){ return $username; })->name('category')->where('category', '[a-zA-Z-]+');
+        Route::get('{category}', function(){ return 'test page'; })->name('category')->where('category', '[a-zA-Z-]+');
     });
 
     Route::prefix('ev/{slug}/{id}')->middleware(App\Http\Middleware\CheckEvent::class)->group(function(){
@@ -72,5 +87,13 @@ Route::namespace('Site')->group(function(){
     Route::prefix('cities')->group(function(){
         Route::get('/', 'CityController@index')->name('cities');
         Route::get('{city}', 'CityController@show')->name('city')->where('city', '[a-zA-Z-]+');
+    });
+});
+    
+Route::prefix('api')->group(function(){
+    Route::namespace("Site")->group(function(){
+        Route::get('events', ['permissions_require_all' => true, 'uses' => 'ApiController@events']);
+        Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'ApiController@usersByCity'])
+                ->where('city', '[a-zA-Z-]+')->where('limit','[0-9]+');
     });
 });

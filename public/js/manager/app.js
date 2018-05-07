@@ -18434,6 +18434,7 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -69335,6 +69336,7 @@ $(function () {
         if ($("#map").attr("data-lat") !== undefined) {
             google.maps.event.addDomListener(window, 'load', initialize($("#map").data("lat"), $("#map").data("lng")));
         } else {
+            // moroccan map
             google.maps.event.addDomListener(window, 'load', initialize(31.7917, -7.0926));
         }
 

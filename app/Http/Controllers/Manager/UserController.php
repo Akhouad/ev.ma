@@ -23,4 +23,19 @@ class UserController extends Controller
         $intervention->save();
         return redirect(route('event-intervenants', ['id' => $event_id]));
     }
+
+    public function index(Request $request, $user_id, $contains){
+        if($request->ajax()){
+            $users = User::where('id', '!=', $user_id)
+                ->where('fullname', 'like', '%' . $contains . '%')
+                ->orderBy('fullname', 'asc')
+                ->get();
+            return response($users, 200)->header('Content-Type', 'text/plain');
+        }
+    }
+
+    public function get(){
+        $users = User::get();
+        return response($users, 200)->header('Content-Type', 'text/plain');
+    }
 }

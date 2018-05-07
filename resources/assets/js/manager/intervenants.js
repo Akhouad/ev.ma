@@ -19,7 +19,7 @@ const app = new Vue({
             let key = document.querySelector("input[name='user[name]']").value
             if( key.length == 0 ) {this.suggestedUsers = []; this.add_new_intervenant = false; return;}
             this.users_loader = true
-            axios.get('/api/users/' + current_user_id + '/' + key ).then(users => {
+            axios.get('/manager/users/' + current_user_id + '/' + key ).then(users => {
                 this.users_loader = false
                 this.suggestedUsers = users.data
                 if(this.suggestedUsers.length == 0) this.add_new_intervenant = true
@@ -36,9 +36,11 @@ const app = new Vue({
             e.preventDefault()
             this.show_loader = true
             let data = {
-                user_id: document.querySelector("input[name='user[id]']").value
+                user_id: document.querySelector("input[name='user[id]']").value,
+                event_id: this.event_id
             }
-            axios.post('/api/intervenants/' + this.event_id + '/add', data).then(data => {
+            // manager/intervenants
+            axios.post('/manager/intervenants', data).then(data => {
                 this.show_loader = false
                 this.fillIntervenants(data.data)
                 document.querySelector("input[name='user[name]']").value = ""
@@ -58,7 +60,7 @@ const app = new Vue({
         removeIntervenant(index){
             this.show_loader = true
             this.intervenants[index]['loader'] = true
-            axios.delete('/api/intervenants/' + this.event_id + '/delete/' + this.intervenants[index]['user_id']).then(data => {
+            axios.delete('/manager/event/' + this.event_id + '/intervenants/' + this.intervenants[index]['user_id'] + '/delete').then(data => {
                 this.show_loader = false
                 this.fillIntervenants(data.data)
             })
@@ -70,7 +72,7 @@ const app = new Vue({
     created(){
         this.show_loader = true
         this.event_id = document.querySelector("input[name='event_id']").value
-        axios.get('/api/intervenants/' + this.event_id + '/get').then(data => {
+        axios.get('/manager/event/' + this.event_id + '/intervenants').then(data => {
             this.fillIntervenants(data.data)
             this.show_loader = false
         })

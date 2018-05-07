@@ -67,7 +67,7 @@
                 <hr v-if="add_new_intervenant_form" class="no-margin" v-cloak>
                 <div class="card-body" v-if="add_new_intervenant_form" v-cloak>
                     <form action="/register/intervenant/{{$event->id}}" method="post">
-                        @csrf
+                        {{csrf_field()}}
                         <div class="form-group">
                             <label for=""><strong>Nom de l'intervenant *</strong></label>
                             <input type="text" class="form-control" name="fullname">

@@ -147,7 +147,7 @@ ul.deletable-list{
         display:inline-block;
         width:100%;
         position:relative;
-        padding:20px 10px 0;
+        padding:20px 10px 0 35px;
         transition: all .2s;
 
         &:not(:last-child){ border-bottom:solid 1px rgba($gray, .25); }
@@ -156,12 +156,22 @@ ul.deletable-list{
 
         .check-comment{
             position:absolute;
-            top:10px;
-            right:0;
+            top:12px;
+            left:6px;
             height:30px;
             width:30px;
             line-height:30px;
             text-align:center;
+
+            .checkbox-fn{
+                &:after{
+                    width:15px;
+                    height:15px;
+                    line-height:12px;
+                }
+
+                &.checked:after{ font-size:9px; }
+            }
         }
         
         .author-image{
@@ -267,6 +277,131 @@ ul.deletable-list{
                 font-size:12px;
                 display:inline-block;
                 padding:0 5px;
+            }
+        }
+    }
+}
+
+.images-list{
+    padding:0;
+
+    li{
+        list-style:none;
+        display:inline-block;
+        margin-right:5px;
+        margin-bottom:5px;
+        position:relative;
+
+        a{
+            display:inline-block;
+            border-radius:4px;
+            padding:3px;
+            border:solid 1px $gray;
+
+            img{
+                height:150px;
+            }
+        }
+
+        .checkbox-fn{
+            position:absolute;
+            bottom:10px;
+            right:10px;
+
+            &:not(.checked):after{
+                background-color: rgba(white, .5);
+                border-color: rgba($gray, .85);
+            }
+        }
+    
+        &:first-child{
+            display:block;
+
+            .upload-file{
+                display:inline-block;
+                height:50px;
+                width:calc(100% - 60px);
+                padding:5px;
+                border-radius:3px;
+                border:solid 1px $gray;
+                margin-bottom:20px;
+
+                .input{
+                    width:calc(100% - 100px);
+                    height:38px;
+                    display:inline-block;
+                    position:relative;
+                    cursor:pointer;
+
+                    & > span{
+                        line-height: 35px;
+                        padding: 0 10px;
+                        color:$primary-color;
+                        font-size:24px;
+                    }
+
+                    .files{
+                        font-size:13px;
+                        color:$dark-color;
+                    }
+
+                    input{
+                        position:absolute;
+                        top:0;left:0;width:100%;height:100%;
+                        opacity:0;
+                        cursor:pointer;
+                    }
+                }
+
+                button{
+                    border:0;
+                    border-radius:3px;
+                    width:100px;
+                    text-align:center;
+                    float:right;
+                    height:38px;
+                    line-height:40px;
+                    font-size:14px;
+                    cursor:default;
+                    background-color: $gray;
+                    color:$dark-color;
+                    opacity:.25;
+                    transition: all .2s;
+
+                    &.active{
+                        background-color: $primary-color;
+                        color:#fff;
+                        cursor:pointer;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .file-actions{
+                float:right;
+
+                button{
+                    border-radius:4px;
+                    width:50px;
+                    border:0;
+                    line-height: 50px;
+                    height:50px;
+                    outline:0;
+                    background-color: $gray;
+                    color:$dark-color;
+                    opacity:.25;
+                    cursor:default;
+                    transition: all .2s;
+
+                    .fa{ font-size:18px; }
+
+                    &.active{
+                        background-color: $danger-color;
+                        cursor:pointer;
+                        color:#fff;
+                        opacity:1;
+                    }
+                }
             }
         }
     }

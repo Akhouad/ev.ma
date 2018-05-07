@@ -38,7 +38,7 @@
                         <?php $date = date("d M Y",strtotime($schedule->time)); ?>
                         @if($currentDate != $date)
                         <?php $currentDate = $date; ?>
-                        <h5 class="day">{{date('d', strtotime($schedule->time))}} {{$months[ date('m', strtotime($schedule->time)) - 1 ]}}</h5>
+                        <h5 class="day">{{date('d', strtotime($schedule->time))}} {{$months[ date('m', strtotime($schedule->time)) - 1 ]}} {{date('Y', strtotime($schedule->time))}}</h5>
                         @endif
                         <li>
                             <strong>{{date('H:i', strtotime($schedule->time))}} - </strong>
@@ -100,7 +100,7 @@
                                     <select name="intervenant" class="form-control">
                                         <option value="0" selected disabled>Choisir un intervenant</option>
                                         @foreach($event->interventions as $i)
-                                        <option value="{{$i->user_id}}">{{$i->user->fullname}}</option>
+                                        <option value="{{$i->user_id}}">{{title_case($i->user->fullname)}}</option>
                                         @endforeach
                                     </select>
                                 </div>

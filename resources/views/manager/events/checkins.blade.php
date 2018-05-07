@@ -35,6 +35,10 @@
                         </li>
                         @endforeach
                     </ul>
+                    @else
+                    <p class="p-5 text-center text-muted">
+                        Vous n'avez aucun participant.
+                    </p>
                     @endif
                 </div>
             </div>

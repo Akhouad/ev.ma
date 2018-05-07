@@ -76,6 +76,10 @@
                             </div>
                         </div>
                         @endforeach
+                    @else
+                        <p class="p-5 text-center text-muted">
+                            Vous n'avez aucun commentaire.
+                        </p>
                     @endif
                 </div>
             </div>

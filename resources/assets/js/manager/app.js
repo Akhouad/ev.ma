@@ -215,6 +215,7 @@ $(function() {
         if($("#map").attr("data-lat") !== undefined){
             google.maps.event.addDomListener(window, 'load', initialize($("#map").data("lat"), $("#map").data("lng")));
         }else{
+            // moroccan map
             google.maps.event.addDomListener(window, 'load', initialize(31.7917, -7.0926));
         }
 

@@ -29,7 +29,7 @@ class StoreSchedule extends FormRequest
             'time' => 'required|date_format:H:i',
             'title' => 'required|max:255',
             'intervenant' => 'nullable|exists:interventions,user_id',
-            'description' => 'nullable'
+            'description' => 'nullable|max:500'
         ];
     }
 }

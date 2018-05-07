@@ -13922,6 +13922,7 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -47681,7 +47682,7 @@ var app = new Vue({
                 this.suggestedUsers = [];this.add_new_intervenant = false;return;
             }
             this.users_loader = true;
-            axios.get('/api/users/' + current_user_id + '/' + key).then(function (users) {
+            axios.get('/manager/users/' + current_user_id + '/' + key).then(function (users) {
                 _this.users_loader = false;
                 _this.suggestedUsers = users.data;
                 if (_this.suggestedUsers.length == 0) _this.add_new_intervenant = true;
@@ -47700,9 +47701,10 @@ var app = new Vue({
             e.preventDefault();
             this.show_loader = true;
             var data = {
-                user_id: document.querySelector("input[name='user[id]']").value
-            };
-            axios.post('/api/intervenants/' + this.event_id + '/add', data).then(function (data) {
+                user_id: document.querySelector("input[name='user[id]']").value,
+                event_id: this.event_id
+                // manager/intervenants
+            };axios.post('/manager/intervenants', data).then(function (data) {
                 _this2.show_loader = false;
                 _this2.fillIntervenants(data.data);
                 document.querySelector("input[name='user[name]']").value = "";
@@ -47724,7 +47726,7 @@ var app = new Vue({
 
             this.show_loader = true;
             this.intervenants[index]['loader'] = true;
-            axios.delete('/api/intervenants/' + this.event_id + '/delete/' + this.intervenants[index]['user_id']).then(function (data) {
+            axios.delete('/manager/event/' + this.event_id + '/intervenants/' + this.intervenants[index]['user_id'] + '/delete').then(function (data) {
                 _this3.show_loader = false;
                 _this3.fillIntervenants(data.data);
             });
@@ -47738,7 +47740,7 @@ var app = new Vue({
 
         this.show_loader = true;
         this.event_id = document.querySelector("input[name='event_id']").value;
-        axios.get('/api/intervenants/' + this.event_id + '/get').then(function (data) {
+        axios.get('/manager/event/' + this.event_id + '/intervenants').then(function (data) {
             _this4.fillIntervenants(data.data);
             _this4.show_loader = false;
         });

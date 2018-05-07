@@ -4,10 +4,10 @@
     "/css/site/app.css": "/css/site/app.css",
     "/js/manager/schedule.js": "/js/manager/schedule.js",
     "/js/manager/intervenants.js": "/js/manager/intervenants.js",
-    "/js/site/common.js": "/js/site/common.js",
     "/js/manager/email.js": "/js/manager/email.js",
+    "/js/site/common.js": "/js/site/common.js",
+    "/js/manager/images.js": "/js/manager/images.js",
     "/js/manager/comments.js": "/js/manager/comments.js",
     "/js/site/home.js": "/js/site/home.js",
-    "/js/site/event.js": "/js/site/event.js",
-    "/js/manager/images.js": "/js/manager/images.js"
+    "/js/site/event.js": "/js/site/event.js"
 }

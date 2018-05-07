@@ -25,7 +25,6 @@ use Illuminate\Support\Facades\Hash;
 class EventController extends Controller
 {
     public function add_index(){
-        abort_if(! Auth::user()->is_organizer, 404);
         $categories = Category::get();
         $types = Type::get();
         $pending_events = Event::where('status', 'pending')->get();
@@ -34,14 +33,12 @@ class EventController extends Controller
     }
 
     public function index($id){
-        abort_if(! Auth::user()->is_organizer, 404);
         $pending_events = Event::where('status', 'pending')->get();
         $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
         return view('manager.events.event', compact('pending_events', 'event'));
     }
 
     public function edit_index($id){
-        abort_if(! Auth::user()->is_organizer, 404);
         $categories = Category::get();
         $types = Type::get();
         $pending_events = Event::where('status', 'pending')->get();
