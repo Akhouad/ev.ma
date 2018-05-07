@@ -1,15 +1,7 @@
-@extends('../layouts.manager')
+@extends('../layouts.manager', ['current_page' => 'Intervenants'])
 
 @section('content')
 <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Intervenants</li>
-        </ol>
-    </nav>
-
     @if ($errors->any())
     <div class="alert alert-danger">
         <div class="alert-body">
@@ -24,11 +16,11 @@
     @endif
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-10">
             <div class="card bg-success">
                 <div class="card-header">Intervenants</div>
                 <div class="card-body">
@@ -47,7 +39,7 @@
                         <div class="form-group add-intervenant-form">
                             <label for=""><strong>Ajouter des intervenants</strong></label>
                             <loader-component v-if="users_loader"></loader-component>
-                            <input type="text" autocomplete="off" class="form-control" name="user[name]" @keypress="searchUsers()" placeholder="Nom de l'utilisateur">
+                            <input type="text" autocomplete="off" class="form-control" name="user[name]" @keydown="searchUsers()" placeholder="Nom de l'utilisateur">
                             <input type="hidden" name="user[id]">
                             <input type="hidden" name="current_user_id" value="{{Auth::user()->id}}">
                             <input type="hidden" name="event_id" value="{{$event->id}}">
@@ -66,7 +58,7 @@
                 </div>
                 <hr v-if="add_new_intervenant_form" class="no-margin" v-cloak>
                 <div class="card-body" v-if="add_new_intervenant_form" v-cloak>
-                    <form action="/register/intervenant/{{$event->id}}" method="post">
+                    <form action="/register/intervenant/{{$event->id}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for=""><strong>Nom de l'intervenant *</strong></label>
@@ -82,7 +74,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><strong>Photo du profil</strong></label>
-                                    <input type="file" name="" id="" class="form-control" name="avatar">
+                                    <input type="file" class="form-control" name="avatar">
                                 </div>
                             </div>
                         </div>

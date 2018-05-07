@@ -4,6 +4,7 @@ namespace App\Http\Middleware\Manager;
 
 use Closure;
 use Auth;
+use App\Event;
 
 class CheckManager
 {

@@ -14,12 +14,6 @@
             </div>
         </div>  
         @endif
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Création d'un événement</li>
-            </ol>
-        </nav>
 
         <div class="row">
             <div class="col-8 offset-md-2">
@@ -230,7 +224,7 @@
                             </div>
                             <div class="form-group">
                                 <label for=""><strong>Lieu *</strong></label>
-                                <input type="text" autocomplete="off" @keyup="searchVenues()" class="form-control" name="venue[name]" placeholder="Exemple : Théâtre Mohammed V">
+                                <input type="text" autocomplete="off" @keydown="searchVenues()" class="form-control" name="venue[name]" placeholder="Exemple : Théâtre Mohammed V">
                                 <input type="hidden" name="city[lat]" id="CityLat" /> 
                                 <input type="hidden" name="city[lng]" id="CityLng" /> 
                                 <input type="hidden" name="venue[lat]" id="VenueLat" /> 
@@ -343,7 +337,10 @@
     </div>
 @endsection
 
+@section('styles')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZiXnM5_gvDsGeTvWDYMxYV9lftXvEPpQ" async defer></script>
+@endsection
+
 @section('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZiXnM5_gvDsGeTvWDYMxYV9lftXvEPpQ&callback=initMap" async defer></script>
 <script src="{{asset('js/manager/app.js')}}"></script>
 @endsection

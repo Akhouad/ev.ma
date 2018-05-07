@@ -54,6 +54,21 @@
                 }
             }
         }
+
+        @media screen and (max-width: 768px){
+            display:none;
+        }
+    }
+}
+
+.mobile-menu{
+    float:right;
+    color:$primary-color;
+    font-size:30px;
+    display:none;
+    
+    @media screen and (max-width: 768px){
+        display:block
     }
 }
 
@@ -72,6 +87,14 @@
             letter-spacing: .5px;
             line-height: 50px;
             margin:0;
+        }
+
+        a{
+            @media screen and (max-width: 768px){
+                margin-left:0!important;
+                float:right;
+                margin-bottom:10px;
+            }
         }
     }
 
@@ -117,14 +140,56 @@
 }
 
 .event_sidebar{
+    .sidebar_mobile_menu{
+        width:100%;
+        line-height:40px;
+        background-color: $secondary-color;
+        color:#fff;
+        text-align:center;
+        line-height:40px;
+        border-radius:4px;
+        margin-bottom:20px;
+
+        @media screen and (min-width: 768px){
+            display:none;
+        }
+    }
     ul{
         padding:0;
+        transition: all .2s;
 
         li{
             list-style: none;
 
             a{
                 text-align:left;
+                padding: 5px 15px;
+                border-radius:4px;
+                margin-bottom:10px;
+                line-height:20px;
+                color:darken($gray, 10%);
+                text-decoration:none;
+                transition: all .2s;
+
+                &:hover{
+                    background-color: rgba($gray, .1);
+                }
+
+                &.active{
+                    padding: 13px 15px;
+                    color:#fff;
+                    background-color: $secondary-color;
+                }
+            }
+        }
+
+        @media screen and (max-width: 768px){
+            height:0;
+            overflow:hidden;
+            margin-bottom:0;
+
+            &.active{
+                height: auto;
             }
         }
     }

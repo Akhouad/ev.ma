@@ -1,21 +1,13 @@
-@extends('layouts.manager')
+@extends('layouts.manager', ['current_page' => 'E-mails aux participants'])
 
 @section('content')
 <div class="container" id="email">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Programme</li>
-        </ol>
-    </nav>
-
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-10">
             <div class="card bg-success">
                 <div class="card-header">Messages</div>
                 <div class="card-body">

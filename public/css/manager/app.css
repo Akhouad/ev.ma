@@ -14379,6 +14379,14 @@ body.trumbowyg-body-fullscreen {
   color: #fff;
 }
 
+.btn.disabled,
+.btn.disabled:hover {
+  background-color: #aab2bd !important;
+  border-color: #aab2bd !important;
+  color: #222 !important;
+  opacity: 0.25 !important;
+}
+
 .tags-input {
   display: inline-block;
   padding: 0 2px;
@@ -15020,6 +15028,25 @@ ul.deletable-list li + .day {
   color: #50c1e9;
 }
 
+@media screen and (max-width: 768px) {
+  .docs-header .navbar-header .header-nav {
+    display: none;
+  }
+}
+
+.mobile-menu {
+  float: right;
+  color: #37bc9b;
+  font-size: 30px;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-menu {
+    display: block;
+  }
+}
+
 .manager-hero .hero-heading {
   margin-top: 50px;
   padding: 20px 0;
@@ -15035,6 +15062,14 @@ ul.deletable-list li + .day {
   letter-spacing: .5px;
   line-height: 50px;
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .manager-hero .hero-heading a {
+    margin-left: 0 !important;
+    float: right;
+    margin-bottom: 10px;
+  }
 }
 
 .manager-hero .hero-content {
@@ -15084,8 +15119,27 @@ ul.deletable-list li + .day {
   margin-bottom: 40px;
 }
 
+.event_sidebar .sidebar_mobile_menu {
+  width: 100%;
+  line-height: 40px;
+  background-color: #50c1e9;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .event_sidebar .sidebar_mobile_menu {
+    display: none;
+  }
+}
+
 .event_sidebar ul {
   padding: 0;
+  -webkit-transition: all .2s;
+  transition: all .2s;
 }
 
 .event_sidebar ul li {
@@ -15094,6 +15148,36 @@ ul.deletable-list li + .day {
 
 .event_sidebar ul li a {
   text-align: left;
+  padding: 5px 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  line-height: 20px;
+  color: #8d98a7;
+  text-decoration: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.event_sidebar ul li a:hover {
+  background-color: rgba(170, 178, 189, 0.1);
+}
+
+.event_sidebar ul li a.active {
+  padding: 13px 15px;
+  color: #fff;
+  background-color: #50c1e9;
+}
+
+@media screen and (max-width: 768px) {
+  .event_sidebar ul {
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .event_sidebar ul.active {
+    height: auto;
+  }
 }
 
 .event_cover {
@@ -15162,6 +15246,14 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #434a54;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+  }
 }
 
 a,

@@ -17,6 +17,7 @@ mix.js('resources/assets/js/manager/app.js', 'public/js/manager')
     .js('resources/assets/js/manager/images.js', 'public/js/manager')
     .js('resources/assets/js/manager/comments.js', 'public/js/manager')
     .js('resources/assets/js/manager/email.js', 'public/js/manager')
+    .js('resources/assets/js/manager/common.js', 'public/js/manager')
     .sass('resources/assets/sass/manager/app.scss', 'public/css/manager')
 
     .js('resources/assets/js/site/common.js', 'public/js/site')

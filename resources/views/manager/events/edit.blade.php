@@ -1,15 +1,7 @@
-@extends('../layouts.manager')
+@extends('../layouts.manager', ['current_page' => 'Information générales'])
 
 @section('content')
 <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Information générales</li>
-        </ol>
-    </nav>
-
     @if ($errors->any())
     <div class="alert alert-danger">
         <div class="alert-body">
@@ -24,11 +16,11 @@
     @endif
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-10">
             <div class="card bg-success add-event-card">
                 <div class="card-header">
                     Informations générales
@@ -52,7 +44,7 @@
                             
                             <div class="row">
                                 @foreach($categories as $c)
-                                <div class="col-4">
+                                <div class="col-md-4">
                                     <div class="checkbox-fn {{( in_array($c->id, $event_categories) ) ? 'checked' : ''}}">
                                         <label for="" class="label-control">
                                             @if( in_array($c->id, $event_categories) )
@@ -505,7 +497,10 @@
 </div>
 @endsection
 
+@section('styles')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZiXnM5_gvDsGeTvWDYMxYV9lftXvEPpQ" async defer></script>
+@endsection
+
 @section('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZiXnM5_gvDsGeTvWDYMxYV9lftXvEPpQ&callback=initMap" async defer></script>
 <script src="{{asset('js/manager/app.js')}}"></script>
 @endsection

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 193);
+/******/ 	return __webpack_require__(__webpack_require__.s = 195);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -521,19 +521,19 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 193:
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(194);
+module.exports = __webpack_require__(196);
 
 
 /***/ }),
 
-/***/ 194:
+/***/ 196:
 /***/ (function(module, exports, __webpack_require__) {
 
-Vue.component('event-skeleton', __webpack_require__(195));
-Vue.component('user-skeleton', __webpack_require__(200));
+Vue.component('event-skeleton', __webpack_require__(197));
+Vue.component('user-skeleton', __webpack_require__(202));
 var app = new Vue({
     el: "#app",
     data: {
@@ -581,19 +581,19 @@ var app = new Vue({
 
 /***/ }),
 
-/***/ 195:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(196)
+  __webpack_require__(198)
 }
 var normalizeComponent = __webpack_require__(163)
 /* script */
-var __vue_script__ = __webpack_require__(198)
+var __vue_script__ = __webpack_require__(200)
 /* template */
-var __vue_template__ = __webpack_require__(199)
+var __vue_template__ = __webpack_require__(201)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -633,13 +633,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 196:
+/***/ 198:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(197);
+var content = __webpack_require__(199);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -660,7 +660,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 197:
+/***/ 199:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(161)(false);
@@ -675,7 +675,7 @@ exports.push([module.i, "\n@-webkit-keyframes fade-data-v-7aa5f0e0 {\n0% {\n    
 
 /***/ }),
 
-/***/ 198:
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -699,7 +699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 199:
+/***/ 201:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -730,19 +730,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 200:
+/***/ 202:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(201)
+  __webpack_require__(203)
 }
 var normalizeComponent = __webpack_require__(163)
 /* script */
-var __vue_script__ = __webpack_require__(203)
+var __vue_script__ = __webpack_require__(205)
 /* template */
-var __vue_template__ = __webpack_require__(204)
+var __vue_template__ = __webpack_require__(206)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -782,13 +782,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 201:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(202);
+var content = __webpack_require__(204);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -809,7 +809,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 202:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(161)(false);
@@ -824,7 +824,7 @@ exports.push([module.i, "\n@-webkit-keyframes fade-data-v-2dd802ef {\n0% {\n    
 
 /***/ }),
 
-/***/ 203:
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -849,7 +849,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 204:
+/***/ 206:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

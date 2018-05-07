@@ -69122,8 +69122,6 @@ var tagsInput = __webpack_require__(170);
 
 window.Vue = __webpack_require__(35);
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 var app = new Vue({
     el: '#app',
     data: {
@@ -69201,7 +69199,8 @@ var app = new Vue({
                 self.joursSemaine = !self.joursSemaine;
             }, 100);
         },
-        searchVenues: function searchVenues() {
+
+        searchVenues: _.debounce(function () {
             var _this = this;
 
             this.venue = document.querySelector("input[name='venue[name]']").value;
@@ -69213,7 +69212,7 @@ var app = new Vue({
                 return;
             }
 
-            axios.get("/api/venues/" + this.city_id).then(function (data) {
+            axios.get("/manager/venues/" + this.city_id).then(function (data) {
                 _this.venues = data['data'];
                 _this.venues.forEach(function (v) {
                     if (v['name'].toLowerCase().startsWith(_this.venue.toLowerCase())) {
@@ -69226,7 +69225,7 @@ var app = new Vue({
                 });
                 if (_this.suggestedVenues.length == 0) _this.addNewPlace = true;
             });
-        },
+        }, 500),
         chooseSuggestedVenue: function chooseSuggestedVenue(index) {
             document.querySelector("input[name='city[lat]']").value = this.suggestedVenues[index]['city_lat'];
             document.querySelector("input[name='city[lng]']").value = this.suggestedVenues[index]['city_lng'];
@@ -69251,16 +69250,17 @@ var app = new Vue({
             this.addNewPlace = false;
             this.showMap = true;
         },
-        searchUsers: function searchUsers() {
+
+        searchUsers: _.debounce(function () {
             var _this2 = this;
 
             var current_user_id = document.querySelector("input[name='current_user_id']").value;
             var key = document.querySelector("input[name='user[name]']").value;
-            axios.get('/api/users/' + current_user_id + '/' + key).then(function (users) {
+            axios.get('/manager/users/' + current_user_id + '/' + key).then(function (users) {
                 _this2.suggestedUsers = users.data;
                 if (_this2.suggestedUsers.length == 0) _this2.addNewUser = true;
             });
-        },
+        }, 500),
         chooseSuggestedUser: function chooseSuggestedUser(index) {
             document.querySelector("input[name='user[name]']").value = this.suggestedUsers[index]['fullname'];
             document.querySelector("input[name='user[id]']").value = this.suggestedUsers[index]['id'];

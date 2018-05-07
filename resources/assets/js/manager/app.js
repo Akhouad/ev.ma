@@ -5,8 +5,6 @@ var tagsInput = require('../tags-input');
 
 window.Vue = require('vue');
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 const app = new Vue({
     el: '#app',
     data: {
@@ -86,7 +84,7 @@ const app = new Vue({
             let self = this
             setTimeout(function(){ self.joursSemaine = !self.joursSemaine }, 100)
         },
-        searchVenues(){
+        searchVenues: _.debounce(function(){
             this.venue = document.querySelector("input[name='venue[name]']").value
             this.city_id = document.querySelector("select[name='venue[city_id]']").value
             if(this.city_id == -1) return
@@ -94,7 +92,7 @@ const app = new Vue({
             this.suggestedVenues = []
             if(this.venue.length == 0){ return }
             
-            axios.get("/api/venues/" + this.city_id).then(data => {
+            axios.get("/manager/venues/" + this.city_id).then(data => {
                 this.venues = data['data']
                 this.venues.forEach((v) => {
                     if(v['name'].toLowerCase().startsWith(this.venue.toLowerCase())){
@@ -105,7 +103,7 @@ const app = new Vue({
                 });
                 if(this.suggestedVenues.length == 0) this.addNewPlace = true
             })
-        },
+        }, 500),
         chooseSuggestedVenue(index){
             document.querySelector("input[name='city[lat]']").value = this.suggestedVenues[index]['city_lat']
             document.querySelector("input[name='city[lng]']").value = this.suggestedVenues[index]['city_lng']
@@ -130,14 +128,14 @@ const app = new Vue({
             this.addNewPlace = false
             this.showMap = true
         },
-        searchUsers(){
+        searchUsers: _.debounce(function(){
             let current_user_id = document.querySelector("input[name='current_user_id']").value
             let key = document.querySelector("input[name='user[name]']").value
-            axios.get('/api/users/' + current_user_id + '/' + key ).then(users => {
+            axios.get('/manager/users/' + current_user_id + '/' + key ).then(users => {
                 this.suggestedUsers = users.data
                 if(this.suggestedUsers.length == 0) this.addNewUser = true
             })
-        },
+        }, 500),
         chooseSuggestedUser(index){
             document.querySelector("input[name='user[name]']").value = this.suggestedUsers[index]['fullname']
             document.querySelector("input[name='user[id]']").value = this.suggestedUsers[index]['id']

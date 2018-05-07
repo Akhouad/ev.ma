@@ -47673,21 +47673,26 @@ var app = new Vue({
         add_new_intervenant_form: false
     },
     methods: {
-        searchUsers: function searchUsers() {
+        searchUsers: _.debounce(function () {
             var _this = this;
 
             var current_user_id = document.querySelector("input[name='current_user_id']").value;
-            var key = document.querySelector("input[name='user[name]']").value;
+            var key = document.querySelector("input[name='user[name]']").value.trim();
+
+            // return nothing when field is empty
             if (key.length == 0) {
-                this.suggestedUsers = [];this.add_new_intervenant = false;return;
+                this.suggestedUsers = [];
+                this.add_new_intervenant = false;
+                return;
             }
+
             this.users_loader = true;
             axios.get('/manager/users/' + current_user_id + '/' + key).then(function (users) {
                 _this.users_loader = false;
                 _this.suggestedUsers = users.data;
                 if (_this.suggestedUsers.length == 0) _this.add_new_intervenant = true;
             });
-        },
+        }, 500),
         chooseSuggestedUser: function chooseSuggestedUser(index) {
             this.add_new_intervenant_form = false;
             this.add_new_intervenant = false;
@@ -47703,7 +47708,7 @@ var app = new Vue({
             var data = {
                 user_id: document.querySelector("input[name='user[id]']").value,
                 event_id: this.event_id
-                // manager/intervenants
+                // /manager/intervenants
             };axios.post('/manager/intervenants', data).then(function (data) {
                 _this2.show_loader = false;
                 _this2.fillIntervenants(data.data);
@@ -47726,6 +47731,7 @@ var app = new Vue({
 
             this.show_loader = true;
             this.intervenants[index]['loader'] = true;
+            // /manager/event/22/intervenant/2/delete
             axios.delete('/manager/event/' + this.event_id + '/intervenants/' + this.intervenants[index]['user_id'] + '/delete').then(function (data) {
                 _this3.show_loader = false;
                 _this3.fillIntervenants(data.data);
@@ -47740,6 +47746,7 @@ var app = new Vue({
 
         this.show_loader = true;
         this.event_id = document.querySelector("input[name='event_id']").value;
+        // /manager/event/22/intervenants
         axios.get('/manager/event/' + this.event_id + '/intervenants').then(function (data) {
             _this4.fillIntervenants(data.data);
             _this4.show_loader = false;

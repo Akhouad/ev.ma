@@ -10,8 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ev: Event manager</title>
 
-    <link rel="stylesheet" href="{{asset('css/manager/app.css')}}">
     @yield('styles')
+    <link rel="stylesheet" href="{{asset('css/manager/app.css')}}">
 </head>
 <body class="light-gray-bg">
     <div class="docs-header header--noBackground">
@@ -34,6 +34,7 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="mobile-menu"><i class="fa fa-list"></i></div>
                 </div>
             </div>
         </nav>
@@ -42,16 +43,16 @@
     <div class="manager-hero">
         <div class="hero-heading">
             <div class="container">
-                <h5 class="float-md-left">Bienvenue {{Auth::user()->fullname}}</h5>
+                <h5 class="float-sm-left">Bienvenue {{Auth::user()->fullname}}</h5>
                 @if(Auth::user()->is_admin && isset($event))
                     @if($event->status == 'pending')
-                    <a href="{{route('event-publish', $event->id)}}" class="btn btn-success float-md-right" style="margin-left:10px">Publier l'événement</a>
+                    <a href="{{route('event-publish', $event->id)}}" class="btn btn-success float-sm-right" style="margin-left:10px">Publier l'événement</a>
                     @else
-                    <a href="{{route('event-unpublish', $event->id)}}" class="btn btn-light text-danger float-md-right" style="margin-left:10px">Unpublish</a>
+                    <a href="{{route('event-unpublish', $event->id)}}" class="btn btn-light text-danger float-sm-right" style="margin-left:10px">Unpublish</a>
                     @endif
                 @endif
                 @if(Route::current()->action['as'] != 'add-event')
-                <a href="{{route('add-event')}}" class="btn btn-info float-md-right">Créer votre événement</a>
+                <a href="{{route('add-event')}}" class="btn btn-info float-sm-right">Créer votre événement</a>
                 @endif
             </div>
         </div>
@@ -67,11 +68,31 @@
         </div>
     </div>
     @endif
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
+                @if(isset($event))
+                <li class="breadcrumb-item active" aria-current="page">
+                    @if(isset($current_page))
+                        <a href="{{route('event', ['id' => $event->id])}}">{{title_case($event->name)}}</a>
+                    @else
+                        {{title_case($event->name)}}
+                    @endif
+                </li>
+                @endif
+                @if(isset($current_page))
+                <li class="breadcrumb-item active" aria-current="page">{{$current_page}}</li>
+                @endif
+            </ol>
+        </nav>
+    </div>
 
     <div id="app">
         @yield('content')
     </div>
 
+    <script src="{{asset('js/manager/common.js')}}"></script>
     @yield('scripts')
 </body>
 </html>

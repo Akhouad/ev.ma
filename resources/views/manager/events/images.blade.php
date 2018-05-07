@@ -1,4 +1,4 @@
-@extends('../layouts.manager')
+@extends('../layouts.manager', ['current_page' => 'Information générales'])
 
 @section('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
@@ -14,20 +14,12 @@
 
 @section('content')
 <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Information générales</li>
-        </ol>
-    </nav>
-
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-10">
             <div class="card bg-success" id="images">
                 <div class="card-header">Album photo</div>
                 <div class="card-body">

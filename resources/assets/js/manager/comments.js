@@ -1,4 +1,3 @@
-require('../bootstrap');
 window.Vue = require('vue');
 
 const app = new Vue({
@@ -17,7 +16,6 @@ const app = new Vue({
             this.comments.forEach( c => {if(comment_id == c) exists = true} )
             if(!exists){ this.comments.push(comment_id) }
             this.$refs.comments_ids.value = this.comments.join(",")
-            console.log(this.$refs.comments_ids.value)
         },
         handleCheck(comment_id, event){
             this.checkComment(comment_id, event)

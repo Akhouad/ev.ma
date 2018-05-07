@@ -5,7 +5,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Manager')->group(function(){
     Route::prefix('register')->group(function(){
-        Route::post('intervenant/{event_id}', 'UserController@register_intervenant')->where('event_id', '[0-9]+');
+        Route::post('intervenant/{event_id}', 'IntervenantController@create')->where('event_id', '[0-9]+');
     });
 });
 
@@ -56,12 +56,11 @@ Route::middleware('auth')->group(function(){
             Route::get('users/{user_id}/{contains}', ['permissions_require_all' => true, 'uses' => 'UserController@index'])->where('user_id', '[0-9]+')->where('starts_with', '[a-zA-Z]+');
         
             Route::prefix("intervenants")->group(function(){
-                Route::post('/', ['permissions_require_all' => true, 'uses' => 'IntervenantController@store'])->where('event_id', '[0-9]+');
+                Route::post('/', ['permissions_require_all' => true, 'uses' => 'InterventionController@store'])->where('event_id', '[0-9]+');
             });
     
             Route::prefix('event')->group(function(){
-                Route::get('{event_id}/intervenants', ['permissions_require_all' => true, 'uses' => 'IntervenantController@index'])->where('event_id', '[0-9]+');
-                Route::delete('{event_id}/intervenants/{user_id}/delete', ['permissions_require_all' => true, 'uses' => 'IntervenantController@destroy'])->where('event_id', '[0-9]+')->where('user_id', '[0-9]+');
+                Route::delete('{event_id}/intervenants/{user_id}/delete', ['permissions_require_all' => true, 'uses' => 'InterventionController@destroy'])->where('event_id', '[0-9]+')->where('user_id', '[0-9]+');
             });
         });
     });
@@ -71,7 +70,7 @@ Route::namespace('Site')->group(function(){
     Route::get('/', 'HomeController@index')->name('homepage');
 
     Route::prefix('user')->group(function(){
-        Route::get('{username}', function(){ return 'test page'; })->name('user')->where('username', '[a-zA-Z-]+');
+        Route::get('{username}', function($username){ return $username; })->name('user')->where('username', '[a-zA-Z-]+');
     });
 
     Route::prefix('category')->group(function(){

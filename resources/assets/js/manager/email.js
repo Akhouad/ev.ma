@@ -1,4 +1,3 @@
-require('../bootstrap');
 require('../trumbowyg.min');
 require('../trumbowyg_fr.min');
 

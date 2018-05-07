@@ -6,23 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Intervention;
+use Illuminate\Support\facades\Storage;
 
 class UserController extends Controller
 {
-    public function register_intervenant($event_id, Request $request){
-        $data = $request->input();
-        $user = new User();
-        $user->fullname = $data['fullname'];
-        $user->email = $data['email'];
-        $user->username = explode('@', $data['email'])[0];
-        $user->is_speaker = (isset($intervenant)) ? 1 : 0;
-        $user->save();
-        $intervention = new Intervention();
-        $intervention->user_id = $user->id;
-        $intervention->event_id = $event_id;
-        $intervention->save();
-        return redirect(route('event-intervenants', ['id' => $event_id]));
-    }
 
     public function index(Request $request, $user_id, $contains){
         if($request->ajax()){
@@ -34,8 +21,38 @@ class UserController extends Controller
         }
     }
 
-    public function get(){
-        $users = User::get();
-        return response($users, 200)->header('Content-Type', 'text/plain');
+    public static function create($request){
+        $data = $request->input();
+        $user = new User();
+        $user->fullname = $data['fullname'];
+        $user->email = $data['email'];
+        $user->username = explode('@', $data['email'])[0];
+        // check if username is not unique
+        if( User::where('username', $user->username)->get() != null ){
+            $user->username = $user->username . '_' . (User::orderBy('created_at', 'desc')->first())->id;
+        }
+        if($request->file()['avatar'] != null){
+            $path = Storage::putFile('public/images/avatars', $request->file()['avatar']);
+            $filename = str_replace('public/images/avatars/', '', $path);
+            $user->avatar = $filename;
+        }else{
+            $user->avatar = substr($user->username, 0, 1) . '.png';
+        }
+
+        $user->is_speaker = (isset($intervenant)) ? 1 : 0;
+        $user->save();
+        return $user->id;
+    }
+
+    public static function enable_speaker($user_id){
+        $user = User::where('id', $user_id)->first();
+        $user->is_speaker = 1;
+        $user->save();
+    }
+
+    public static function disable_speaker($user_id){
+        $user = User::where('id', $user_id)->first();
+        $user->is_speaker = 0;
+        $user->save();
     }
 }

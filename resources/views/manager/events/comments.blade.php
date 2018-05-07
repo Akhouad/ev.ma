@@ -1,21 +1,13 @@
-@extends('layouts.manager')
+@extends('layouts.manager', ['current_page' => 'Commentaires'])
 
 @section('content')
 <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Commentaires</li>
-        </ol>
-    </nav>
-
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-10">
             <div class="card bg-success" id="comments">
                 <div class="card-header">Commentaires</div>
                 <div class="card-body comments">
@@ -24,12 +16,11 @@
                         <form action="{{route('delete-comments', ['id' => $event->id])}}" method="post" class="text-right mb-2">
                             {{csrf_field()}}
                             <input type="hidden" name="comments_ids" ref="comments_ids">
-                            <transition name="slide-fade">
-                                <button type="submit" class="btn btn-danger btn-sm" v-cloak v-if="comments.length > 0">
-                                    <i class="fa fa-trash mr-2"></i>
-                                    Supprimer
-                                </button>
-                            </transition>
+
+                            <button type="submit" class="btn btn-danger btn-sm" v-cloak :class="{'disabled': comments.length < 1}">
+                                <i class="fa fa-trash mr-2"></i>
+                                Supprimer
+                            </button>
                         </form>
                         @endif
                         @foreach($event->comments->where('deleted_at', null) as $comment)

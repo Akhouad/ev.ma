@@ -36,4 +36,13 @@
             color:#fff;
         }
     }
+
+    &.disabled{
+        &, &:hover{
+            background-color: $gray!important;
+            border-color: $gray!important;
+            color:$dark-color!important;
+            opacity:.25!important;
+        }
+    }
 }

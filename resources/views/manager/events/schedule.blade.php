@@ -1,21 +1,13 @@
-@extends('../layouts.manager')
+@extends('../layouts.manager', ['current_page' => 'Programme'])
 
 @section('content')
 <div class="container" id="schedule">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager')}}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('event', ['id' => $event->id])}}">{{str_limit($event->name, 50, '...')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Programme</li>
-        </ol>
-    </nav>
-
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-10">
             <div class="card bg-success">
                 <div class="card-header">Programme</div>
                 <div class="card-body">
@@ -99,7 +91,7 @@
                                     <label for=""><strong>Intervenant</strong></label>
                                     <select name="intervenant" class="form-control">
                                         <option value="0" selected disabled>Choisir un intervenant</option>
-                                        @foreach($event->interventions as $i)
+                                        @foreach($event->interventions->where('deleted_at', null) as $i)
                                         <option value="{{$i->user_id}}">{{title_case($i->user->fullname)}}</option>
                                         @endforeach
                                     </select>
