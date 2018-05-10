@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Manager;
 
 use Closure;
+use Auth;
 
 class CheckEvent
 {
@@ -15,8 +16,11 @@ class CheckEvent
      */
     public function handle($request, Closure $next)
     {
-        if(\App\Event::where('id', $request->id)->first() == null){
-            return redirect(route('manager'));
+        if( !is_numeric($request->id) ) return abort(404, 'Evenement introuvable');
+        $event = \App\Event::where('id', $request->id)->firstOrFail();
+        if( Auth::user()->is_admin == 0 ){
+            if($event->organizer->user_id != Auth::id())
+                return abort(403, 'Evenement introuvable.');                
         }
 
         return $next($request);

@@ -34,7 +34,7 @@ class EventController extends Controller
 
     public function index($id){
         $pending_events = Event::where('status', 'pending')->get();
-        $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
+        $event = Event::where('id', $id)->first();
         return view('manager.events.event', compact('pending_events', 'event'));
     }
 
@@ -42,7 +42,7 @@ class EventController extends Controller
         $categories = Category::get();
         $types = Type::get();
         $pending_events = Event::where('status', 'pending')->get();
-        $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
+        $event = Event::where('id', $id)->first();
         $tmp = EventCategory::where('event_id', $id)->select('category_id')->get();
         $event_categories = [];
         foreach($tmp as $t){ $event_categories[] = $t->category_id; }
@@ -98,9 +98,8 @@ class EventController extends Controller
         
         // ADD VENUE
         if( empty($data['venue']['id']) ){
-            $v = new Venue();
-            $v->add($data['venue']['name'], $data['venue']['adress_1'], $data['venue']['city_id'], $data['venue']['lat'], $data['venue']['lng']);
-            $e->venue_id = $v->id;
+            $venue_id = VenueController::create($data['venue']['name'], $data['venue']['adress_1'], $data['venue']['city_id'], $data['venue']['lat'], $data['venue']['lng']);
+            $e->venue_id = $venue_id;
         }
         else $e->venue_id = $data['venue']['id'];
 
@@ -179,7 +178,7 @@ class EventController extends Controller
     }
 
     public function update($id, Request $request){
-        $event = Event::where('id', $id)->where('organizer_id', Auth::user()->organizer->id)->firstOrFail();
+        $event = Event::where('id', $id)->first();
         $venue = Venue::where('id', $event->venue_id)->first();
         $data = $request->input();
 
@@ -248,7 +247,12 @@ class EventController extends Controller
         $event->tickets_url = ($event->tickets_url !== $data['tickets_url']) ? $data['tickets_url'] : $event->tickets_url;
 
         $event->youtube_url = ($event->youtube_url !== $data['youtube_url']) ? $data['youtube_url'] : $event->youtube_url;
-        $event->venue_id = ($event->venue_id !== $data['venue']['id']) ? $data['venue']['id'] : $event->venue_id;
+        // dd($data['venue']);
+        if( empty($data['venue']['id']) ){
+            $venue_id = VenueController::create($data['venue']['name'], $data['venue']['adress_1'], $data['venue']['city_id'], $data['venue']['lat'], $data['venue']['lng']);
+            $event->venue_id = $venue_id;
+        }
+        else $event->venue_id = ($event->venue_id !== $data['venue']['id']) ? $data['venue']['id'] : $event->venue_id;
         
         $event->email = ($event->email !== $data['email']) ? $data['email'] : $event->email;
         $event->phone = ($event->phone !== $data['phone']) ? $data['phone'] : $event->phone;

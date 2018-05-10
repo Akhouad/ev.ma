@@ -1,7 +1,13 @@
 .list-group{
     .list-group-item{
         color: rgba(black, .5);
+
         &:not(:last-child){ margin-bottom: 3px; }
+
+        .event-name{
+            display:inline-block;
+            padding-left:5px;
+        }
 
         .badge{
             font-weight: 300;
@@ -12,6 +18,21 @@
             &.badge-success{ background-color: $primary-color; }
             &.badge-primary{ background-color: $secondary-color; }
             &.badge-default{ background-color: #aab2bd; color:#fff }
+        }
+    }
+
+    @media screen and (max-width: 768px){
+        .list-group-item{
+            .badge{
+                float:left!important;
+                margin-right:5px;
+            }
+
+            .event-name{
+                width:100%;
+                margin-top:10px;
+                padding-left:0;
+            }
         }
     }
 }
@@ -214,6 +235,13 @@ ul.deletable-list{
         .reports{
             color:$danger-color;
         }
+
+        @media screen and (max-width: 476px){
+            .author-info{
+                width:100%;
+                padding:5px 0;
+            }
+        }
     }
 }
 
@@ -279,6 +307,20 @@ ul.deletable-list{
                 padding:0 5px;
             }
         }
+
+        @media screen and (max-width: 768px){
+            display:inline-block;
+            width:100%;
+            
+            .name{
+                padding:10px 0;
+                width:100%;
+            }
+
+            .actions{
+                float:left;
+            }
+        }
     }
 }
 
@@ -335,19 +377,31 @@ ul.deletable-list{
 
                     & > span{
                         line-height: 35px;
-                        padding: 0 10px;
+                        padding: 0 5px;
                         color:$primary-color;
                         font-size:24px;
+                        display:inline-block;
+                        transition: all .2s;
+                        position:absolute;
+
+                        &.filled{
+                            transform: rotate(45deg);
+                        }
                     }
 
                     .files{
                         font-size:13px;
                         color:$dark-color;
+                        line-height:20px;
+                        margin-left: 25px;
+                        padding:10px 0;
+                        height:30px;
+                        overflow:hidden;
                     }
 
                     input{
                         position:absolute;
-                        top:0;left:0;width:100%;height:100%;
+                        top:0;left:20px;width:calc(100% - 20px);height:100%;
                         opacity:0;
                         cursor:pointer;
                     }

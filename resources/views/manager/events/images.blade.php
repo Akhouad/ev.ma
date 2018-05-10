@@ -14,6 +14,19 @@
 
 @section('content')
 <div class="container">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <div class="alert-body">
+            <p><strong>Veuillez corriger les erreurs suivantes: </strong></p>
+            <ul style="margin:0;padding:0">
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>  
+    @endif
+
     <div class="row">
         <div class="col-md-3 col-sm-2">
             @component('manager/events/components/sidebar', compact('event'))
@@ -29,11 +42,10 @@
                                 <form action="{{route('event-images', ['id' => $event->id])}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="input">
-                                        <span>+</span>
+                                        <span class="plus" @click="resetFiles($event)">+</span>
                                         <input type="file" ref="file_input" name="images[]" multiple @change="fileChosen($event)">
-                                        <span class="files" v-cloak>
-                                            @{{files.join(',').substring(0, 50)}} 
-                                            <span v-if="files.join(',').length > 0">...</span>
+                                        <span class="files" v-cloak v-text="files.join(',').substring(0, 50)">
+                                            <span v-if="files.join(',').length > 0" v-cloak>...</span>
                                         </span>
                                     </div>
                                     <button :class="{'active': files.length > 0}" type="submit">Ajouter</button>
@@ -53,7 +65,7 @@
                                 <a href=""><img src="{{asset('storage/images/manager/events/' . $image->file)}}" alt=""></a>
                                 <div class="checkbox-fn" data-id="{{$image->id}}">
                                     <label for="">
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox">
                                     </label>
                                 </div>
                             </li>

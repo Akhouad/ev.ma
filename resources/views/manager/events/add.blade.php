@@ -16,7 +16,7 @@
         @endif
 
         <div class="row">
-            <div class="col-8 offset-md-2">
+            <div class="col-md-8 offset-md-2">
                 <div class="card bg-success add-event-card">
                     <div class="card-header">
                         Informations générales
@@ -33,7 +33,7 @@
                                 
                                 <div class="row">
                                     @foreach($categories as $c)
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         <div class="checkbox-fn">
                                             <label for="" class="label-control">
                                                 <input type="checkbox" name="categories[]" value="{{$c->id}}">
@@ -215,7 +215,7 @@
                         <div class="card-footer">
                             <div class="form-group">
                                 <label for=""><strong>Ville *</strong></label>
-                                <select name="venue[city_id]" class="form-control" id="VenueCityId" v-model="city_id">
+                                <select name="venue[city_id]" class="form-control" id="VenueCityId" v-model="city_id" @change="cityChanged()">
                                     <option value="-1" selected disabled>Choisissez une ville</option>
                                     @foreach($cities as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
@@ -244,7 +244,7 @@
                             </ul>
                             <div id="map" :class="{'not_displayed': !showMap}"></div>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for=""><strong>Adresse postale</strong></label>
                                         <input type="text" class="form-control" name="venue[adress_1]">
@@ -318,10 +318,10 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 mb-2">
                                     <button type="submit" name="submit" value="Enregistrer en brouillon" class="btn btn-primary btn-block">ENREGISTRER EN BROUILLON</button>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <button type="submit" name="submit" value="Publier" class="btn btn-success btn-block">PUBLIER</button>
                                 </div>
                             </div>

@@ -21,9 +21,19 @@ const app = new Vue({
             } 
         },
         fileChosen(event){
+            document.querySelector('.plus').classList.add('filled')
+
             for(let i = 0 ; i < event.target.files.length ; i++){
                 if( !this.files.includes(event.target.files[i].name) ) 
                     this.files.push(event.target.files[i].name)
+            }
+        },
+        resetFiles(event){
+            let filled = event.target.classList.contains('filled')
+            if( filled ){
+                this.$refs.file_input.value = null
+                this.files = []
+                event.target.classList.remove('filled')
             }
         }
     }

@@ -84,13 +84,20 @@ const app = new Vue({
             let self = this
             setTimeout(function(){ self.joursSemaine = !self.joursSemaine }, 100)
         },
+        cityChanged(){
+            this.resetVenueInputs()
+            document.querySelector("input[name='venue[name]']").value = ""
+        },
         searchVenues: _.debounce(function(){
             this.venue = document.querySelector("input[name='venue[name]']").value
             this.city_id = document.querySelector("select[name='venue[city_id]']").value
             if(this.city_id == -1) return
             
             this.suggestedVenues = []
-            if(this.venue.length == 0){ return }
+            if(this.venue.length == 0){ 
+                if(this.addNewPlace) this.addNewPlace = false
+                return 
+            }
             
             axios.get("/manager/venues/" + this.city_id).then(data => {
                 this.venues = data['data']
@@ -117,13 +124,16 @@ const app = new Vue({
             this.suggestedVenues = []
             this.addNewPlace = false
         },
+        resetVenueInputs(){
+            document.querySelector("input[name='city[lat]']").value = ""
+            document.querySelector("input[name='city[lng]']").value = ""
+            document.querySelector("input[name='venue[lat]']").value = ""
+            document.querySelector("input[name='venue[lng]']").value = ""
+            document.querySelector("input[name='venue[id]']").value = ""
+            document.querySelector("input[name='venue[foursquare_id]']").value = ""
+        },
         addPlace(){
-            this.venue_data.city_lat = ""
-            this.venue_data.city_lng = ""
-            this.venue_data.venue_lat = ""
-            this.venue_data.venue_lng = ""
-            this.venue_data.venue_id = ""
-            this.venue_data.foursquare_id = ""
+            this.resetVenueInputs()
             this.suggestedVenues = []
             this.addNewPlace = false
             this.showMap = true

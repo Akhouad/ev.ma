@@ -57,13 +57,25 @@
 
         @media screen and (max-width: 768px){
             display:none;
+            background-color: rgba(#fff,.9);
+
+            ul{ padding:0; }
+
+            li{
+                width:100%;
+                text-align:center;
+
+                a{
+                    width:100%;
+                }
+            }
         }
     }
 }
 
 .mobile-menu{
     float:right;
-    color:$primary-color;
+    color:$secondary-color;
     font-size:30px;
     display:none;
     
@@ -175,6 +187,14 @@
                     background-color: rgba($gray, .1);
                 }
 
+                .badge{
+                    margin-top:3px;
+                    
+                    &.badge-primary{ 
+                        background-color: darken($secondary-color, 10%) 
+                    }
+                }
+
                 &.active{
                     padding: 13px 15px;
                     color:#fff;
@@ -184,9 +204,8 @@
         }
 
         @media screen and (max-width: 768px){
-            height:0;
-            overflow:hidden;
-            margin-bottom:0;
+            display:none;
+            transition: all 0s;
 
             &.active{
                 height: auto;
@@ -236,5 +255,37 @@
         position:absolute;
         bottom:15px;
         right:0;
+    }
+}
+
+.pagination{
+    margin-top: 20px;
+
+    li{
+        height:30px;
+        width:30px;
+        line-height:30px;
+        text-align:center;
+        color:$gray;
+        display:inline-block;
+        border-radius:4px;
+
+        &:not(:last-child){ margin-right: 5px; }
+
+        a{
+            display:inline-block;
+            text-decoration:none;
+            width:100%;
+            transition: all .2s;
+
+            &:hover{
+                background-color: rgba($gray, .1);
+            }
+        }
+
+        &.active{
+            background-color: $secondary-color;
+            color:#fff;
+        }
     }
 }

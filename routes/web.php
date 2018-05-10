@@ -13,7 +13,9 @@ Route::middleware('auth')->group(function(){
     Route::prefix('manager')->middleware(App\Http\Middleware\Manager\CheckManager::class)->namespace('Manager')->group(function(){
         Route::get('settings', 'ManagerController@index')->name('settings');
         Route::get('/', 'ManagerController@index')->name('manager');
+        Route::get('/search', 'ManagerController@search')->name('manager-search');
         Route::get('/validation', 'ManagerController@validation')->name('validation');
+        // Route::get('/validation', 'ManagerController@search')->name('validation-search');
 
         Route::prefix('event')->group(function(){
             Route::get('add', 'EventController@add_index')->name('add-event');

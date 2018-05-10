@@ -16,11 +16,11 @@
     @endif
 
     <div class="row">
-        <div class="col-md-3 col-sm-2">
+        <div class="col-md-3">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-md-9 col-sm-10">
+        <div class="col-md-9">
             <div class="card bg-success add-event-card">
                 <div class="card-header">
                     Informations générales
@@ -386,7 +386,7 @@
                     <div class="card-footer">
                         <div class="form-group">
                             <label for=""><strong>Ville *</strong></label>
-                            <select name="venue[city_id]" class="form-control" id="VenueCityId" required="required">
+                            <select name="venue[city_id]" @change="cityChanged()" class="form-control" id="VenueCityId" required="required">
                                 <option value="-1" disabled>Choisissez une ville</option>
                                 @foreach($cities as $c)
                                 @if($c->id == $venue->city_id)
@@ -399,7 +399,7 @@
                         </div>
                         <div class="form-group">
                             <label for=""><strong>Lieu *</strong></label>
-                            <input type="text" autocomplete="off" @keyup="searchVenues()" class="form-control" name="venue[name]" placeholder="Exemple : Théâtre Mohammed V" value="{{$venue->name}}">
+                            <input type="text" autocomplete="off" @keydown="searchVenues()" class="form-control" name="venue[name]" placeholder="Exemple : Théâtre Mohammed V" value="{{$venue->name}}">
                             <input type="hidden" name="city[lat]" id="CityLat" value="{{$venue->city->lat}}" /> 
                             <input type="hidden" name="city[lng]" id="CityLng" value="{{$venue->city->lng}}" /> 
                             <input type="hidden" name="venue[lat]" id="VenueLat" value="{{$venue->lat}}" /> 
@@ -419,7 +419,7 @@
                         </ul>
                         <div id="map" data-lat="{{$venue->lat}}" data-lng="{{$venue->lng}}"></div>
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for=""><strong>Adresse postale</strong></label>
                                     <input type="text" class="form-control" name="venue[adress_1]" value="{{$venue->adress_1}}">

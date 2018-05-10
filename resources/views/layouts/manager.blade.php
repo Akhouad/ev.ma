@@ -19,6 +19,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <a href="{{route('homepage')}}" target="_blank" class="navbar-brand"><img src="{{asset('storage/images/logo.png')}}" height="40" alt=""></a> 
+                    <div class="mobile-menu"><i class="fa fa-bars"></i></div>
                     <div class="header-nav">
                         <ul>
                             @if(Auth::user()->is_admin)
@@ -34,7 +35,6 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="mobile-menu"><i class="fa fa-list"></i></div>
                 </div>
             </div>
         </nav>
@@ -52,7 +52,7 @@
                     @endif
                 @endif
                 @if(Route::current()->action['as'] != 'add-event')
-                <a href="{{route('add-event')}}" class="btn btn-info float-sm-right">Créer votre événement</a>
+                <a href="{{route('add-event')}}" class="btn btn-primary float-sm-right">Créer votre événement</a>
                 @endif
             </div>
         </div>
@@ -61,13 +61,12 @@
     @if(Session::has('alert-message'))
     <div class="container">
         <div class="alert {{Session::get('alert-class')}} alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
             {{Session::get('alert-message')}}
         </div>
     </div>
     @endif
+
+    @if( !in_array(Route::current()->getName(), ['manager', 'validation', 'add-event']) )
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -79,6 +78,7 @@
                     @else
                         {{title_case($event->name)}}
                     @endif
+                    <a href="{{route('event-page', ['id' => $event->id, 'slug' => $event->slug])}}" class="ml-2" target="_blank"><i class="fa fa-external-link"></i></a>
                 </li>
                 @endif
                 @if(isset($current_page))
@@ -87,6 +87,7 @@
             </ol>
         </nav>
     </div>
+    @endif
 
     <div id="app">
         @yield('content')

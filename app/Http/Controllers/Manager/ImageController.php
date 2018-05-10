@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
 use App\Image;
+use Session;
 use Illuminate\Support\Facades\Input;
 
 class ImageController extends Controller
@@ -17,6 +18,10 @@ class ImageController extends Controller
     }
 
     public function store(Request $request, $event_id){
+        $validatedData = $request->validate([
+            'images.*' => 'required|image|max:1000000'
+        ]);
+
         $data = $request->images;
         if(!empty($data)){
             foreach($data as $img){
@@ -36,6 +41,11 @@ class ImageController extends Controller
             $image->deleted_at = date("Y-m-d H:i:s");
             $image->save();
         }
+        
+        Session::flash('alert-class', 'alert-success');
+        $message = (count($images) > 1) ? 'Images bien supprimées' : "Image bien supprimée";
+        Session::flash('alert-message', $message);
+        return redirect()->back();
         return redirect(route('event-images', ['id' => $id]));
     }
 }

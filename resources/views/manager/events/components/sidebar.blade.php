@@ -14,6 +14,7 @@
         <li>
             <a href="{{route('event-intervenants', ['id' => $event->id])}}" class="{{(Route::current()->getName() == 'event-intervenants') ? 'active' : ''}} btn-block">
                 <span>Intervenants</span>
+                <div class="badge badge-primary float-md-right">{{count($event->interventions->where('deleted_at', null))}}</div>
             </a>
         </li>
         <li>
@@ -33,17 +34,19 @@
         </li>
         <li>
             <a href="{{route('event-attendings', ['id' => $event->id])}}" class="{{(Route::current()->getName() == 'event-attendings') ? 'active' : ''}} btn-block">
-                <span>Attendings ({{count($event->attendings)}})</span>
+                <span>Attendings <div class="badge badge-primary float-md-right">{{count($event->attendings)}}</div></span>
             </a>
         </li>
         <li>
             <a href="{{route('event-checkins', ['id' => $event->id])}}" class="{{(Route::current()->getName() == 'event-checkins') ? 'active' : ''}} btn-block">
-                <span>Participants ({{count($event->checkins)}})</span>
+                <span>Participants</span>
+                <div class="badge badge-primary float-md-right">{{count($event->checkins)}}</div>
             </a>
         </li>
         <li>
             <a href="{{route('event-comments', ['id' => $event->id])}}" class="{{(Route::current()->getName() == 'event-comments') ? 'active' : ''}} btn-block">
-                <span>Commentaires ({{count($event->comments)}})</span>
+                <span>Commentaires</span>
+                <div class="badge badge-primary float-md-right">{{count($event->comments)}}</div>
             </a>
         </li>
     </ul>

@@ -12,9 +12,7 @@ class CommentController extends Controller
 {
     public function index($id){
         $pending_events = Event::where('status', 'pending')->get();
-        $event = Event::where('id', $id)
-                        ->where('organizer_id', Auth::user()->organizer->id)
-                        ->first();
+        $event = Event::where('id', $id)->first();
         return view('manager.events.comments', compact('pending_events', 'event'));
     }
 

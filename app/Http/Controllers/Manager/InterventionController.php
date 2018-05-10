@@ -16,8 +16,16 @@ class InterventionController extends Controller
         return response()->json($intervenants);
     }
 
-    public function store(Request $request){
-        // check if this is a new intervenant
+    public function store(Request $request) {
+        // Add validation
+        // = user_id > required_unless no form data 
+        // email, fullname 
+        // check if he's a new intervenant
+        
+        // if user_id / user - User::find(userid)
+        // else user - User::add
+        // User->enableintervenant / Intervention.create 
+        
         $check_new = Intervention::where('user_id', $request->post('user_id'))->get();
         if(count($check_new) == 0){
             IntervenantController::store($request);

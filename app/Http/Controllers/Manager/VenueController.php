@@ -17,4 +17,16 @@ class VenueController extends Controller
             return response($venues, 200)->header('Content-Type', 'text/plain');
         }
     }
+
+    public static function create($name, $postal_code, $city_id, $venue_lat, $venue_lng){
+        $v = new Venue();
+        $v->name = $name;
+        $v->slug = str_slug($name, "-");
+        $v->adress_1 = $postal_code;
+        $v->city_id = $city_id;
+        $v->lat = $venue_lat;
+        $v->lng = $venue_lng;
+        $v->save();
+        return $v->id;
+    }
 }

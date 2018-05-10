@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-3 col-xs-2">
+        <div class="col-md-3">
             @component('manager/events/components/sidebar', compact('event'))
             @endcomponent
         </div>
-        <div class="col-md-9 col-xs-10">
+        <div class="col-md-9">
             @if($event->status == 'pending')
             <div class="alert alert-info" role="alert">
                 Votre événement <strong>{{$event->name}}</strong> est en cours de validation par les administrateurs.

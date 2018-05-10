@@ -46,7 +46,7 @@ class IntervenantController extends Controller
         $intervenant->deleted_at = date('Y-m-d H:i:s');
         $intervenant->save();
 
-        UserController::enable_speaker($user_id);
+        UserController::disable_speaker($user_id);
     }
 
     public static function is_deleted($user_id){
