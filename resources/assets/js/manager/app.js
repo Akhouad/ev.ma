@@ -42,11 +42,11 @@ const app = new Vue({
                 }
                 else if(self.eventType == 'Mensuel'){
                     if(!self.joursSemaine){
-                        document.querySelector("input[name='recurrent[monthly][day_number]']").value = ""
+                        document.querySelector("[name='recurrent[monthly][day_number]']").value = ""
                     }
                     else{
-                        document.querySelector("input[name='recurrent[monthly][week_number]']").value = ""
-                        document.querySelector("input[name='recurrent[monthly][day]']").value = ""
+                        document.querySelector("[name='recurrent[monthly][week_number]']").value = ""
+                        document.querySelector("[name='recurrent[monthly][day]']").value = ""
                     }
                 }
                 

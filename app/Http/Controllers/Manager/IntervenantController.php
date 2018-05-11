@@ -17,7 +17,7 @@ class IntervenantController extends Controller
             $intervenants = Intervenant::get($id);
             return response()->json($intervenants);
         }
-
+        
         $event = Event::where('id', $id)->first();
         $pending_events = Event::where('status', 'pending')->get();
 

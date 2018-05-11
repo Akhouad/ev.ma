@@ -35,24 +35,20 @@ class InterventionController extends Controller
             'fullname' => 'required_without:user_id|max:255',
             'email' => 'required_without:user_id|max:255|email'
         ]);
+        
+        $existed = Intervention::get_by_user_event($request->post('user_id'), $request->post('event_id'));
+        if($existed != null) { 
+            return $this->index($request, $request->post('event_id')); 
+        }
+        
         if( $request->post('user_id') != null ){
             $user = User::find($request->post('user_id'));
-            
-            $existed = Intervention::get_by_user_event($user->id, $request->post('event_id'));
-            if($existed != null) { 
-                return $this->index($request, $request->post('event_id')); 
-            }
         }else{
             $user = User::create($request);
             Intervenant::store($user->id);
         }
         User::enable_speaker($user);
-
-        $i = Intervention::get_by_user_event($user->id, $request->post('event_id'));
-        
-        if($i == null || $i->deleted_at == null){
-            Intervention::create($user->id, $request->post('event_id'));
-        }
+        Intervention::create($user->id, $request->post('event_id'));
         
         return $this->index($request, $request->post('event_id'));
     }
