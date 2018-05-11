@@ -65,7 +65,7 @@
         </div>
     </div>
     @endif
-
+    
     @if( !in_array(Route::current()->getName(), ['manager', 'validation', 'add-event']) )
     <div class="container">
         <nav aria-label="breadcrumb">

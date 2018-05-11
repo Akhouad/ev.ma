@@ -17,46 +17,17 @@ class IntervenantController extends Controller
             $intervenants = Intervenant::get($id);
             return response()->json($intervenants);
         }
-        
+
         $event = Event::where('id', $id)->first();
         $pending_events = Event::where('status', 'pending')->get();
+
         return view('manager.events.intervenants', compact('event', 'pending_events'));
     }
 
-    public static function store(Request $request){
-        $intervenant = new Intervenant();
-        $intervenant->user_id = $request->post('user_id');
-        $intervenant->deleted_at = null;
-        $intervenant->save();
-
-        UserController::enable_speaker($request->post('user_id'));
-    }
-
     public function create($event_id, Request $request){
-        $user_id = UserController::create($request);
-        InterventionController::create($user_id, $event_id);
-        $intervenant = new Intervenant();
-        $intervenant->user_id = $user_id;
-        $intervenant->save();
+        $user = User::create($request);
+        Intervenant::create($event_id, $user->id);
+        Intervention::create($user->id, $event_id);
         return redirect(route('event-intervenants', ['id' => $event_id]));
-    }
-
-    public static function destroy($user_id){
-        $intervenant = Intervenant::where('user_id', $user_id)->first();
-        $intervenant->deleted_at = date('Y-m-d H:i:s');
-        $intervenant->save();
-
-        UserController::disable_speaker($user_id);
-    }
-
-    public static function is_deleted($user_id){
-        $i = Intervenant::where('user_id', $user_id)->where('deleted_at', null)->first();
-        return ($i != null) ? false : true;
-    }
-
-    public static function recover($user_id){
-        $i = Intervenant::where('user_id', $user_id)->first();
-        $i->deleted_at = null;
-        $i->save();
     }
 }

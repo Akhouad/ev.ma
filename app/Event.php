@@ -73,4 +73,12 @@ class Event extends Model
     public function campaigns(){
         return $this->hasMany('App\Campaign');
     }
+
+    public static function update_recurrent_events(){
+        $recurrent_events = EventsOption::where('label', 'recurrent')->get();
+        foreach($recurrent_events as $rec_ev){
+            $values = unserialize($rec_ev->value);
+            
+        }
+    }
 }

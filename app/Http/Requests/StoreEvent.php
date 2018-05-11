@@ -27,10 +27,16 @@ class StoreEvent extends FormRequest
         return [
             'name' => 'required|unique:events|max:255|min:5',
             'description' => 'required|min:5|max:255',
-            'start_date' => 'required|date|after:yesterday',
-            'start_time' => 'required|date_format:H:i',
-            'end_date' => 'required|date|after:start_date',
-            'end_time' => 'required|date_format:H:i',
+
+            'start_date' => 'required_without_all:recurrent.date.from, recurrent.date.to|date|after:yesterday',
+            'start_time' => 'required_without_all:recurrent.time.from, recurrent.time.to|date_format:H:i',
+            'end_date' => 'required_without_all:recurrent.date.from, recurrent.date.to|date|after:start_date',
+            'end_time' => 'required_without_all:recurrent.time.from, recurrent.time.to|date_format:H:i',
+            'recurrent.time.from' => 'required_without:start_time|date_format:H:i',
+            'recurrent.time.to' => 'required_without:end_time|date_format:H:i',
+            'recurrent.date.from' => 'required_without:start_time|date',
+            'recurrent.date.to' => 'required_without:end_time|date',
+
             'type_id' => 'required|exists:types,id',
             'access_type' => 'required',
             'tickets_url' => 'nullable|url',

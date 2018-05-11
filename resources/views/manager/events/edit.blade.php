@@ -111,7 +111,7 @@
                             <input type="text" value="{{$event->tickets_url}}" name="tickets_url" class="form-control" placeholder="http://www.exemple.com/tickets">
                         </div>
                     </div>
-                    <input type="hidden" value="{{ ($event_options == null) ? 'null' : json_encode(unserialize($event_options->value)) }}" class="event_options">
+                    <input type="hidden" value="{{(count($event->options) == 0 || $event->options->last()->label != 'recurrent') ? 'null' : json_encode(unserialize(($event->options->last())->value)) }}" class="event_options">
                     <div v-if="dateFixe" class="card-footer">
                         <div class="row">
                             <div class="col-6">
@@ -162,39 +162,39 @@
                                 </div>
                                 <div class="form-group" v-if="eventType == 'Hebdomadaire'">
                                     <label for=""><strong>Tous les</strong></label>
-                                    @if($event_options != null && isset( (unserialize($event_options->value))['weekday'] ) )
-                                    <select name="recurrent[weekly][day]" class="form-control" multiple value="{{(unserialize($event_options->value))['weekday']}}">
-                                        @if( (unserialize($event_options->value))['weekday'] == 7 )
+                                    @if(count($event->options) != 0 && $event->options->last()->label == 'recurrent' && isset( (unserialize($event->options->last()->value))['weekday'] ) )
+                                    <select name="recurrent[weekly][day]" class="form-control" multiple value="{{(unserialize($event->options->last()->value))['weekday']}}">
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 7 )
                                         <option value="7" selected>Dimanche</option>
                                         @else
                                         <option value="7">Dimanche</option>
                                         @endif
-                                        @if( (unserialize($event_options->value))['weekday'] == 1 )
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 1 )
                                         <option value="1" selected>Lundi</option>
                                         @else
                                         <option value="1">Lundi</option>
                                         @endif
-                                        @if( (unserialize($event_options->value))['weekday'] == 2 )
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 2 )
                                         <option value="2" selected>Mardi</option>
                                         @else
                                         <option value="2">Mardi</option>
                                         @endif
-                                        @if( (unserialize($event_options->value))['weekday'] == 3 )
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 3 )
                                         <option value="3" selected>Mercredi</option>
                                         @else
                                         <option value="3">Mercredi</option>
                                         @endif
-                                        @if( (unserialize($event_options->value))['weekday'] == 4 )
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 4 )
                                         <option value="4" selected>Jeudi</option>
                                         @else
                                         <option value="4">Jeudi</option>
                                         @endif
-                                        @if( (unserialize($event_options->value))['weekday'] == 5 )
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 5 )
                                         <option value="5" selected>Vendredi</option>
                                         @else
                                         <option value="5">Vendredi</option>
                                         @endif
-                                        @if( (unserialize($event_options->value))['weekday'] == 6 )
+                                        @if( (unserialize($event->options->last()->value))['weekday'] == 6 )
                                         <option value="6" selected>Samedi</option>
                                         @else
                                         <option value="6">Samedi</option>
@@ -214,11 +214,11 @@
                                 </div>
                                 <div class="form-group" v-if="eventType == 'Mensuel'">
                                     <label for=""><strong>Tous les</strong></label>
-                                    @if($event_options != null && isset(unserialize($event_options->value)['monthly']['day_number']))
+                                    @if(count($event->options) != 0 && $event->options->last()->label == 'recurrent' && isset(unserialize($event->options->last()->value)['monthly']['day_number']))
                                     <select v-if="!joursSemaine" name="recurrent[monthly][day_number]" class="form-control">
                                         <option value="1">1er</option>
                                         @for ($i = 2; $i <= 31; $i++)
-                                        @if($i == unserialize($event_options->value)['monthly']['day_number'])
+                                        @if($i == unserialize($event->options->last()->value)['monthly']['day_number'])
                                         <option value="{{$i}}" selected>{{$i}}e</option>
                                         @else
                                         <option value="{{$i}}">{{$i}}e</option>
@@ -328,8 +328,8 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>De:</strong></label>
-                                    @if( $event_options != null )
-                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_from']}}" name="recurrent[time][from]">
+                                    @if( count($event->options) != 0 && $event->options->last()->label == 'recurrent' )
+                                    <input type="time" class="form-control" value="{{(unserialize($event->options->last()->value))['time_from']}}" name="recurrent[time][from]">
                                     @else
                                     <input type="time" class="form-control" name="recurrent[time][from]">
                                     @endif
@@ -338,8 +338,8 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>À:</strong></label>
-                                    @if( $event_options != null )
-                                    <input type="time" class="form-control" value="{{(unserialize($event_options->value))['time_to']}}" name="recurrent[time][to]">
+                                    @if( count($event->options) != 0 && $event->options->last()->label == 'recurrent' )
+                                    <input type="time" class="form-control" value="{{(unserialize($event->options->last()->value))['time_to']}}" name="recurrent[time][to]">
                                     @else
                                     <input type="time" class="form-control" name="recurrent[time][to]">
                                     @endif
@@ -350,20 +350,20 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>Répéter à partir du:</strong></label>
-                                    @if( $event_options != null )
-                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_from']}}" name="recurrent[date][from]">
+                                    @if( count($event->options) != 0 && $event->options->last()->label == 'recurrent' )
+                                    <input type="text" class="form-control datetimepicker" value="{{(unserialize($event->options->last()->value))['date_from']}}" name="recurrent[date][from]">
                                     @else
-                                    <input type="text" class="form-control" name="recurrent[date][from]">
+                                    <input type="text" class="form-control datetimepicker" name="recurrent[date][from]">
                                     @endif
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""><strong>Au:</strong></label>
-                                    @if( $event_options != null )
-                                    <input type="text" class="form-control" value="{{(unserialize($event_options->value))['date_to']}}" name="recurrent[date][to]">
+                                    @if( count($event->options) != 0 && $event->options->last()->label == 'recurrent' )
+                                    <input type="text" class="form-control datetimepicker" value="{{(unserialize($event->options->last()->value))['date_to']}}" name="recurrent[date][to]">
                                     @else
-                                    <input type="text" class="form-control" name="recurrent[date][to]">
+                                    <input type="text" class="form-control datetimepicker" name="recurrent[date][to]">
                                     @endif
                                 </div>
                             </div>

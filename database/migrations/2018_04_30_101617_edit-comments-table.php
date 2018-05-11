@@ -14,7 +14,7 @@ class EditCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->integer('deleted_at')->nullable();
+            $table->datetime('deleted_at')->nullable();
             $table->integer('reported')->default(0);
         });
     }

@@ -22,13 +22,14 @@ const app = new Vue({
         addNewPlace: false,
         suggestedVenues: [],
         addNewUser: false,
-        suggestedUsers: [],
+        suggestedUsers: []
         // venue_data: {city_lat: '', city_lng: '', venue_lat: '', venue_lng: '', venue_id: '', foursquare_id: ''}
     },
     methods: {
         toggleEvents(e){
             e.preventDefault()
             let self = this
+            
             if(!this.eventRecurrent){
                 document.querySelector("input[name='start_date']").value = ""
                 document.querySelector("input[name='start_time']").value = ""
@@ -37,7 +38,7 @@ const app = new Vue({
             }
             else{
                 if(self.eventType == 'Hebdomadaire'){
-                    document.querySelector("input[name='recurrent[weekly]']").value = ""
+                    document.querySelector("select[name='recurrent[weekly][day]']").value = ""
                 }
                 else if(self.eventType == 'Mensuel'){
                     if(!self.joursSemaine){
@@ -53,21 +54,25 @@ const app = new Vue({
                 document.querySelector("input[name='recurrent[time][to]']").value = ""
                 document.querySelector("input[name='recurrent[date][from]']").value = ""
                 document.querySelector("input[name='recurrent[date][to]']").value = ""
+                document.querySelector("[name*=recurrent]").value= null
             }
 
             setTimeout(function(){
                 self.dateFixe = !self.dateFixe
                 self.eventRecurrent = !self.eventRecurrent   
+                
+                Vue.nextTick(function () {
+                    self.initDateTimePicker()
+                })
             }, 100)
-            
-            Vue.nextTick(function () {
-                $('input.datetimepicker').daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true
-                }, function(start, end, label) {
-                    var years = moment().diff(start, 'years');
-                });
-            })
+        },
+        initDateTimePicker(){
+            $('input.datetimepicker').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true
+            }, function(start, end, label) {
+                var years = moment().diff(start, 'years');
+            });
         },
         eventTypeChanged(){
             console.log(this.eventType)
@@ -162,11 +167,12 @@ const app = new Vue({
             })
         }
     },
-    created(){
+    created(){              
         if(document.querySelector("input[name='venue[name]']") !== null)
             this.venue = document.querySelector("input[name='venue[name]']").value
+
         if(document.querySelector('.event_options') !== null 
-            && document.querySelector('.event_options').value !== 'null'){               
+            && document.querySelector('.event_options').value !== 'null'){ 
             this.dateFixe = false
             this.eventRecurrent = true
             let recurrent = JSON.parse(document.querySelector('.event_options').value)
@@ -174,7 +180,9 @@ const app = new Vue({
             if(this.eventType == "Mensuel"){
                 this.joursSemaine = (recurrent.monthly_type == "week_number") ? true : false
             }
+            console.log(recurrent)
         }
+
     }
 });
 

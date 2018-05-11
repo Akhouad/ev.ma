@@ -5,7 +5,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Manager')->group(function(){
     Route::prefix('register')->group(function(){
-        Route::post('intervenant/{event_id}', 'IntervenantController@create')->where('event_id', '[0-9]+');
+        // Route::post('intervenant/{event_id}', 'InterventionController@store')->where('event_id', '[0-9]+');
     });
 });
 
@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/', 'ManagerController@index')->name('manager');
         Route::get('/search', 'ManagerController@search')->name('manager-search');
         Route::get('/validation', 'ManagerController@validation')->name('validation');
-        // Route::get('/validation', 'ManagerController@search')->name('validation-search');
+        Route::get('/validation/search', 'ManagerController@search')->name('validation-search');
 
         Route::prefix('event')->group(function(){
             Route::get('add', 'EventController@add_index')->name('add-event');
@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function(){
                 Route::get('unpublish', 'EventController@unpublishEvent')->name('event-unpublish');
                 
                 Route::get('intervenants', 'IntervenantController@index')->name('event-intervenants');
+                Route::post('intervenants', 'InterventionController@store')->name('event-intervenants');
+
                 Route::get('images', 'ImageController@index')->name('event-images');
                 Route::post('images', 'ImageController@store')->name('event-images');
                 Route::post('images/delete', 'ImageController@delete')->name('delete-image');

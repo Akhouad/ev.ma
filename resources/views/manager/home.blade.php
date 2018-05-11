@@ -1,7 +1,7 @@
 @extends('../layouts.manager', compact('pending_events'))
 
 @section('content')
-@if(count($events) == 0 && !isset($search_key))
+@if(count($events) == 0 && $search_key == null)
 <div class="manager-hero">
     <div class="hero-content">
         <div class="container">
@@ -30,8 +30,8 @@
     
     <div class="row">
         <div class="col-md-4">
-            <form action="{{route('manager')}}" method="post">
-                {{csrf_field()}}
+            <form action="{{route('manager-search')}}" method="get">
+                <input type="hidden" name="event-type" value="myevents">
                 <div class="form-group">
                     <div class="input-group">
                         <input type="text" class="form-control" name="recherche" placeholder="Recherche...">

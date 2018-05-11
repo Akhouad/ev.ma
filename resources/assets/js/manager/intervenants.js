@@ -48,6 +48,7 @@ const app = new Vue({
             }
             // /manager/intervenants
             axios.post('/manager/intervenants', data).then(data => {
+                // console.log(data);return;
                 this.show_loader = false
                 this.fillIntervenants(data.data)
                 document.querySelector("input[name='user[name]']").value = ""

@@ -17,10 +17,11 @@ class CheckEvent
     public function handle($request, Closure $next)
     {
         if( !is_numeric($request->id) ) return abort(404, 'Evenement introuvable');
-        $event = \App\Event::where('id', $request->id)->firstOrFail();
+        $event = \App\Event::where('id', $request->id)->first();
+        if($event == null) return abort(404, 'Evenement introuvable');
         if( Auth::user()->is_admin == 0 ){
             if($event->organizer->user_id != Auth::id())
-                return abort(403, 'Evenement introuvable.');                
+                return abort(401, 'Evenement introuvable.');                
         }
 
         return $next($request);

@@ -12,39 +12,54 @@ class ManagerController extends Controller
 {
     private $events_count = 20;
 
-    public function index(){      
-        $events = Event::where("organizer_id", Auth::user()->organizer->id)->paginate($this->events_count);
-        $pending_events = Event::where('status', 'pending')->get();
-        return view('manager/home', compact('events', 'pending_events'));
+    private function pending_events(){
+        return Event::where('status', 'pending')->get();
+    }
+    public function index($events = null, $search_key = null){
+        if($events == null)      
+            $events = Event::where("organizer_id", Auth::user()->organizer->id)
+                            ->orderBy('start_timestamp', 'asc')
+                            ->paginate($this->events_count);
+        $pending_events = $this->pending_events();
+        return view('manager/home', compact('events', 'pending_events', 'search_key'));
     }
 
-    public function validation(){
-        $events = Event::where('status', 'pending')->paginate($this->events_count);
-        $pending_events = Event::where('status', 'pending')->get();
-        return view('manager/validation', compact('events', 'pending_events'));
+    public function validation($events = null, $search_key = null){
+        if($events == null)
+            $events = Event::where('status', 'pending')
+                            ->orderBy('start_timestamp', 'asc')
+                            ->paginate($this->events_count);
+        $pending_events = $this->pending_events();
+        return view('manager/validation', compact('events', 'pending_events', 'search_key'));
     }
 
-    public function show($events, $destination, $search_key){
-        $pending_events = Event::where('status', 'pending')->get();
-        return view('manager/' . $destination, compact('events', 'pending_events', 'search_key'));
+    // methods below are used to search events
+
+    public function show($events, $source, $search_key){
+        if($source == 'validation') return $this->validation($events, $search_key);
+        else return $this->index($events, $search_key);
     }
 
     public function search(Request $request){
         $validatedData = $request->validate([
             'recherche' => 'required|max:255'
         ]);
-        $destination = (explode('/', $request->header('referer'))[4] != null) ? 'validation' : 'home' ;
-        $search_key = $request->post('recherche');
 
-        if($destination == 'validation'){
+        $source = ($request->input('events-type') == 'validation') ? 'validation' : 'home' ;
+        $search_key = $request->input('recherche');
+
+        if($source == 'validation'){
             $events = Event::where('name', 'like', '%' . $search_key . '%')
                             ->where('status', 'pending')
+                            ->orderBy('start_timestamp', 'asc')
                             ->paginate($this->events_count);
         }else{
             $events = Event::where('name', 'like', '%' . $search_key . '%')
+                            ->orderBy('start_timestamp', 'asc')
+                            ->where("organizer_id", Auth::user()->organizer->id)
                             ->paginate($this->events_count);
         }
 
-        return $this->show($events, $destination, $search_key);
+        return $this->show($events, $source, $search_key);
     }
 }
