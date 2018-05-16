@@ -23,4 +23,5 @@ mix.js('resources/assets/js/manager/app.js', 'public/js/manager')
     .js('resources/assets/js/site/common.js', 'public/js/site')
     .js('resources/assets/js/site/home.js', 'public/js/site')
     .js('resources/assets/js/site/event.js', 'public/js/site')
+    .js('resources/assets/js/site/search.js', 'public/js/site')
    .sass('resources/assets/sass/site/app.scss', 'public/css/site');

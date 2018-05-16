@@ -1,2 +1,20 @@
 .primary-color-text{ color: $primary-color }
 .secondary-color-text{ color: $secondary-color }
+
+.paragraph-title{
+    padding-bottom:20px;
+    margin-bottom:20px;
+    position:relative;
+    width:100%;
+    display:inline-block;
+
+    &:after{
+        content:'';
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:30px;
+        height:1px;
+        background-color: $primary-color;
+    }
+}

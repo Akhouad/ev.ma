@@ -34,4 +34,10 @@
             background-color: lighten($danger-color, 10%)
         }
     }
+
+    &.btn-default{
+        background-color: #fff;
+        color:$dark-gray;
+        border:solid 1px rgba($gray, .5);
+    }
 }

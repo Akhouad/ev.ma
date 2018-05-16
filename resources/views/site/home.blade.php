@@ -7,60 +7,87 @@
 
 @section('content')
 <div id="app">
-    @if(Auth::user() !== null)
-    <input type="hidden" value="{{Auth::user()->city->slug}}" ref="city">
-    @endif
     <div class="row">
-        <div class="col-9">
+        <div class="col-md-9">
             <div class="row">
-                <div class="col-3" v-for="index in 7" v-if="events.length == 0">
-                    <event-skeleton :index="index" />
-                </div>
-                <div class="col-3" v-for="e in events" v-if="events.length > 0" v-cloak>
-                    <div href="" class="event-block">
-                        <a :href="'/ev/' + e.slug + '/' + e.id">
-                            <div class="event-image" data-toggle="tooltip" data-placement="bottom" :title="e.name" v-if="e.name.length >= 40">
-                                <img :src="'/storage/images/manager/events/' + e.cover" alt="">
+                @if(isset($results))
+
+                    {{-- SEARCH RESULTS --}}
+                    @if(isset($results) && count($results) > 0)
+                        @if( isset($results['events']) && count($results['events']) > 0 )
+                            <div class="col-md-12">
+                                <h6 class="paragraph-title">Evenements trouvés:</h6>
                             </div>
-                            <div class="event-image" v-if="e.name.length < 40">
-                                <img :src="'/storage/images/manager/events/' + e.cover" alt="">
-                            </div>
-                            <div class="event-info">
-                                <p class="event-name">@{{e.name | truncate(40)}}</p>
-                                <p class="event-date">
-                                    <i class="fa fa-calendar"></i>
-                                    @{{e.start_timestamp}}
+
+                            @foreach($results['events'] as $e)
+                                <div class="col-3">
+                                    <div class="event-block">
+                                        <a href="{{route('event-page', ['id' => $e->id, 'slug' => $e->slug])}}">
+                                            <div class="event-image">
+                                                <img src="{{asset('storage/images/manager/events/' . $e->cover)}}" alt="">
+                                            </div>
+                                            <div class="event-info">
+                                                @if(strlen($e->name) > 40)
+                                                <p class="event-name" data-toggle="tooltip" data-placement="bottom" title="{{$e->name}}">
+                                                    {{str_limit($e->name, 40, '...')}}
+                                                </p>
+                                                @else
+                                                <p class="event-name">{{$e->name}}</p>
+                                                @endif
+                                                <p class="event-date">
+                                                    <i class="fa fa-calendar"></i>
+                                                    {{$e->start_timestamp}}
+                                                </p>
+                                                <p class="event-location">
+                                                    <i class="fa fa-map-marker primary-color-text"></i>
+                                                    {{$e->city}}
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <a href="" class="event-button">Ajouter à mon calendrier</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @elseif( isset($results['users']) && count($results['users']) > 0 )
+                            @foreach($results['users'] as $u)
+                                <div class="col-md-12">
+                                    <h6 class="paragraph-title">Utilisateurs trouvés:</h6>
+                                </div>
+                                <div class="col-md-2">{{$u->fullname}}</div>
+                            @endforeach
+                        @elseif( isset($results['organizers']) && count($results['organizers']) > 0 )
+                            @foreach($results['organizers'] as $o)
+                                <div class="col-md-12">
+                                    <h6 class="paragraph-title">Organisateurs trouvés:</h6>
+                                </div>
+                                <div class="col-md-2">{{$o->name}}</div>
+                            @endforeach
+                        @endif
+                        
+                        <?php
+                            $sum = 0;
+                            foreach($results as $r){ $sum += count($r); }
+                        ?>
+                        @if( $sum == 0 )
+                            <div class="col-md-12">
+                                <p style="text-align:center;padding:50px;">
+                                    Aucun résulat trouvé.
                                 </p>
-                                <p class="event-location">
-                                    <i class="fa fa-map-marker primary-color-text"></i>
-                                    @{{e.city}}
-                                </p>
                             </div>
-                        </a>
-                        <a href="" class="event-button">Ajouter à mon calendrier</a>
-                    </div>
-                </div>
+                        @endif
+                    @endif
+            </div>
+            <div class="row">
+                @else
+                    {{-- DEFAULT RESULTS --}}
+                    <events-list></events-list>
+                @endif
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
             @if(Auth::user() !== null)
             <div class="sidebar-widget">
-                <div class="sidebar-heading">utilisateurs prés de vous</div>
-                <div v-if="users.length == 0"><user-skeleton v-for="index in 5" :index="index" /></div>
-                <ul class="sidebar-users" v-if="users.length > 0">
-                    <li v-for="u in users" v-cloak>
-                        <div class="user-info">
-                            <a href="">
-                                <img :src="'/storage/images/avatars/' + u.avatar" alt="">
-                                <p class="fullname" v-text="u.fullname"></p>
-                                <p class="username" v-text="u.username"></p>
-                            </a>
-                        </div>
-                        <div class="user-actions">
-                            <a href="" class="btn btn-danger btn-sm">x</a>
-                        </div>
-                    </li>
-                </ul>
+                <users-sidebar city="{{Auth::user()->city->slug}}"></users-sidebar>
             </div>
             @endif
         </div>

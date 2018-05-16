@@ -10,8 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>[DEV] - {{$title}}</title>
 
-    <link rel="stylesheet" href="{{asset('css/site/app.css')}}">
     @yield('styles')
+    <link rel="stylesheet" href="{{asset('css/site/app.css')}}">
 </head>
 <body>
     <header class="main-header">
@@ -33,10 +33,12 @@
             <div class="container">
                 <a href="{{route('homepage')}}" class="logo"><img src="{{asset('storage/images/logo.png')}}" alt=""></a> 
                 <div class="header-search">
-                    <input type="text" placeholder="Chercher des événements, des personnes ...">
-                    <button><i class="fa fa-search"></i></button>
+                    <form action="{{route('homepage')}}" method="get">
+                        <input type="text" name="search" placeholder="Chercher des événements, des personnes ...">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
-                <a href="" class="advanced-search">recherche avancée</a>
+                <a href="{{route('advanced-search')}}" class="advanced-search">recherche avancée</a>
                 @if(Auth::user() !== null)
                 <div class="header-profile dropdown">
                     <a href="" class="avatar dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,7 +99,11 @@
                     <ul>
                         @foreach($categories as $key => $c)
                         @if($key < 10)
-                        <li><a href="">{{$c->name}}</a></li>
+                        <li>
+                            <a href="{{route('category', ['category' => $c->slug])}}">
+                                {{$c->name}}
+                            </a>
+                        </li>
                         @endif
                         @endforeach
                         <li><a href="">Plus</a></li>

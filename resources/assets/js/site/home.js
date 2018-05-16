@@ -1,21 +1,11 @@
 Vue.component('event-skeleton', require('../components/EventSkeleton.vue'));
-Vue.component('user-skeleton', require('../components/UserSkeleton.vue'));
+Vue.component('users-sidebar', require('../components/UsersSidebar.vue'));
+Vue.component('events-list', require('../components/EventsList.vue'));
 var app = new Vue({
     el: "#app",
     data: {
-        events: [],
-        users: []
     },
     methods: {
-        getEvents(){
-            axios.get('/api/events').then(events => {
-                this.events = events.data
-                this.events.forEach(e => e.start_timestamp = this.formatDate(new Date(e.start_timestamp)))
-                
-                setTimeout(function(){$('[data-toggle="tooltip"]').tooltip()}, 100)
-                console.log(this.events)
-            })
-        },
         formatDate(date) {
             var monthNames = [
               "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 

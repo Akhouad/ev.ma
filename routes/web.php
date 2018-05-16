@@ -81,6 +81,10 @@ Route::namespace('Site')->group(function(){
         Route::get('{category}', function(){ return 'test page'; })->name('category')->where('category', '[a-zA-Z-]+');
     });
 
+    Route::prefix('search')->group(function(){
+        Route::get('advanced', 'SearchController@index')->name('advanced-search');
+    });
+
     Route::prefix('ev/{slug}/{id}')->middleware(App\Http\Middleware\CheckEvent::class)->group(function(){
         Route::get('/', 'EventController@show')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
         Route::post('/', 'CommentController@store')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');

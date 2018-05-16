@@ -107,7 +107,7 @@
                 <div id="collapseIntervenants" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="card-body">
                         <ul class="intervenants">
-                            @foreach($event->interventions as $intervenant)
+                            @foreach($event->interventions->where('deleted_at', null) as $intervenant)
                             <li>
                                 <a href="">
                                     <div class="intervenant-image">
