@@ -12,9 +12,7 @@ const app = new Vue({
             this.search_type = type
   
             setTimeout(function(){
-            
-                Vue.nextTick(function () {
-                })
+                Vue.nextTick(function () {})
             }, 100)
         }
     }

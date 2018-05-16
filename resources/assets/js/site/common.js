@@ -8,9 +8,11 @@ require('../bootstrap-select')
 Vue.component('users-sidebar', require('../components/UsersSidebar.vue'));
 Vue.component('events-list', require('../components/EventsList.vue'));
 
-var app = new Vue({
-    el: "#app"
-})
+if($('#app').length){
+    var app = new Vue({
+        el: "#app"
+    })
+}
 
 $(document).ready(function(){
     $(window).scroll(function(){

@@ -129,3 +129,9 @@
     }
 }
 
+.form-control{
+    &:focus{
+        box-shadow: 0 0 0 transparent;
+        border-color: $primary-color;
+    }
+}
