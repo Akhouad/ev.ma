@@ -18,3 +18,15 @@
         background-color: $primary-color;
     }
 }
+
+.list-item{
+    font-size:13px;
+    line-height: 24px;
+    color: $link-color;
+    transition: all .2s;
+
+    &:hover{
+        text-decoration:none;
+        color: $primary-color;
+    }
+}

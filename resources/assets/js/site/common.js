@@ -5,6 +5,13 @@ var moment = require('../moment.js');
 require('../daterangepicker');
 require('../bootstrap-select')
 
+Vue.component('users-sidebar', require('../components/UsersSidebar.vue'));
+Vue.component('events-list', require('../components/EventsList.vue'));
+
+var app = new Vue({
+    el: "#app"
+})
+
 $(document).ready(function(){
     $(window).scroll(function(){
         if ($(this).scrollTop() >= 100) $("header.main-header").addClass('sticky-header');

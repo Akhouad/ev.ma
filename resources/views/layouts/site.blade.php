@@ -106,7 +106,7 @@
                         </li>
                         @endif
                         @endforeach
-                        <li><a href="">Plus</a></li>
+                        <li><a href="{{route('categories')}}">Plus</a></li>
                     </ul>
                 </nav>
             </div>

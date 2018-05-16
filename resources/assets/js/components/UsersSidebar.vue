@@ -5,7 +5,7 @@
         <ul class="sidebar-users" v-if="users.length > 0">
             <li v-for="u in users" v-cloak>
                 <div class="user-info">
-                    <a href="">
+                    <a :href="'/user/' + u.username">
                         <img :src="'/storage/images/avatars/' + u.avatar" alt="">
                         <p class="fullname" v-text="u.fullname"></p>
                         <p class="username" v-text="u.username"></p>

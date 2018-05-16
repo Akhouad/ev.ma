@@ -9,8 +9,8 @@
 <div id="app">
     <div class="row">
         <div class="col-md-9">
-            <div class="row">
-                @if(isset($results))
+            @if(isset($results))
+                <div class="row">
 
                     {{-- SEARCH RESULTS --}}
                     @if(isset($results) && count($results) > 0)
@@ -76,25 +76,21 @@
                             </div>
                         @endif
                     @endif
-            </div>
-            <div class="row">
-                @else
-                    {{-- DEFAULT RESULTS --}}
-                    <events-list></events-list>
-                @endif
+                <!-- </div> -->
+            @else
+                <div class="row">
+                {{-- DEFAULT RESULTS --}}
+                <events-list />
+            @endif
             </div>
         </div>
         <div class="col-md-3">
             @if(Auth::user() !== null)
             <div class="sidebar-widget">
-                <users-sidebar city="{{Auth::user()->city->slug}}"></users-sidebar>
+                <users-sidebar city="{{Auth::user()->city->slug}}" />
             </div>
             @endif
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script src="{{asset('js/site/home.js')}}"></script>
 @endsection

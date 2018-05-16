@@ -77,8 +77,17 @@ Route::namespace('Site')->group(function(){
         Route::get('{username}', function($username){ return $username; })->name('user')->where('username', '[a-zA-Z-]+');
     });
 
-    Route::prefix('category')->group(function(){
-        Route::get('{category}', function(){ return 'test page'; })->name('category')->where('category', '[a-zA-Z-]+');
+    Route::prefix('categories')->group(function(){
+        Route::get('/', 'CategoryController@index')->name('categories');
+        Route::get('{category}', 'CategoryController@show')->name('category')->where('category', '[a-zA-Z-]+');
+    });
+
+    Route::prefix('types')->group(function(){
+        Route::get('{type}', 'TypeController@show')->name('type')->where('category', '[a-zA-Z-]+');
+    });
+
+    Route::prefix('tags')->group(function(){
+        Route::get('{tag}', 'TagController@show')->name('tag')->where('category', '[a-zA-Z-]+');
     });
 
     Route::prefix('search')->group(function(){
@@ -99,8 +108,8 @@ Route::namespace('Site')->group(function(){
     
 Route::prefix('api')->group(function(){
     Route::namespace("Site")->group(function(){
-        Route::get('events', ['permissions_require_all' => true, 'uses' => 'ApiController@events']);
-        Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'ApiController@usersByCity'])
+        Route::get('events', ['permissions_require_all' => true, 'uses' => 'EventController@index']);
+        Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'UserController@index'])
                 ->where('city', '[a-zA-Z-]+')->where('limit','[0-9]+');
     });
 });

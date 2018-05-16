@@ -93,7 +93,7 @@
         <div class="col-md-3 offset-md-1">
             @if(Auth::user() !== null)
             <div class="sidebar-widget">
-                <users-sidebar city="{{Auth::user()->city->slug}}"></users-sidebar>
+                <users-sidebar city="{{Auth::user()->city->slug}}" />
             </div>
             @endif
         </div>

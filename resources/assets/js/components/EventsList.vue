@@ -31,19 +31,39 @@
 </template>
 
 <script>
+    import event_skeleton from './EventSkeleton'
+
     export default {
+        components:{
+            'event-skeleton': event_skeleton
+        },
         data(){
             return{
                 events: []
             }
         },
         methods:{
+            formatDate(date) {
+                var monthNames = [
+                    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+                    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"
+                ];
+                
+                var day = date.getDate();
+                var monthIndex = date.getMonth();
+                var year = date.getFullYear();
+                
+                return (day + ' ' + monthNames[monthIndex] + ' ' + year)
+                        .split(' ')
+                        .splice(0, (day + ' ' + monthNames[monthIndex] + ' ' + year).split(' ').length - 1)
+                        .join(' ');
+            },
             getEvents(){
                 axios.get('/api/events').then(events => {
                     this.events = events.data
                     this.events.forEach(e => e.start_timestamp = this.formatDate(new Date(e.start_timestamp)))
                     
-                    setTimeout(function(){$('[data-toggle="tooltip"]').tooltip()}, 100)
+                    setTimeout(function(){ $('[data-toggle="tooltip"]').tooltip() }, 10)
                 })
             }
         },
