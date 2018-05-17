@@ -12,7 +12,8 @@ use App\Tag;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function index(Request $request, $limit = null){
+
         $categories = Category::get();
         $footer_cities = City::where('prior', 1)->get();
         
@@ -20,13 +21,14 @@ class CategoryController extends Controller
             return $cat->events->count();
         });
 
-        $types = Type::with('events')->get()->sortByDesc(function($type){
-            return $type->events->count();
-        });
+        if($request->ajax()){
+            $cats = array_slice($cats->toArray(), 0, $limit, true);
+            return response($cats, 200)->header('Content-Type', 'text/json');
+        }
 
-        $tags = Tag::with('events')->get()->sortByDesc(function($tag){
-            return $tag->events->count();
-        });
+        $types = Type::index();
+        $tags = Tag::index();
+
         return view('site.categories', compact('categories', 'footer_cities', 'types', 'tags', 'cats'));
     }
 

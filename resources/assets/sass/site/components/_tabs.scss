@@ -1,0 +1,21 @@
+.nav-tabs{
+    li{
+        &.nav-item{
+            .nav-link{
+                border:0;
+                color:rgba($gray, .75);
+                transition: all .2s;
+                border-bottom: solid 1px transparent;
+
+                &:not(.active):hover{
+                    color: rgba($dark-gray, .75);
+                }
+
+                &.active{
+                    color:$primary-color;
+                    border-bottom-color: $primary-color;
+                }
+            }
+        }
+    }
+}

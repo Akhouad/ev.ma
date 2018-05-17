@@ -89,8 +89,29 @@
                 @if(Auth::user() !== null)
                 <near-events city="{{Auth::user()->city->slug}}"></near-events>
                 @endif
-                <most-used type="tags"></most-used>
-                <most-used type="types"></most-used>
+                <div class="sidebar-heading">Populaires</div>
+                <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#cats">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#types">Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tags">Tags</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="cats">
+                        <most-used type="categories"></most-used>
+                    </div>
+                    <div class="tab-pane fade show" id="types">
+                        <most-used type="types"></most-used>
+                    </div>
+                    <div class="tab-pane fade show" id="tags">
+                        <most-used type="tags"></most-used>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

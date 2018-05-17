@@ -17,7 +17,7 @@
                 </div>
                 @endforeach
             </div>
-            <h6 class="paragraph-title mt-4">Les types</h6>
+            <h6 class="paragraph-title mt-4" id="types">Les types</h6>
             <div class="row">
                 @foreach($types as $t)
                     <div class="col-md-3">
@@ -27,7 +27,7 @@
                     </div>
                 @endforeach
             </div>
-            <h6 class="paragraph-title mt-4">Les top tags</h6>
+            <h6 class="paragraph-title mt-4" id="tags">Les top tags</h6>
             <div class="row">
                 @foreach($tags as $t)
                     <div class="col-md-3">

@@ -121,4 +121,7 @@ Route::namespace('Site')->group(function(){
     Route::prefix('types')->group(function(){
         Route::get('popular/{limit}', ['permissions_require_all' => true, 'uses' => 'TypeController@index'])->where('limit', '[0-9]+');
     });
+    Route::prefix('categories')->group(function(){
+        Route::get('popular/{limit}', ['permissions_require_all' => true, 'uses' => 'CategoryController@index'])->where('limit', '[0-9]+');
+    });
 });

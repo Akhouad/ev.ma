@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div class="sidebar-heading">Les {{type}} les plus populaires</div>
         <list-skeleton v-if="list.length == 0" v-for="index in 5" :index="index" />
         <ul class="sidebar-list">
             <li v-for="l of list">
@@ -10,7 +9,7 @@
                 </a>
             </li>
             <li class="last">
-                <a href="/categories">+ Voir Plus</a>
+                <a :href="'/categories#' + type">+ Voir Plus</a>
             </li>
         </ul>
     </div>
