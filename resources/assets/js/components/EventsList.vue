@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import event_skeleton from './EventSkeleton'
+    import event_skeleton from './skeletons/EventSkeleton'
 
     export default {
         components:{
@@ -59,7 +59,7 @@
                         .join(' ');
             },
             getEvents(){
-                axios.get('/api/events').then(events => {
+                axios.get('/events').then(events => {
                     this.events = events.data
                     this.events.forEach(e => e.start_timestamp = this.formatDate(new Date(e.start_timestamp)))
                     

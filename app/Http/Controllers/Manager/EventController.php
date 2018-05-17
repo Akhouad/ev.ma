@@ -106,7 +106,7 @@ class EventController extends Controller
         $e->save();
 
         // ADD EVENT OPTIONS
-        if(!empty($data['plan']['date'])){
+        if($data['plan']['time'] != null){
             $eo = new EventsOption();
             $eo->event_id = $e->id;
             $eo->label = "queued";

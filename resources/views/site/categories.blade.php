@@ -42,6 +42,7 @@
             <div id="app">
                 @if(Auth::user() !== null)
                 <div class="sidebar-widget">
+                    <latest-events></latest-events>
                     <users-sidebar city="{{Auth::user()->city->slug}}" />
                 </div>
                 @endif

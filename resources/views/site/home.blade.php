@@ -87,7 +87,9 @@
         <div class="col-md-3">
             @if(Auth::user() !== null)
             <div class="sidebar-widget">
-                <users-sidebar city="{{Auth::user()->city->slug}}" />
+                <most-used type="tags"></most-used>
+                <most-used type="types"></most-used>
+                <users-sidebar city="{{Auth::user()->city->slug}}"></users-sidebar>
             </div>
             @endif
         </div>

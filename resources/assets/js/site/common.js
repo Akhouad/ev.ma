@@ -7,6 +7,8 @@ require('../bootstrap-select')
 
 Vue.component('users-sidebar', require('../components/UsersSidebar.vue'));
 Vue.component('events-list', require('../components/EventsList.vue'));
+Vue.component('most-used', require('../components/MostUsed.vue'));
+Vue.component('latest-events', require('../components/LatestEvents.vue'));
 
 if($('#app').length){
     var app = new Vue({

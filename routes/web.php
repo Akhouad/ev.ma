@@ -104,12 +104,19 @@ Route::namespace('Site')->group(function(){
         Route::get('/', 'CityController@index')->name('cities');
         Route::get('{city}', 'CityController@show')->name('city')->where('city', '[a-zA-Z-]+');
     });
-});
+
+    // API
+    Route::prefix('events')->group(function(){
+        Route::get('/', ['permissions_require_all' => true, 'uses' => 'EventController@index']);
+        Route::get('latest/{limit}', ['permissions_require_all' => true, 'uses' => 'EventController@latest'])->where('limit', '[0-9]+');
+    });
     
-Route::prefix('api')->group(function(){
-    Route::namespace("Site")->group(function(){
-        Route::get('events', ['permissions_require_all' => true, 'uses' => 'EventController@index']);
-        Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'UserController@index'])
-                ->where('city', '[a-zA-Z-]+')->where('limit','[0-9]+');
+    Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'UserController@index'])
+            ->where('city', '[a-zA-Z-]+')->where('limit','[0-9]+');
+    Route::prefix('tags')->group(function(){
+        Route::get('popular/{limit}', ['permissions_require_all' => true, 'uses' => 'TagController@index'])->where('limit', '[0-9]+');
+    });
+    Route::prefix('types')->group(function(){
+        Route::get('popular/{limit}', ['permissions_require_all' => true, 'uses' => 'TypeController@index'])->where('limit', '[0-9]+');
     });
 });

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import user_skeleton from './UserSkeleton'
+    import user_skeleton from './skeletons/UserSkeleton'
     
     export default {
         components: {
@@ -36,7 +36,7 @@
         },
         methods:{
             getUsers(){
-                axios.get('/api/users/city/' + this.city + '/5').then(users => {
+                axios.get('/users/city/' + this.city + '/5').then(users => {
                     this.users = users.data
                 })
             }
