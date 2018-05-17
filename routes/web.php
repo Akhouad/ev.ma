@@ -109,6 +109,8 @@ Route::namespace('Site')->group(function(){
     Route::prefix('events')->group(function(){
         Route::get('/', ['permissions_require_all' => true, 'uses' => 'EventController@index']);
         Route::get('latest/{limit}', ['permissions_require_all' => true, 'uses' => 'EventController@latest'])->where('limit', '[0-9]+');
+        Route::get('nearest/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'EventController@nearest'])
+                ->where('limit', '[0-9]+')->where('city', '[a-zA-z0-9-_.]+');
     });
     
     Route::get('users/city/{city}/{limit}', ['permissions_require_all' => true, 'uses' => 'UserController@index'])

@@ -91,12 +91,12 @@
             </div>
         </div>
         <div class="col-md-3 offset-md-1">
-            @if(Auth::user() !== null)
             <div class="sidebar-widget">
                 <latest-events></latest-events>
-                <users-sidebar city="{{Auth::user()->city->slug}}" />
+                @if(Auth::user() !== null)
+                <near-events city="{{Auth::user()->city->slug}}"></near-events>
+                @endif
             </div>
-            @endif
         </div>
     </div>
 </form>

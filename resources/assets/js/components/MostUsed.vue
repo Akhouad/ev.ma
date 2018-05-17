@@ -9,7 +9,9 @@
                     <span>({{l.events.length}})</span>
                 </a>
             </li>
-            <li class="last"><a href="/categories">+ Voir Plus</a></li>
+            <li class="last">
+                <a href="/categories">+ Voir Plus</a>
+            </li>
         </ul>
     </div>
 </template>

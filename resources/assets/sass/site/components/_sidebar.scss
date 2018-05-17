@@ -152,4 +152,20 @@
             }
         }
     }
+
+    &.gray{
+        li{
+            .event-date{
+                background-color: rgba($dark-gray, .5);
+            }
+        }
+    }
+
+    &.green{
+        li{
+            .event-date{
+                background-color: $primary-color;
+            }
+        }
+    }
 }
