@@ -40,6 +40,15 @@
         color:$dark-gray;
         border:solid 1px rgba($gray, .5);
     }
+
+    &.disabled{
+        &, &:hover{
+            background-color: rgba($gray, .5);
+            color:#fff;
+            cursor:default;
+            box-shadow: 0 3px 0 $gray;
+        }
+    }
 }
 
 @keyframes fadeInfinite{

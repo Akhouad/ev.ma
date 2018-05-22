@@ -45,4 +45,8 @@ $(document).ready(function(){
         $(this).toggleClass("active")
         $(this).find("input[type=radio]").prop("checked", $(this).hasClass("active"))
     })
+
+    $("form button[type=submit]").on("click", function(e){
+        $(this).addClass("disabled")
+    })
 })

@@ -29,9 +29,12 @@ class CityController extends Controller
                     ->join('cities', 'cities.id', '=', 'venues.city_id')
                     ->where('venues.city_id', $city_id)
                     ->select(
-                        'venues.id AS venues_id', 'events.id AS id', 
+                        'venues.id AS venues_id', 'events.id AS id',
+                        'events.slug AS slug',
                         'events.name as name', 'events.start_timestamp AS start_timestamp', 
                         'cities.name AS city', 'events.cover AS cover')
+                    ->where('events.deleted_at', null)
+                    ->where('events.status', 'published')
                     ->get();
         foreach($events as $e){
             $french_months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',

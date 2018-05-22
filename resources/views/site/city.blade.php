@@ -12,7 +12,7 @@
                 @foreach($events as $e)
                 <div class="col-3">
                     <div href="" class="event-block">
-                        <a href="">
+                        <a href="{{route('event-page', ['id' => $e->id, 'slug' => $e->slug])}}">
                             @if(strlen($e->name) > 40)
                             <div class="event-image" data-toggle="tooltip" data-placement="bottom" title="{{$e->name}}">
                                 <img src="{{asset('storage/images/manager/events/' . $e->cover)}}" alt="">

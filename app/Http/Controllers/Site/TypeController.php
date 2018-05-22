@@ -8,6 +8,7 @@ use App\Type;
 use App\Category;
 use App\City;
 use App\Event;
+use App\EventsOption;
 
 class TypeController extends Controller
 {
@@ -37,7 +38,7 @@ class TypeController extends Controller
                 ->where('events.status', 'published')
                 ->where('events.id', $e->id)
                 ->first();
-                
+
             if($event != null) {
                 $results['events'][] = $event; 
 

@@ -47,33 +47,33 @@
                                 <h6 class="paragraph-title">Evenements trouvés:</h6>
                             </div>
                             @foreach($results['events'] as $e)
-                                    <div class="col-3">
-                                        <div class="event-block">
-                                            <a href="{{route('event-page', ['id' => $e['id'], 'slug' => $e['slug']])}}">
-                                                <div class="event-image">
-                                                    <img src="{{asset('storage/images/manager/events/' . $e['cover'])}}" alt="">
-                                                </div>
-                                                <div class="event-info">
-                                                    @if(strlen($e['name']) > 40)
-                                                    <p class="event-name" data-toggle="tooltip" data-placement="bottom" title="{{$e->name}}">
-                                                        {{str_limit($e['name'], 40, '...')}}
-                                                    </p>
-                                                    @else
-                                                    <p class="event-name">{{$e['name']}}</p>
-                                                    @endif
-                                                    <p class="event-date">
-                                                        <i class="fa fa-calendar"></i>
-                                                        {{\App\Http\Controllers\Site\HomeController::formatDate($e['start_timestamp'])}}
-                                                    </p>
-                                                    <p class="event-location">
-                                                        <i class="fa fa-map-marker primary-color-text"></i>
-                                                        {{$e['city']}}
-                                                    </p>
-                                                </div>
-                                            </a>
-                                            <a href="" class="event-button">Ajouter à mon calendrier</a>
-                                        </div>
+                                <div class="col-3">
+                                    <div class="event-block">
+                                        <a href="{{route('event-page', ['id' => $e->id, 'slug' => $e->slug])}}">
+                                            <div class="event-image">
+                                                <img src="{{asset('storage/images/manager/events/' . $e['cover'])}}" alt="">
+                                            </div>
+                                            <div class="event-info">
+                                                @if(strlen($e['name']) > 40)
+                                                <p class="event-name" data-toggle="tooltip" data-placement="bottom" title="{{$e->name}}">
+                                                    {{str_limit($e['name'], 40, '...')}}
+                                                </p>
+                                                @else
+                                                <p class="event-name">{{$e['name']}}</p>
+                                                @endif
+                                                <p class="event-date">
+                                                    <i class="fa fa-calendar"></i>
+                                                    {{\App\Http\Controllers\Site\HomeController::formatDate($e['start_timestamp'])}}
+                                                </p>
+                                                <p class="event-location">
+                                                    <i class="fa fa-map-marker primary-color-text"></i>
+                                                    {{$e['city']}}
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <a href="" class="event-button">Ajouter à mon calendrier</a>
                                     </div>
+                                </div>
                             @endforeach
                         @elseif( isset($results['users']) && count($results['users']) > 0 )
                             @foreach($results['users'] as $u)
