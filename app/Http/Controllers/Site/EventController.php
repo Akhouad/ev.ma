@@ -14,19 +14,8 @@ class EventController extends Controller
     public function index(Request $request){
         if($request->ajax()){
             if($request->type != null){
-                if($request->type == 'now'){
-                    $events = Event::join('venues', 'venues.id', '=', 'events.venue_id')
-                                ->join('cities', 'venues.city_id', '=', 'cities.id')
-                                ->select(
-                                    'venues.id AS venues_id', 'events.id AS id',
-                                    'events.slug AS slug',
-                                    'events.name as name', 'events.start_timestamp AS start_timestamp', 
-                                    'cities.name AS city', 'events.cover AS cover')
-                                    ->where('events.deleted_at', null)
-                                    ->where('events.status', 'published')
-                                ->whereDate('events.start_timestamp', \Carbon::today()->toDateString())
-                                ->get();
-                }else if($request->type == 'coming'){
+                if($request->type == 'now' || $request->type == 'coming'){
+                    $operator = ($request->type == 'now') ? '=' : '>';
                     $events = Event::join('venues', 'venues.id', '=', 'events.venue_id')
                                 ->join('cities', 'venues.city_id', '=', 'cities.id')
                                 ->select(
@@ -36,7 +25,7 @@ class EventController extends Controller
                                     'cities.name AS city', 'events.cover AS cover')
                                 ->where('events.deleted_at', null)
                                 ->where('events.status', 'published')
-                                ->whereDate('events.start_timestamp', '>', \Carbon::today()->toDateString())
+                                ->whereDate('events.start_timestamp', $operator, \Carbon::today()->toDateString())
                                 ->get();
                 }else if($request->type == 'near'){
                     $events = Event::join('venues', 'venues.id', '=', 'events.venue_id')
@@ -51,18 +40,18 @@ class EventController extends Controller
                                 ->where('cities.id', Auth::user()->city->id)
                                 ->get();
                 }
-                return response($events, 200)->header('Content-Type', 'text/json');
-            } 
-            $events = Event::join('venues', 'venues.id', '=', 'events.venue_id')
-                        ->join('cities', 'venues.city_id', '=', 'cities.id')
-                        ->select(
-                            'venues.id AS venues_id', 'events.id AS id',
-                            'events.slug AS slug',
-                            'events.name as name', 'events.start_timestamp AS start_timestamp', 
-                            'cities.name AS city', 'events.cover AS cover')
-                        ->where('deleted_at', null)
-                        ->where('status', 'published')
-                        ->get();
+            }else{
+                $events = Event::join('venues', 'venues.id', '=', 'events.venue_id')
+                            ->join('cities', 'venues.city_id', '=', 'cities.id')
+                            ->select(
+                                'venues.id AS venues_id', 'events.id AS id',
+                                'events.slug AS slug',
+                                'events.name as name', 'events.start_timestamp AS start_timestamp', 
+                                'cities.name AS city', 'events.cover AS cover')
+                            ->where('events.deleted_at', null)
+                            ->where('events.status', 'published')
+                            ->get();
+            }
             return response($events, 200)->header('Content-Type', 'text/json');
         }
     }

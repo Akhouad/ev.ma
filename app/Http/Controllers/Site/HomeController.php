@@ -18,7 +18,7 @@ class HomeController extends Controller
         $footer_cities = City::where('prior', 1)->get();
         $key = $request->get('search');
 
-        if($request->get('search') && strlen($request->get('search')) > 0){
+        if($key && strlen($key) > 0){
             
             if($request->get('advanced') == 'true'){
                 $validatedData = $request->validate([
@@ -35,5 +35,12 @@ class HomeController extends Controller
         }
 
         return view('site.home', compact('categories', 'footer_cities'));
+    }
+
+    public static function formatDate($date){
+        $months = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $m = date('m', strtotime($date));
+        $m = $months[$m - 1];
+        return date('d', strtotime($date)) . ' ' . $m;
     }
 }

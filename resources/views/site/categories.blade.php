@@ -12,7 +12,7 @@
                 @foreach($cats as $c)
                 <div class="col-md-3">
                     <a href="{{route('category', ['category' => $c->slug])}}" class="list-item">
-                        {{$c->name}} ({{count($c->events)}})
+                        {{$c->name}} ({{count( $c->events )}})
                     </a>
                 </div>
                 @endforeach

@@ -35,8 +35,23 @@ class CategoryController extends Controller
         $footer_cities = City::where('prior', 1)->get();
         $category = Category::where('slug', $request->category)->first();
         $results['events'] = [];
-        foreach($category->events as $e){ $results['events'][] = $e->event; }
+
+        foreach($category->events as $e){ 
+            $event = Event::join('venues', 'venues.id', '=', 'events.venue_id')
+                ->join('cities', 'venues.city_id', '=', 'cities.id')
+                ->select(
+                    'venues.id AS venues_id', 'events.id AS id',
+                    'events.slug AS slug',
+                    'events.name as name', 'events.start_timestamp AS start_timestamp', 
+                    'cities.name AS city', 'events.cover AS cover')
+                ->where('events.deleted_at', null)
+                ->where('events.status', 'published')
+                ->where('events.id', $e->event->id)
+                ->first();
+            if($event != null) 
+                $results['events'][] = $event; 
+        }
         
-        return view('site.home', compact('categories', 'footer_cities', 'results'));
+        return view('site.home', compact('categories', 'footer_cities', 'results', 'category'));
     }
 }

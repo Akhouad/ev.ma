@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Category;
+use App\City;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm(){
+        $categories = Category::get();
+        $footer_cities = City::where('prior', 1)->get();
+        return view('auth.login', compact('categories', 'footer_cities'));
     }
 }

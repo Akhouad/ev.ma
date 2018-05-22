@@ -1,7 +1,9 @@
 @extends('layouts.site', [
             'title' => $event->name, 
             'footer_cities' => $footer_cities, 
-            'categories' => $categories
+            'categories' => $categories,
+            'category' => null,
+            'event' => $event
         ])
 
 @section('content')

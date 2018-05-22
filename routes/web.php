@@ -83,11 +83,11 @@ Route::namespace('Site')->group(function(){
     });
 
     Route::prefix('types')->group(function(){
-        Route::get('{type}', 'TypeController@show')->name('type')->where('category', '[a-zA-Z-]+');
+        Route::get('{type}', 'TypeController@show')->name('type')->where('type', '[a-zA-Z-]+');
     });
 
     Route::prefix('tags')->group(function(){
-        Route::get('{tag}', 'TagController@show')->name('tag')->where('category', '[a-zA-Z-]+');
+        Route::get('{tag}', 'TagController@show')->name('tag')->where('tag', '[a-zA-Z-]+');
     });
 
     Route::prefix('search')->group(function(){

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\City;
+use App\Category;
 use App\Organizer;
 
 class RegisterController extends Controller
@@ -44,7 +45,9 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(){
         $cities = City::orderBy('name')->get();
-        return view('auth.register', compact('cities'));
+        $categories = Category::get();
+        $footer_cities = City::where('prior', 1)->get();
+        return view('auth.register', compact('cities', 'categories', 'footer_cities'));
     }
 
     /**
