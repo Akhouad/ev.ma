@@ -10,7 +10,7 @@
             <h6 class="paragraph-title">Les catégories</h6>
             <div class="row">
                 @foreach($cats as $c)
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <a href="{{route('category', ['category' => $c->slug])}}" class="list-item">
                         {{$c->name}} ({{count( $c->events )}})
                     </a>
@@ -20,7 +20,7 @@
             <h6 class="paragraph-title mt-4" id="types">Les types</h6>
             <div class="row">
                 @foreach($types as $t)
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <a href="{{route('type', ['type' => $t->slug])}}" class="list-item">
                             {{$t->name}} ({{count($t->events)}})
                         </a>
@@ -30,9 +30,9 @@
             <h6 class="paragraph-title mt-4" id="tags">Les top tags</h6>
             <div class="row">
                 @foreach($tags as $t)
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <a href="{{route('tag', ['tag' => $t->name])}}" class="list-item">
-                            {{$t->name}} ({{count($t->events)}})
+                            {{title_case($t->name)}} ({{count($t->events)}})
                         </a>
                     </div>
                 @endforeach

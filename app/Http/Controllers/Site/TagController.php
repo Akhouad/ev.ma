@@ -8,6 +8,7 @@ use App\Tag;
 use App\Event;
 use App\Category;
 use App\City;
+use App\EventsOption;
 
 class TagController extends Controller
 {
@@ -16,6 +17,7 @@ class TagController extends Controller
             $tags = Tag::get()->sortByDesc(function($tag){
                         return $tag->events->count();
                     });
+            foreach($tags as $t) { $t->slug = str_slug($t->name); }
             $tags = array_slice($tags->toArray(), 0, $limit, true);
             return response($tags, 200)->header('Content-Type', 'text/json');
         }
@@ -39,8 +41,18 @@ class TagController extends Controller
                 ->where('events.status', 'published')
                 ->where('events.id', $e->id)
                 ->first();  
-            if($event != null) 
+                
+            if($event != null) {
                 $results['events'][] = $event; 
+                
+                if($event->start_timestamp == '0000-00-00 00:00:00'){
+                    $options = EventsOption::where('event_id', $event->id)->where('label', 'recurrent')->first();
+                    $options = unserialize($options->value);
+                    $start_time = $options['time_from'];
+                    $start_date = $options['date_from'];
+                    $event->start_timestamp = date('Y-m-d H:i:s', strtotime("$start_date $start_time") );
+                }
+            }
         }
         
         $categories = Category::get();

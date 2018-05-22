@@ -9,6 +9,7 @@ use App\Category;
 use App\City;
 use App\Type;
 use App\Tag;
+use App\EventsOption;
 
 class CategoryController extends Controller
 {
@@ -48,8 +49,17 @@ class CategoryController extends Controller
                 ->where('events.status', 'published')
                 ->where('events.id', $e->event->id)
                 ->first();
-            if($event != null) 
+            if($event != null) {
                 $results['events'][] = $event; 
+                
+                if($event->start_timestamp == '0000-00-00 00:00:00'){
+                    $options = EventsOption::where('event_id', $event->id)->where('label', 'recurrent')->first();
+                    $options = unserialize($options->value);
+                    $start_time = $options['time_from'];
+                    $start_date = $options['date_from'];
+                    $event->start_timestamp = date('Y-m-d H:i:s', strtotime("$start_date $start_time") );
+                }
+            }
         }
         
         return view('site.home', compact('categories', 'footer_cities', 'results', 'category'));

@@ -8,6 +8,7 @@ use App\Event;
 use App\Category;
 use App\City;
 use Auth;
+use App\EventsOption;
 
 class EventController extends Controller
 {
@@ -52,6 +53,16 @@ class EventController extends Controller
                             ->where('events.status', 'published')
                             ->get();
             }
+
+            foreach($events as $e){
+                if($e->start_timestamp == '0000-00-00 00:00:00'){
+                    $options = EventsOption::where('event_id', $e->id)->where('label', 'recurrent')->first();
+                    $options = unserialize($options->value);
+                    $start_time = $options['time_from'];
+                    $start_date = $options['date_from'];
+                    $e->start_timestamp = date('Y-m-d H:i:s', strtotime("$start_date $start_time") );
+                }
+            }
             return response($events, 200)->header('Content-Type', 'text/json');
         }
     }
@@ -60,6 +71,13 @@ class EventController extends Controller
         $categories = Category::get();
         $footer_cities = City::where('prior', 1)->get();
         $event = Event::where('id', $event_id)->where('slug', $slug)->first();
+        if($event->start_timestamp == '0000-00-00 00:00:00'){
+            $options = EventsOption::where('event_id', $event->id)->where('label', 'recurrent')->first();
+            $options = unserialize($options->value);
+            $start_time = $options['time_from'];
+            $start_date = $options['date_from'];
+            $event->start_timestamp = date('Y-m-d H:i:s', strtotime("$start_date $start_time") );
+        }
         return view('site.event', compact('event', 'footer_cities', 'categories'));
     }
 

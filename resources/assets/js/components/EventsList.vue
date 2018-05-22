@@ -4,7 +4,19 @@
             <event-skeleton :index="index" />
         </div>
         <div class="col-md-12" v-if="events.length == 0 && empty_list" style="text-align:center;padding:50px">
-            Aucun èvènement trouvè.
+            <h6 class="paragraph-title centered">Aucun èvènement trouvè.</h6>
+            <p>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="200">
+                    <polygon style="fill:#37bc9b;" points="225.697,24.265 225.697,193.566 368.849,287.773 512,313.69 512,120.125 "/>
+                    <polygon style="fill:#26967a;" points="225.697,0 141.715,35.236 428.013,155.359 512,120.125 "/>
+                    <polygon style="fill:#3fa5ca;" points="99.212,340.069 286.303,432.651 424.921,365.498 225.697,272.914 "/>
+                    <polygon style="fill:#50c1e9;" points="225.697,297.18 237.83,245.373 225.697,193.566 0,288.261 65.643,364.334 "/>
+                    <polygon style="fill:#309bc1;" points="388.523,365.498 512,313.69 225.697,193.566 225.697,297.18 "/>
+                    <polygon style="fill:#309bc1;" points="0,288.261 0,391.875 286.303,512 310.568,460.193 286.303,408.386 "/>
+                    <polygon style="fill:#5fbdde;" points="286.303,408.386 286.303,512 512,417.304 512,313.69 "/>
+                </svg>
+            </p>
         </div>
         <div class="col-md-3" v-for="e in events" v-if="events.length > 0" v-cloak>
             <div class="event-block">

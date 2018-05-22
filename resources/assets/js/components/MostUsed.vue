@@ -3,7 +3,7 @@
         <list-skeleton v-if="list.length == 0" v-for="index in 5" :index="index" />
         <ul class="sidebar-list">
             <li v-for="l of list">
-                <a :href="'/' + type + '/' + l.name">
+                <a :href="'/' + type + '/' + l.slug">
                     {{l.name}}
                     <span>({{l.events.length}})</span>
                 </a>
