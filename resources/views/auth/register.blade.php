@@ -1,6 +1,6 @@
 @extends('../layouts.site', 
         [
-            'title' => 'Evénements, bons plans, soirées, festivals, conférences et manifestations diverses au Maroc : Tous sont sur Ev.ma', 
+            'title' => 'S\'inscrire', 
             'categories' => $categories, 
             'footer_cities' => $footer_cities,
             'category' => (isset($category)) ? $category : null
