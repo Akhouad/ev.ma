@@ -6,9 +6,8 @@
 
 @section('content')
 <div id="app">
-    <input type="hidden" value="{{Auth::user()->city->slug}}" ref="city">
     <div class="row">
-        <div class="col-9">
+        <div class="col-md-9">
             <div class="row">
                 @foreach($events as $e)
                 <div class="col-3">
@@ -41,12 +40,35 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-3">
-            @if(Auth::user() !== null)
+        <div class="col-md-3">
             <div class="sidebar-widget">
-                <users-sidebar city="{{Auth::user()->city->slug}}" />
+                @if(Auth::user() !== null)
+                <near-events city="{{Auth::user()->city->slug}}"></near-events>
+                @endif
+                <div class="sidebar-heading">Populaires</div>
+                <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#cats">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#types">Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tags">Tags</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="cats">
+                        <most-used type="categories"></most-used>
+                    </div>
+                    <div class="tab-pane fade show" id="types">
+                        <most-used type="types"></most-used>
+                    </div>
+                    <div class="tab-pane fade show" id="tags">
+                        <most-used type="tags"></most-used>
+                    </div>
+                </div>
             </div>
-            @endif
         </div>
     </div>
 </div>

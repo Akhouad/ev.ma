@@ -7,11 +7,38 @@
 
 @section('content')
 <div id="app">
+    @if(!isset($results))
+    <div class="filter-bar">
+        <ul>
+            <li>
+                <a href="" @click="toggle_event_type(undefined, $event)" class="active"><i class="fa fa-fire"></i> Nouveautés</a>
+            </li>
+            @if(Auth::check())
+            <li>
+                <a href="" @click="toggle_event_type('hi', $event)"><i class="fa fa-heart"></i> Coups de coeur</a>
+            </li>
+            @endif
+            <li>
+                <a href="" @click="toggle_event_type('now', $event)"><span class="circle"></span> En ce moment</a>
+            </li>
+            <li>
+                <a href="" @click="toggle_event_type('coming', $event)"><i class="fa fa-calendar"></i> Prochainement</a>
+            </li>
+            @if(Auth::check())
+            <li>
+                <a href="" @click="toggle_event_type('near', $event)"><i class="fa fa-map-marker"></i> À proximité</a>
+            </li>
+            <li class="add-event">
+                <a href="{{route('add-event')}}"><i class="fa fa-plus-square"></i> Ajouter un événement</a>
+            </li>
+            @endif
+        </ul>
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-9">
             @if(isset($results))
                 <div class="row">
-
                     {{-- SEARCH RESULTS --}}
                     @if(isset($results) && count($results) > 0)
                         @if( isset($results['events']) && count($results['events']) > 0 )
@@ -80,7 +107,7 @@
             @else
                 <div class="row">
                 {{-- DEFAULT RESULTS --}}
-                <events-list />
+                <events-list :type="events_type"></events-list>
             @endif
             </div>
         </div>
@@ -116,4 +143,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{asset('js/site/home.js')}}"></script>
 @endsection

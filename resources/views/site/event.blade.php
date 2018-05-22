@@ -179,7 +179,7 @@
                 </div>
                 <div id="collapseImages" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="card-body">
-                        @foreach($event->images as $key => $image)
+                        @foreach($event->images->where('deleted_at', null) as $key => $image)
                         <a href="{{asset('storage/images/manager/events/' . $image->file)}}" data-lightbox="images-{{$event->id}}" data-title="{{title_case($event->name)}}">
                             <img src="{{asset('storage/images/manager/events/' . $image->file)}}" alt="{{$event->name}} - Ev.ma">
                         </a>

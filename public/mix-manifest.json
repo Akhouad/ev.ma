@@ -10,5 +10,6 @@
     "/js/manager/email.js": "/js/manager/email.js",
     "/js/manager/comments.js": "/js/manager/comments.js",
     "/js/site/event.js": "/js/site/event.js",
-    "/js/manager/common.js": "/js/manager/common.js"
+    "/js/manager/common.js": "/js/manager/common.js",
+    "/js/site/home.js": "/js/site/home.js"
 }

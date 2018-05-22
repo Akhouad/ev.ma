@@ -32,12 +32,14 @@ class Event extends Model
 
     public static function publish($id){
         $event = Event::where('id', $id)->first();
+        $event->published_at = date('Y-m-d H:i');
         $event->status = "published";
         $event->save();
     }
 
     public static function unpublish($id){
         $event = Event::where('id', $id)->first();
+        $event->published_at = null;
         $event->status = "pending";
         $event->save();
     }

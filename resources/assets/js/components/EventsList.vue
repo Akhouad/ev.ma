@@ -1,7 +1,10 @@
 <template>
     <div class="row" style="width:100%;margin:0">
-        <div class="col-md-3" v-for="index in 7" v-if="events.length == 0">
+        <div class="col-md-3" v-for="index in 7" v-if="events.length == 0 && !empty_list">
             <event-skeleton :index="index" />
+        </div>
+        <div class="col-md-12" v-if="events.length == 0 && empty_list" style="text-align:center;padding:50px">
+            Aucun èvènement trouvè.
         </div>
         <div class="col-md-3" v-for="e in events" v-if="events.length > 0" v-cloak>
             <div class="event-block">
@@ -37,9 +40,11 @@
         components:{
             'event-skeleton': event_skeleton
         },
+        props: ['type'],
         data(){
             return{
-                events: []
+                events: [],
+                empty_list: false
             }
         },
         methods:{
@@ -59,16 +64,25 @@
                         .join(' ');
             },
             getEvents(){
-                axios.get('/events').then(events => {
+                let link = (this.type == undefined) ? '/events' : '/events/' + this.type
+                axios.get(link).then(events => {
                     this.events = events.data
                     this.events.forEach(e => e.start_timestamp = this.formatDate(new Date(e.start_timestamp)))
-                    
+                    if(events.data.length == 0) this.empty_list = true
                     setTimeout(function(){ $('[data-toggle="tooltip"]').tooltip() }, 10)
-                })
+                })   
             }
         },
         created(){
             this.getEvents()
+        },
+        watch: {
+            type(newVal, oldVal) { 
+                console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+                this.empty_list = false
+                this.events = []
+                this.getEvents()
+            }
         }
     }
 </script>

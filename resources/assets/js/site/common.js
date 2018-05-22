@@ -13,7 +13,18 @@ Vue.component('near-events', require('../components/NearEvents.vue'));
 
 if($('#app').length){
     var app = new Vue({
-        el: "#app"
+        el: "#app",
+        data: {
+            events_type: undefined
+        },
+        methods:{
+            toggle_event_type(type, e){
+                e.preventDefault()
+                document.querySelector('.filter-bar a.active').classList.remove('active')
+                e.target.classList.add('active')
+                this.events_type = type
+            }
+        }
     })
 }
 
