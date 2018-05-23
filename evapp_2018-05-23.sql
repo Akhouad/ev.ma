@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: evapp
-# Generation Time: 2018-05-22 14:21:50 +0000
+# Generation Time: 2018-05-23 12:53:01 +0000
 # ************************************************************
 
 
@@ -1151,6 +1151,7 @@ CREATE TABLE `users` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fullname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birthday` date DEFAULT NULL,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city_id` int(11) NOT NULL,
@@ -1175,39 +1176,39 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `phone`, `city_id`, `facebook_id`, `facebook_access_token`, `confirm_email_token`, `access_token`, `is_organizer`, `is_certified_organizer`, `is_speaker`, `is_admin`, `verified`, `disabled`, `remember_token`, `created_at`, `updated_at`)
+INSERT INTO `users` (`id`, `username`, `email`, `fullname`, `password`, `birthday`, `avatar`, `phone`, `city_id`, `facebook_id`, `facebook_access_token`, `confirm_email_token`, `access_token`, `is_organizer`, `is_certified_organizer`, `is_speaker`, `is_admin`, `verified`, `disabled`, `remember_token`, `created_at`, `updated_at`)
 VALUES
-	(1,'admin','akhouadme@gmail.com','Amine Akhouad','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a','a.png','',1,'','','','',1,0,0,1,0,0,'5Llwi8COjvdQuHKKKIztSgkbOrLybJM673zzfS6zK2VRDaE2NLbiD8TJRFUz','2018-04-02 09:24:29','2018-05-08 13:07:32'),
-	(2,'amine','agadirgroup123@gmail.com','amine akhouad 2','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a','a.png','',1,'','','','',0,0,1,0,0,0,'6I8Y0KOMiDZEjHpwdW04IbelmyDC2cdya5Bndpi2KYIXD6fN4pZar0VrT0Bu','2018-04-02 09:24:29','2018-05-10 23:37:30'),
-	(4,'john','john@doe.com','john doe','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a','j.png','',1,'','','','',1,0,0,0,0,0,'P0DIUEoLYSLqiJkS7HNy8iTu4YzbLLLpwJJSwweH0xyUZPAKTCajjtGuQcNj','2018-04-10 10:06:38','2018-05-11 08:15:38'),
-	(5,'samy','samy@akhouad.com','samy akhouad','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a','s.png','',1,'','','','',0,0,0,0,0,0,NULL,'2018-04-10 10:16:35','2018-04-10 10:16:35'),
-	(6,'alan','alan@turin.com','alan turin','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a','a.png','',1,'','','','',0,0,1,0,0,0,NULL,'2018-04-10 10:47:19','2018-05-07 13:21:04'),
-	(7,'med','med@baladi.com','med amine baladi','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a','m.png','',1,'','','','',0,0,1,0,0,0,NULL,'2018-04-10 10:55:26','2018-05-07 13:21:05'),
-	(8,'elon','elon@musk.com','elon musk','','e.png','',1,'','','','',0,0,0,0,0,0,NULL,'2018-04-10 14:27:01','2018-04-10 14:27:01'),
-	(10,'mehdi','mehdi@doe.com','mehdi','','m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-04-11 09:40:09','2018-04-11 09:40:09'),
-	(11,'souah','souah@gmail.com','marouane souah','','m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-04-11 11:23:06','2018-05-10 23:51:04'),
-	(18,'akadme','akhouad@akad.me','amine akad','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC','a.png','',1,'','','','',1,0,1,0,0,0,'C3lw0w3MaDyYSWgkrBZnOQa0WkvR76oRt5AThAcrlCFzWRlwBbWM6MnuZPDT','2018-04-24 17:43:32','2018-05-07 14:42:29'),
-	(19,'karim','karim@ahmadi.com','karim ahmadi','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC','k.png','',1,'','','','',0,0,1,0,0,0,'ogvNm5XQy7dprV7B4aWdJ9DLV3YB8bCcdaRaYGWCkGGOcaFRtfjdZYAzBxZz','2018-05-03 17:31:34','2018-05-11 08:48:57'),
-	(21,'mehdi_19','mehdi@benatia.com','mehdi benatia','','m.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 11:52:22','2018-05-07 13:21:18'),
-	(22,'badr_21','badr@banoun.com','badr banoun','','b.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:56:45','2018-05-07 11:56:45'),
-	(23,'mbark_22','mbark@boussofa.com','mbark boussofa','','m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:05','2018-05-07 11:58:05'),
-	(24,'hucine_23','hucine@hotmail.com','hucine akhouad','','h.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:17','2018-05-07 11:58:17'),
-	(25,'aicha_24','aicha@radi.com','aicha radi','','a.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:31','2018-05-07 11:58:31'),
-	(30,'younes_25','younes@adounis.com','younes adounis','','U2dfcI7X8NO8tbnLFVcf9sWY9o2iREUIcu95sYEG.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 12:11:16','2018-05-07 13:21:18'),
-	(31,'yahya_30','yahya@kharrazi.com','yahya kharrazi','','aXnCmtpz9MKN9VhV1sRNu8CfKhWw893v5giraxKL.jpeg','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 12:48:34','2018-05-07 13:21:12'),
-	(32,'youness_31','youness@qassimi.com','younes qassimi','','rqBcq4LS65I4w5B9rIQRgw2DN0LuBx9dOITIDkT0.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-08 13:55:26','2018-05-08 13:55:26'),
-	(53,'karim_32','karim@elhani.com','karim elhani','','k.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:37:17','2018-05-11 00:47:23'),
-	(54,'reda_53','reda@elkhayat.com','reda elkhayat','','r.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:37:37','2018-05-11 00:37:37'),
-	(55,'david_54','david@bekham.com','david bekham','','d.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:47:58','2018-05-11 00:47:58'),
-	(56,'leo_55','leo@messi.com','leo messi','','yZcUkR3TGVFXNyH0se3ERLbe6kdrvPCtY2vXLabN.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:49:06','2018-05-11 08:16:17'),
-	(57,'mouna_56','mouna@naim.com','mouna naim','','m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 08:15:47','2018-05-11 08:15:47'),
-	(75,'rachid_57','rachid@elouali.com','rachid elouali','','r.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 08:41:08','2018-05-11 08:45:51'),
-	(76,'jack_75','jack@twitter.com','jack dorsey','','j.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:41:34','2018-05-11 08:46:27'),
-	(77,'zuck_76','zuck@facebook.com','mark zuckerberg','','z.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 08:42:57','2018-05-11 08:45:49'),
-	(78,'houston','houston@dropbox.com','andrew houston','','h.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:43:47','2018-05-11 08:43:47'),
-	(80,'houston_79','houston@email.com','drew houston','','h.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:45:18','2018-05-11 08:45:41'),
-	(81,'jack','jack@dorsey.com','jack dorsey 2','','j.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:46:07','2018-05-11 08:46:07'),
-	(82,'amine_82','amine@kamal.com','amine kamal','','a.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 15:07:45','2018-05-11 15:09:19');
+	(1,'admin','akhouadme@gmail.com','Amine Akhouad','$2y$10$NvOwaOgxciX6yX9xsDQoieDocq/MP8z01ccObpMwOR7FbppByCzGW','1995-05-12','a.png','',1,'','','','',1,0,0,1,0,0,'aG0nollDC5PAfyjuvemlu37SuGWNHTVl9JIr03RGJ0meV0Z5lH33z2lZ7LTe','2018-04-02 09:24:29','2018-05-23 12:10:44'),
+	(2,'amine','agadirgroup123@gmail.com','amine akhouad 2','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'a.png','',1,'','','','',0,0,1,0,0,0,'6I8Y0KOMiDZEjHpwdW04IbelmyDC2cdya5Bndpi2KYIXD6fN4pZar0VrT0Bu','2018-04-02 09:24:29','2018-05-10 23:37:30'),
+	(4,'john','john@doe.com','john doe','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'j.png','',1,'','','','',1,0,0,0,0,0,'P0DIUEoLYSLqiJkS7HNy8iTu4YzbLLLpwJJSwweH0xyUZPAKTCajjtGuQcNj','2018-04-10 10:06:38','2018-05-11 08:15:38'),
+	(5,'samy','samy@akhouad.com','samy akhouad','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'s.png','',1,'','','','',0,0,0,0,0,0,NULL,'2018-04-10 10:16:35','2018-04-10 10:16:35'),
+	(6,'alan','alan@turin.com','alan turin','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'a.png','',1,'','','','',0,0,1,0,0,0,NULL,'2018-04-10 10:47:19','2018-05-07 13:21:04'),
+	(7,'med','med@baladi.com','med amine baladi','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'m.png','',1,'','','','',0,0,1,0,0,0,NULL,'2018-04-10 10:55:26','2018-05-07 13:21:05'),
+	(8,'elon','elon@musk.com','elon musk','',NULL,'e.png','',1,'','','','',0,0,0,0,0,0,NULL,'2018-04-10 14:27:01','2018-04-10 14:27:01'),
+	(10,'mehdi','mehdi@doe.com','mehdi','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-04-11 09:40:09','2018-04-11 09:40:09'),
+	(11,'souah','souah@gmail.com','marouane souah','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-04-11 11:23:06','2018-05-10 23:51:04'),
+	(18,'akadme','akhouad@akad.me','amine akad','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC',NULL,'a.png','',1,'','','','',1,0,1,0,0,0,'C3lw0w3MaDyYSWgkrBZnOQa0WkvR76oRt5AThAcrlCFzWRlwBbWM6MnuZPDT','2018-04-24 17:43:32','2018-05-07 14:42:29'),
+	(19,'karim','karim@ahmadi.com','karim ahmadi','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC',NULL,'k.png','',1,'','','','',0,0,1,0,0,0,'ogvNm5XQy7dprV7B4aWdJ9DLV3YB8bCcdaRaYGWCkGGOcaFRtfjdZYAzBxZz','2018-05-03 17:31:34','2018-05-11 08:48:57'),
+	(21,'mehdi_19','mehdi@benatia.com','mehdi benatia','',NULL,'m.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 11:52:22','2018-05-07 13:21:18'),
+	(22,'badr_21','badr@banoun.com','badr banoun','',NULL,'b.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:56:45','2018-05-07 11:56:45'),
+	(23,'mbark_22','mbark@boussofa.com','mbark boussofa','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:05','2018-05-07 11:58:05'),
+	(24,'hucine_23','hucine@hotmail.com','hucine akhouad','',NULL,'h.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:17','2018-05-07 11:58:17'),
+	(25,'aicha_24','aicha@radi.com','aicha radi','',NULL,'a.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:31','2018-05-07 11:58:31'),
+	(30,'younes_25','younes@adounis.com','younes adounis','',NULL,'U2dfcI7X8NO8tbnLFVcf9sWY9o2iREUIcu95sYEG.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 12:11:16','2018-05-07 13:21:18'),
+	(31,'yahya_30','yahya@kharrazi.com','yahya kharrazi','',NULL,'aXnCmtpz9MKN9VhV1sRNu8CfKhWw893v5giraxKL.jpeg','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 12:48:34','2018-05-07 13:21:12'),
+	(32,'youness_31','youness@qassimi.com','younes qassimi','',NULL,'rqBcq4LS65I4w5B9rIQRgw2DN0LuBx9dOITIDkT0.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-08 13:55:26','2018-05-08 13:55:26'),
+	(53,'karim_32','karim@elhani.com','karim elhani','',NULL,'k.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:37:17','2018-05-11 00:47:23'),
+	(54,'reda_53','reda@elkhayat.com','reda elkhayat','',NULL,'r.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:37:37','2018-05-11 00:37:37'),
+	(55,'david_54','david@bekham.com','david bekham','',NULL,'d.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:47:58','2018-05-11 00:47:58'),
+	(56,'leo_55','leo@messi.com','leo messi','',NULL,'yZcUkR3TGVFXNyH0se3ERLbe6kdrvPCtY2vXLabN.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 00:49:06','2018-05-11 08:16:17'),
+	(57,'mouna_56','mouna@naim.com','mouna naim','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 08:15:47','2018-05-11 08:15:47'),
+	(75,'rachid_57','rachid@elouali.com','rachid elouali','',NULL,'r.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 08:41:08','2018-05-11 08:45:51'),
+	(76,'jack_75','jack@twitter.com','jack dorsey','',NULL,'j.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:41:34','2018-05-11 08:46:27'),
+	(77,'zuck_76','zuck@facebook.com','mark zuckerberg','',NULL,'z.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-11 08:42:57','2018-05-11 08:45:49'),
+	(78,'houston','houston@dropbox.com','andrew houston','',NULL,'h.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:43:47','2018-05-11 08:43:47'),
+	(80,'houston_79','houston@email.com','drew houston','',NULL,'h.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:45:18','2018-05-11 08:45:41'),
+	(81,'jack','jack@dorsey.com','jack dorsey 2','',NULL,'j.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 08:46:07','2018-05-11 08:46:07'),
+	(82,'amine_82','amine@kamal.com','amine kamal','',NULL,'a.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-11 15:07:45','2018-05-11 15:09:19');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
