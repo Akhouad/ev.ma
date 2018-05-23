@@ -25,7 +25,7 @@
         <div class="col-md-8">
             <h6 class="paragraph-title">Recherche avancée</h6>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for=""><strong>Mot clé</strong></label>
                         <input type="text" class="form-control" name="search">

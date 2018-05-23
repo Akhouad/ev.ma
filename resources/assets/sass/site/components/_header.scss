@@ -272,6 +272,9 @@ header{
 
             nav.categories{
                 ul{
+                    float:left;
+                    width:calc(100% - 40px);
+
                     li{
                         display:inline-block;
                         
@@ -286,29 +289,29 @@ header{
                                 color: darken($primary-color, 5%);
                             }
                         }
+                    }
+                }
 
-                        &:last-child{
-                            background-color: #fff;
-                            position:relative;
+                .all-categories{
+                    background-color: #fff;
+                    position:relative;
+                    color:$dark-gray;
+                    float:right;
+                    width:40px;
+                    text-decoration:none;
+                    
+                    &:hover{
+                        opacity: .5;
+                    }
 
-                            a{
-                                color:$dark-gray;
-
-                                &:hover{
-                                    opacity: .5;
-                                }
-                            }
-
-                            &:after{
-                                content:'';
-                                position:absolute;
-                                top:0;
-                                left:-30px;
-                                width:30px;
-                                height:100%;
-                                background: linear-gradient(to left, white, transparent);
-                            }
-                        }
+                    &:after{
+                        content:'';
+                        position:absolute;
+                        top:0;
+                        left:-30px;
+                        width:30px;
+                        height:100%;
+                        background: linear-gradient(to left, white, transparent);
                     }
                 }
             }
@@ -330,6 +333,22 @@ header{
                     img{
                         width:30px;
                     }
+                }
+            }
+        }
+
+        @media screen and (max-width:768px){
+            .middle-bar{
+                .header-search{
+                    display:none;
+                }
+            }
+        }
+
+        @media screen and (max-width: 540px){
+            .top-bar{
+                .user-city{
+                    display:none;
                 }
             }
         }

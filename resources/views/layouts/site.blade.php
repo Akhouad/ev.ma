@@ -18,7 +18,7 @@
         <div class="top-bar">
             <div class="container">
                 @if(Auth::user() !== null)
-                <span>Vous êtes localisé à : {{Auth::user()->city->name}}</span>
+                <span class="user-city">Vous êtes localisé à : {{Auth::user()->city->name}}</span>
                 @endif
                 <nav class="top-nav">
                     <ul>
@@ -54,21 +54,21 @@
                                 <p class="fullname">{{Auth::user()->fullname}}</p>
                                 <p class="username">{{Auth::user()->username}}</p>
                                 <div class="row">
-                                    <div class="col"><a href="">Paramètres</a></div>
+                                    <div class="col"><a href="{{route('settings')}}">Paramètres</a></div>
                                     <div class="col"><a href="" class="profile">Mon profil</a></div>
                                 </div>
                             </div>
                         </div>
                         <nav class="dropdown-nav">
                             <ul>
-                                <li><a href=""><i class="fa fa-cog"></i> Gérer mes événements</a></li>
+                                <li><a href="{{route('manager')}}"><i class="fa fa-cog"></i> Gérer mes événements</a></li>
                                 <li><a href=""><i class="fa fa-cog"></i> Gérer mes collections</a></li>
                             </ul>
                         </nav>
                         <div class="dropdown-footer">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <a href="{{route('manager')}}" class="btn btn-block btn-sm btn-primary">
+                                    <a href="{{route('add-event')}}" class="btn btn-block btn-sm btn-primary">
                                         <i class="fa fa-plus mr-2"></i>
                                         Ajouter un événement
                                     </a>
@@ -98,16 +98,14 @@
                 <nav class="categories">
                     <ul>
                         @foreach($categories as $key => $c)
-                        @if($key < 10)
                         <li>
                             <a href="{{route('category', ['category' => $c->slug])}}">
                                 {{$c->name}}
                             </a>
                         </li>
-                        @endif
                         @endforeach
-                        <li><a href="{{route('categories')}}">Plus</a></li>
                     </ul>
+                    <a href="{{route('categories')}}" class="all-categories">Plus <i class="fa fa-angle-right"></i></a>
                 </nav>
             </div>
         </div>

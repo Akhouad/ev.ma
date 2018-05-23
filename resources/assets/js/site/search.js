@@ -37,7 +37,7 @@ $(document).ready(function(){
 })
 $.fn.singleDatePicker = function() {
     $(this).on("apply.daterangepicker", function(e, picker) {
-      picker.element.val(picker.startDate.format('DD-MM-YYYY'));
+      picker.element.val(picker.startDate.format('YYYY-MM-DD'));
     });
     return $(this).daterangepicker({
       singleDatePicker: true,

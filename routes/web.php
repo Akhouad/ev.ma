@@ -77,6 +77,13 @@ Route::namespace('Site')->group(function(){
         Route::get('{username}', function($username){ return $username; })->name('user')->where('username', '[a-zA-Z-]+');
     });
 
+    Route::prefix('settings')->group(function(){
+        Route::get('/', 'SettingsController@index')->name('settings');
+        Route::post('/', 'SettingsController@store')->name('settings');
+        Route::get('password', 'SettingsController@password')->name('password-settings');
+        Route::post('password', 'SettingsController@update_password')->name('password-settings');
+    });
+
     Route::prefix('categories')->group(function(){
         Route::get('/', 'CategoryController@index')->name('categories');
         Route::get('{category}', 'CategoryController@show')->name('category')->where('category', '[a-zA-Z-]+');

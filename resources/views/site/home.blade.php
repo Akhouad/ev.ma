@@ -47,7 +47,7 @@
                                 <h6 class="paragraph-title">Evenements trouvés:</h6>
                             </div>
                             @foreach($results['events'] as $e)
-                                <div class="col-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="event-block">
                                         <a href="{{route('event-page', ['id' => $e->id, 'slug' => $e->slug])}}">
                                             <div class="event-image">
@@ -76,17 +76,17 @@
                                 </div>
                             @endforeach
                         @elseif( isset($results['users']) && count($results['users']) > 0 )
+                            <div class="col-md-12">
+                                <h6 class="paragraph-title">Utilisateurs trouvés:</h6>
+                            </div>
                             @foreach($results['users'] as $u)
-                                <div class="col-md-12">
-                                    <h6 class="paragraph-title">Utilisateurs trouvés:</h6>
-                                </div>
                                 <div class="col-md-2">{{$u->fullname}}</div>
                             @endforeach
                         @elseif( isset($results['organizers']) && count($results['organizers']) > 0 )
+                            <div class="col-md-12">
+                                <h6 class="paragraph-title">Organisateurs trouvés:</h6>
+                            </div>
                             @foreach($results['organizers'] as $o)
-                                <div class="col-md-12">
-                                    <h6 class="paragraph-title">Organisateurs trouvés:</h6>
-                                </div>
                                 <div class="col-md-2">{{$o->name}}</div>
                             @endforeach
                         @endif

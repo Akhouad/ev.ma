@@ -169,3 +169,33 @@
         }
     }
 }
+
+.settings-sidebar{
+    li{
+        list-style:none;
+
+        a{
+            display:inline-block;
+            width:100%;
+            padding:10px;
+            border-bottom: solid 1px $gray;
+            color:rgba($dark-gray, .75);
+            text-decoration:none;
+            transition: all .2s;
+
+            .fa{
+                float:right;
+            }
+
+            &:hover{
+                color: $dark-gray;
+                // border-bottom-color: $dark-gray;
+            }
+
+            &.active{
+                color: $secondary-color;
+                border-bottom-color: $secondary-color;
+            }
+        }
+    }
+}

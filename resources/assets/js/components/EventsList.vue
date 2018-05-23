@@ -1,6 +1,6 @@
 <template>
     <div class="row" style="width:100%;margin:0">
-        <div class="col-md-3" v-for="index in 7" v-if="events.length == 0 && !empty_list">
+        <div class="col-md-3 col-sm-4 col-xs-6" v-for="index in 7" v-if="events.length == 0 && !empty_list">
             <event-skeleton :index="index" />
         </div>
         <div class="col-md-12" v-if="events.length == 0 && empty_list" style="text-align:center;padding:50px">
@@ -18,7 +18,7 @@
                 </svg>
             </p>
         </div>
-        <div class="col-md-3" v-for="e in events" v-if="events.length > 0" v-cloak>
+        <div class="col-md-3 col-sm-4 col-xs-6" v-for="e in events" v-if="events.length > 0" v-cloak>
             <div class="event-block">
                 <a :href="'/ev/' + e.slug + '/' + e.id">
                     <div class="event-image">
@@ -90,7 +90,7 @@
         },
         watch: {
             type(newVal, oldVal) { 
-                console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+                this.type = newVal
                 this.empty_list = false
                 this.events = []
                 this.getEvents()

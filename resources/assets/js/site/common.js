@@ -49,4 +49,16 @@ $(document).ready(function(){
     $("form button[type=submit]").on("click", function(e){
         $(this).addClass("disabled")
     })
+
+    $('input.birthday-datetimepicker').singleDatePicker();
 })
+$.fn.singleDatePicker = function() {
+    $(this).on("apply.daterangepicker", function(e, picker) {
+      picker.element.val(picker.startDate.format('DD-MM-YYYY'));
+    });
+    return $(this).daterangepicker({
+        viewMode: 'years',
+        singleDatePicker: true,
+        autoUpdateInput: false
+    });
+};
