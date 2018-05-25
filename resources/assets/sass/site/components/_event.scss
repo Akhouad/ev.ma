@@ -300,6 +300,26 @@
 
     li{
         list-style:none;
+        position:relative;
+
+        &:after{
+            content:'';
+            position:absolute;
+            top:7px;
+            left:71px;
+            height:7px;
+            width:7px;
+            border-radius:50%;
+            background-color: $gray;
+            transform:translateX(-50%);
+            transition: all .2s;
+        }
+
+        &:hover{
+            &:after{
+                background-color: $primary-color;
+            }
+        }
 
         strong{
             display:inline-block;
@@ -328,14 +348,26 @@
 .event-sidebar{
     .event-author{
         p{
-            text-align:center;
+            // text-align:center;
             color:$dark-gray;
         }
 
         .author{
-            text-align:center;
+            // text-align:center;
             display:inline-block;
             width:100%;
+            margin-bottom:20px;
+            position:relative;
+
+            &:after{
+                content:'';
+                position:absolute;
+                bottom:0;
+                left:0;
+                width:30px;
+                height:1px;
+                background-color: $primary-color;
+            }
 
             img{
                 border-radius:4px;
@@ -345,7 +377,7 @@
             p{
                 padding:5px 0;
                 width:100%;
-                text-align:center;
+                // text-align:center;
                 color:$link-color;
             }
         }

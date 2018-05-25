@@ -44,7 +44,7 @@
                     @if(isset($results) && count($results) > 0)
                         @if( isset($results['events']) && count($results['events']) > 0 )
                             <div class="col-md-12">
-                                <h6 class="paragraph-title">Evenements trouvés:</h6>
+                                <h6 class="paragraph-title">Evenements trouvés: </h6>
                             </div>
                             @foreach($results['events'] as $e)
                                 <div class="col-md-3 col-sm-4">
@@ -67,7 +67,7 @@
                                                 </p>
                                                 <p class="event-location">
                                                     <i class="fa fa-map-marker primary-color-text"></i>
-                                                    {{$e['city']}}
+                                                    {{(isset($e['city'])) ? $e['city'] : $e->venue->city->name}}
                                                 </p>
                                             </div>
                                         </a>

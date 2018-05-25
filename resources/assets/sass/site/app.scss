@@ -90,3 +90,9 @@ img.avatar{
     border-radius:4px;
     width:130px;
 }
+
+.badge{
+    &.badge-success{ background-color: $primary-color }
+    &.badge-primary{ background-color: $primary-color }
+    &.badge-secondary{ background-color: $secondary-color }
+}

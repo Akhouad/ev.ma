@@ -108,6 +108,8 @@ Route::namespace('Site')->group(function(){
         Route::post('attend', 'EventController@attend')->name('attend-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
     });
 
+    Route::get('venue/{slug}', 'VenueController@index')->name('venue')->where('id', '[a-zA-Z-._]+');
+
     Route::prefix('cities')->group(function(){
         Route::get('/', 'CityController@index')->name('cities');
         Route::get('{city}', 'CityController@show')->name('city')->where('city', '[a-zA-Z-]+');

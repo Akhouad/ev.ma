@@ -38,7 +38,7 @@
                 </div>
                 <div class="event-location">
                     <i class="fa fa-map-marker text-success" style="width:20px;display:inline-block"></i>
-                    <a href="">{{title_case($event->venue->name)}}</a>
+                    <a href="{{route('venue', ['slug' => $event->venue->slug])}}">{{title_case($event->venue->name)}}</a>
                     - 
                     <a href="{{route('city', ['id' => $event->venue->city->slug])}}">{{$event->venue->city->name}}</a>
                 </div>
@@ -271,13 +271,14 @@
     <div class="col-md-3">
         <div class="event-sidebar">
             <div class="event-author">
-                <p>Partagé sur Ev par</p>
+                <div class="sidebar-widget mb-2"><div class="sidebar-heading">Partagé sur Ev par</div></div>
                 <a href="{{route('user', ['username' => $event->organizer->user->username])}}" class="author">
                     <img src="{{asset('storage/images/avatars/' . $event->organizer->user->avatar)}}" alt="">
                     <p>{{$event->organizer->user->fullname}}</p>
                 </a>
             </div>
             <div class="event-categories">
+                <div class="sidebar-widget mb-2"><div class="sidebar-heading">Catégories</div></div>
                 <ul>
                     @foreach($event->categories as $category)
                     <li>
@@ -287,9 +288,15 @@
                     </li>
                     @endforeach
                 </ul>
+                <div class="sidebar-widget mb-2"><div class="sidebar-heading">tags</div></div>
+                @foreach($event->tags as $tag)
+                <a href="{{route('tag', ['tag' => $tag->tag->name])}}">
+                    <span class="badge badge-primary">{{title_case($tag->tag->name)}}</span>
+                </a>
+                @endforeach
             </div>
         </div>
-        <div class="sidebar-widget">
+        <div class="sidebar-widget mt-4">
             <latest-events></latest-events>
             @if(Auth::user() !== null)
             <near-events city="{{Auth::user()->city->slug}}"></near-events>

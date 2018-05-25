@@ -114,8 +114,8 @@
     @if(isset($category) || isset($chosen_city))
         <div class="container" style="margin-top:130px;margin-bottom:-130px">
             <ol class="breadcrumb" style="background:transparent;padding: 0">
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{route((isset($category)) ? 'categories' : 'cities')}}">{{(isset($categoruy)) ? 'Catégories' : 'Villes'}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{(isset($category)) ? $category->nam : $chosen_city}}</li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{route((isset($category)) ? 'categories' : 'cities')}}">{{(isset($category)) ? 'Catégories' : 'Villes'}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{(isset($category)) ? $category->name : $chosen_city}}</li>
             </ol>
             <h6 class="text-light">{{(isset($category->name)) ? $category->name : $chosen_city}}</h6> 
             <p class="text-muted">

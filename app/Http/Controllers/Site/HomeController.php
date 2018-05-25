@@ -31,6 +31,7 @@ class HomeController extends Controller
             }
             
             $results = Search::search($request);
+            
             return view('site.home', compact('categories', 'footer_cities', 'results'));        
         }
 
