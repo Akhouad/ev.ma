@@ -111,16 +111,16 @@
         </div>
     </header>
 
-    @if(isset($category))
+    @if(isset($category) || isset($chosen_city))
         <div class="container" style="margin-top:130px;margin-bottom:-130px">
             <ol class="breadcrumb" style="background:transparent;padding: 0">
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('categories')}}">Catégories</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$category->name}}</li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{route((isset($category)) ? 'categories' : 'cities')}}">{{(isset($categoruy)) ? 'Catégories' : 'Villes'}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{(isset($category)) ? $category->nam : $chosen_city}}</li>
             </ol>
-            <h6 class="text-light">{{$category->name}}</h6> 
-            <p class="text-secondary">
-                Retrouvez ici votre agenda <strong>{{title_case($category->name)}}</strong> à ne pas rater. <br>
-                Abonnez-vous à l’agenda <strong>{{title_case($category->name)}}</strong> et découvrez tous les événements attendus au Maroc en {{date('Y')}} pour sortir : évènements spéciaux, rendez-vous incontournables,… .
+            <h6 class="text-light">{{(isset($category->name)) ? $category->name : $chosen_city}}</h6> 
+            <p class="text-muted">
+                Retrouvez ici votre agenda <strong>{{(isset($category->name)) ? title_case($category->name) : title_case($chosen_city)}}</strong> à ne pas rater. <br>
+                Abonnez-vous à l’agenda <strong>{{(isset($category->name)) ? title_case($category->name) : title_case($chosen_city)}}</strong> et découvrez tous les événements attendus au Maroc en {{date('Y')}} pour sortir : évènements spéciaux, rendez-vous incontournables,… .
             </p>
         </div>
     @endif

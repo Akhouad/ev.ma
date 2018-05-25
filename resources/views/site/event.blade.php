@@ -7,6 +7,7 @@
         ])
 
 @section('content')
+<?php $months = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']; ?>
 <div class="row event-page" id="app">
     <div class="col-md-9">
         @if(\Carbon\Carbon::parse($event->start_timestamp)->isPast())
@@ -29,11 +30,17 @@
         <div class="row mt-2">
             <div class="col-md-6">
                 <div class="event-date">
-                    <i class="fa fa-calendar"></i>
+                    <i class="fa fa-calendar text-success" style="width:20px;display:inline-block"></i>
                     <span>
-                        Du {{date('d/m', strtotime($event->start_timestamp))}} <br> 
-                        Au {{date('d/m', strtotime($event->end_timestamp))}}
+                        Du {{date('d', strtotime($event->start_timestamp)) . ' ' . $months[(int)date('m', strtotime($event->start_timestamp)) - 1]}}
+                        Au {{date('d', strtotime($event->end_timestamp)) . ' ' . $months[(int)date('m', strtotime($event->end_timestamp)) - 1]}}
                     </span>
+                </div>
+                <div class="event-location">
+                    <i class="fa fa-map-marker text-success" style="width:20px;display:inline-block"></i>
+                    <a href="">{{title_case($event->venue->name)}}</a>
+                    - 
+                    <a href="{{route('city', ['id' => $event->venue->city->slug])}}">{{$event->venue->city->name}}</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -46,29 +53,15 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-6">
-                <a href="">{{title_case($event->venue->name)}}</a>
-                 - 
-                <a href="{{route('city', ['id' => $event->venue->city->slug])}}">{{$event->venue->city->name}}</a>
             </div>
             <div class="col-md-6">
+                @if(Auth::check())
                 <form action="{{route('attend-event', ['id' => $event->id, 'slug' => $event->slug])}}" method="post">
                     {{csrf_field()}}
                     <input type="hidden" name="event_id" value="{{$event->id}}">
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    @if(\Carbon\Carbon::parse($event->start_timestamp)->isPast())
-                    <button type="submit" name="attend-type" value="was-present" class="btn btn-danger btn-sm float-md-right">J'étais présent à cet événement</a>                
-                    @else
-                    <p>Comptez-vous assister à cet événement ?</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="submit" name="attend-type" value="accept" class="btn btn-block btn-sm btn-danger">Oui</a>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="submit" name="attend-type" value="maybe" class="btn btn-block btn-sm btn-danger">Peut-être</a>
-                        </div>
-                    </div>
-                    @endif
                 </form>
+                @endif
             </div>
         </div>
         <div class="about">
@@ -97,79 +90,83 @@
                 </div>
             </div>
         </div>  
-        @if(count($event->interventions) > 0)
-        <div class="intervenants">
-            <div class="panel panel-success mt-4">
-                <div class="card-header">
-                    Intervenants
-                    <a class="float-md-right" data-toggle="collapse" href="#collapseIntervenants" aria-expanded="true" aria-controls="collapseIntervenants">
-                        <i class="fa fa-sort-down"></i>
-                    </a>
-                </div>
-                <div id="collapseIntervenants" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="card-body">
-                        <ul class="intervenants">
-                            @foreach($event->interventions->where('deleted_at', null) as $intervenant)
-                            <li>
-                                <a href="">
-                                    <div class="intervenant-image">
-                                        <img src="{{asset('storage/images/avatars/' . $intervenant->user->avatar)}}" alt="">
-                                    </div>
-                                    <div class="name">
-                                        {{explode(' ', $intervenant->user->fullname)[0]}}
-                                    </div>
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul>
+        <div class="row">
+            @if(count($event->interventions) > 0)
+            <div class="col-md-6">
+                <div class="intervenants">
+                    <div class="panel panel-success mt-4">
+                        <div class="card-header">
+                            Intervenants
+                            <a class="float-md-right" data-toggle="collapse" href="#collapseIntervenants" aria-expanded="true" aria-controls="collapseIntervenants">
+                                <i class="fa fa-sort-down"></i>
+                            </a>
+                        </div>
+                        <div id="collapseIntervenants" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <ul class="intervenants">
+                                    @foreach($event->interventions->where('deleted_at', null) as $intervenant)
+                                    <li>
+                                        <a href="">
+                                            <div class="intervenant-image">
+                                                <img src="{{asset('storage/images/avatars/' . $intervenant->user->avatar)}}" alt="">
+                                            </div>
+                                            <div class="name">
+                                                {{explode(' ', $intervenant->user->fullname)[0]}}
+                                            </div>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </div> 
             </div>
-        </div> 
-        @endif
-        @if(count($event->schedules) > 0)
-        <div class="schedule">
-            <div class="panel panel-success mt-4">
-                <div class="card-header">
-                    Programme
-                    <a class="float-md-right" data-toggle="collapse" href="#collapseSchedule" aria-expanded="true" aria-controls="collapseSchedule">
-                        <i class="fa fa-sort-down"></i>
-                    </a>
-                </div>
-                <div id="collapseSchedule" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="card-body">
-                        <ul class="schedule-timeline">
-                        <?php $currentDate = date("d M Y", strtotime($event->schedules->sortBy('time')->first()->time)) ?>
-                        <h5 class="day">{{date('d-m', strtotime($event->schedules->sortBy('time')->first()->time))}}</h5>
-                        @foreach($event->schedules->sortBy('time') as $schedule)
-                            <?php $date = date("d M Y",strtotime($schedule->time)); ?>
-                            @if($currentDate != $date)
-                            <h5 class="day">{{date('d-m', strtotime($schedule->time))}}</h5>
-                            <?php $currentDate = $date; ?>
-                            @endif
-                            <li>
-                                <strong>{{date('H:i', strtotime($schedule->time))}}</strong>
-                                <span>
-                                    {{$schedule->title}}
-                                    <small> / 
-                                        @if($schedule->intervention != null) 
-                                        <a href="{{route('user', ['username' => $schedule->intervention->user->username])}}">{{$schedule->intervention->user->fullname}}</a> 
-                                        @endif
-                                    </small>
-                                </span>
-                                @if(strlen($schedule->description) > 0)
-                                <p>
-                                    <i class="fa fa-level-up"></i>
-                                    {{$schedule->description}}</p>
+            @endif
+            @if(count($event->schedules) > 0)
+            <div class="col-md-6">
+                <div class="schedule">
+                    <div class="panel panel-success mt-4">
+                        <div class="card-header">
+                            Programme
+                            <a class="float-md-right" data-toggle="collapse" href="#collapseSchedule" aria-expanded="true" aria-controls="collapseSchedule">
+                                <i class="fa fa-sort-down"></i>
+                            </a>
+                        </div>
+                        <div id="collapseSchedule" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <ul class="schedule-timeline">
+                                <?php 
+                                $currentDate = null;
+                                ?>
+                                @foreach($event->schedules->where('deleted_at', null)->sortBy('time') as $schedule)
+                                <?php $date = date("d M Y",strtotime($schedule->time)); ?>
+                                @if($currentDate != $date)
+                                <?php $currentDate = $date; ?>
+                                <h5 class="day">{{date('d', strtotime($schedule->time))}} {{$months[ date('m', strtotime($schedule->time)) - 1 ]}} {{date('Y', strtotime($schedule->time))}}</h5>
                                 @endif
-                            </li>
-                        @endforeach
-                        </ul>
+                                <li>
+                                    <strong>{{date('H:i', strtotime($schedule->time))}} - </strong>
+                                    <span>
+                                        {{$schedule->title}}
+                                        @if($schedule->intervention != null)
+                                        <small> / 
+                                            <a href="{{route('user', ['username' => $schedule->intervention->user->username])}}" target="_blank">
+                                                {{$schedule->intervention->user->fullname}}
+                                            </a>
+                                        </small>
+                                        @endif
+                                    </span>
+                                </li>
+                                @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </div> 
             </div>
-        </div> 
-        @endif
+            @endif
+        </div>
         @if(count($event->images) > 0)
         <div class="event-images">
             <div class="panel panel-success mt-4">
@@ -224,7 +221,7 @@
                         @if(count($event->comments) > 0)
                         <div class="comments">
                             <div class="comments-heading">les avis des internautes</div>
-                            @foreach($event->comments as $comment)
+                            @foreach($event->comments->where('deleted_at', null) as $comment)
                             <div class="comment">
                                 <a href="{{route('user', ['username' => $comment->user->username])}}" class="author-image">
                                     <img src="{{asset('storage/images/avatars/' . $comment->user->avatar)}}" alt="">
@@ -233,6 +230,13 @@
                                     <a href="{{route('user', ['username' => $comment->user->username])}}" class="author-name">
                                         {{title_case($comment->user->fullname)}}
                                     </a>
+                                    <form action="{{route('report-comment', ['id' => $event->id, 'slug' => $event->slug])}}" method="post" class="float-right text-right">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                                        <button type="submit" class="report text-muted" style="background:transparent;border:0;cursor:pointer">
+                                            <i class="fa fa-exclamation-triangle"></i>
+                                        </button>
+                                    </form>
                                     <div class="date-rating">
                                         <div class="comment-date">
                                             {{date('d-m-Y', strtotime($comment->created_at))}}
@@ -286,6 +290,7 @@
             </div>
         </div>
         <div class="sidebar-widget">
+            <latest-events></latest-events>
             @if(Auth::user() !== null)
             <near-events city="{{Auth::user()->city->slug}}"></near-events>
             @endif

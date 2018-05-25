@@ -1,7 +1,8 @@
 @extends('../layouts.site', [
         'title' => 'Agadir', 
         'footer_cities' => $footer_cities, 
-        'categories' => $categories
+        'categories' => $categories,
+        'chosen_city' => $events[0]->city
     ])
 
 @section('content')
@@ -10,7 +11,7 @@
         <div class="col-md-9">
             <div class="row">
                 @foreach($events as $e)
-                <div class="col-3">
+                <div class="col-md-3 col-sm-6">
                     <div href="" class="event-block">
                         <a href="{{route('event-page', ['id' => $e->id, 'slug' => $e->slug])}}">
                             @if(strlen($e->name) > 40)

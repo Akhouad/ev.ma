@@ -39,3 +39,6 @@
         color: $primary-color;
     }
 }
+
+.text-primary, .text-success{ color:$primary-color!important; }
+.text-secondary{ color: $secondary-color!important; }

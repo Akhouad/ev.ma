@@ -30,4 +30,13 @@ class CommentController extends Controller
 
         return redirect(route('event-page', ['id' => $data['event_id'], 'slug' => $request->slug]));
     }
+
+    public function report(Request $request){
+        $data = $request->post();
+        $comment = Comment::find($data['comment_id']);
+        $comment->reported++;
+        $comment->save();
+        
+        return redirect(route('event-page', ['id' => $request->id, 'slug' => $request->slug]));
+    }
 }

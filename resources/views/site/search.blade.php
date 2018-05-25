@@ -31,17 +31,23 @@
                         <input type="text" class="form-control" name="search">
                     </div>
                     <div class="form-group">
-                        <div class="radio-search active" data-type="event">
-                            <input type="radio" checked name="search-type" id="event" value="event">
-                            <label for="event">Evenement</label>
+                        <div>
+                            <div class="radio-search d-inline-block active" data-type="event">
+                                <input type="radio" checked name="search-type" id="event" value="event">
+                                <label for="event">Evenement</label>
+                            </div>
                         </div>
-                        <div class="radio-search" data-type="user">
-                            <input type="radio" name="search-type" id="user" value="user">
-                            <label for="user">Utilisateur</label>
-                        </div>
-                        <div class="radio-search" data-type="organizer">
-                            <input type="radio" name="search-type" id="organizer" value="organizer">
-                            <label for="organizer">Organisateur</label>
+                        <div>
+                            <div class="radio-search d-inline-block" data-type="user">
+                                <input type="radio" name="search-type" id="user" value="user">
+                                <label for="user">Utilisateur</label>
+                            </div>
+                        </div>  
+                        <div>
+                            <div class="radio-search d-inline-block" data-type="organizer">
+                                <input type="radio" name="search-type" id="organizer" value="organizer">
+                                <label for="organizer">Organisateur</label>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" name="advanced" value="true" class="btn btn-primary">
