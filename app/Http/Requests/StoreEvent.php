@@ -26,7 +26,7 @@ class StoreEvent extends FormRequest
     {
         return [
             'name' => 'required|unique:events|max:255|min:5',
-            'description' => 'required|min:5|max:255',
+            'description' => 'required|min:5|max:2000',
 
             'start_date' => 'required_without_all:recurrent.date.from, recurrent.date.to|date|after:yesterday',
             'start_time' => 'required_without_all:recurrent.time.from, recurrent.time.to|date_format:H:i',

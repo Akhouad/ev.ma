@@ -14,15 +14,18 @@
 
     a:not(.event-button){
         display:inline-block;
+        width: 100%;
+        padding:5px;
     }
 
     .event-image{
         height:100px;
         overflow:hidden;
-        padding:5px;
+        width:100%;
 
         img{
-            width:100%;
+            min-width:100%;
+            height:100%;
         }
     }
 
@@ -91,10 +94,12 @@
     .event-cover{
         height:250px;
         overflow:hidden;
+        width:100%;
         border:solid 5px rgba($gray, .5);
 
         img{
-            width:100%;
+            min-width:100%;
+            height:100%;
         }
     }
 
