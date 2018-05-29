@@ -52,7 +52,7 @@
             @endif
         </p>
     </h5>
-    <div class="list-group">
+    <div class="list-group mb-5">
         @foreach($events as $e)
         <a href="{{route('event', ['id' => $e->id])}}" class="list-group-item">
         <span class="badge badge-{{(count($e->attendings) > 0) ? 'primary' : 'default'}} float-right">{{count($e->attendings)}} <i class="fa fa-user"></i></span>

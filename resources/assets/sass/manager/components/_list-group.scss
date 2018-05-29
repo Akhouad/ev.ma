@@ -1,12 +1,37 @@
 .list-group{
     .list-group-item{
         color: rgba(black, .5);
+        display:inline-block;
+        border-radius:3px;
+        transition: all .2s;
 
         &:not(:last-child){ margin-bottom: 3px; }
+
+        &.checked{
+            background-color: rgba($gray, .02);
+            border-color: rgba($primary-color, .5);
+        }
+
+        .checkbox-fn{
+            margin-right: 5px;
+            
+            &:after{
+                width:15px;
+                height:15px;
+            }
+
+            &.checked{
+                &:after{
+                    font-size:8px;
+                    line-height:12px;
+                }
+            }
+        }
 
         .event-name{
             display:inline-block;
             padding-left:5px;
+            color: rgba(black, .5);
         }
 
         .badge{
@@ -457,6 +482,65 @@ ul.deletable-list{
                     }
                 }
             }
+        }
+    }
+}
+
+.collections-list{
+    .collection{
+        display:inline-block;
+        width:100%;
+        border-radius:4px;
+        overflow:hidden;
+        background-color: #fff;
+        text-decoration: none;
+        margin-bottom:20px;
+        position:relative;
+
+        .events-count{
+            position:absolute;
+            top:5px;right:5px;
+            background-color: $primary-color;
+            color: #fff;
+            border-radius:4px;
+            height:20px;
+            width:20px;
+            text-align:center;
+            line-height:20px;
+        }
+
+        .image{
+            background-color: rgba(black, .75);
+            height:100px;
+            position:relative;
+
+            svg{
+                height:70px;
+                position:absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%, -50%);
+            }
+
+            img{
+                min-width:100%;
+                height:100%;
+                opacity: .5;
+                transition: all .2s;
+            }
+        }
+
+        &:hover{
+            .image img{ opacity: 1 }
+        }
+
+        .name{
+            padding:5px 10px;
+        }
+
+        .description{
+            padding:5px 10px 0;
+            color:$gray;
         }
     }
 }

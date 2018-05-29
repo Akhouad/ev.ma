@@ -7,6 +7,10 @@ window.$ = window.jQuery = require('jquery');
             $(document).ready(function(){
                 self.toggle_sidebar_nav()
                 self.toggle_mobile_nav()
+                $(".checkbox-fn").on("click", function(){
+                    $(this).toggleClass("checked")
+                    $(this).find("input[type='checkbox']").prop("checked", $(this).hasClass("checked"))
+                })
             })
         },
         toggle_mobile_nav(){

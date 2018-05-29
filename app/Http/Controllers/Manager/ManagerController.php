@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\City;
 use App\Organizer;
+use App\Collection;
 use Auth;
 
 class ManagerController extends Controller
@@ -20,8 +21,11 @@ class ManagerController extends Controller
             $events = Event::where("organizer_id", Auth::user()->organizer->id)
                             ->orderBy('start_timestamp', 'asc')
                             ->paginate($this->events_count);
+
+        $collections = Collection::where('user_id', Auth::id())
+                        ->where('deleted_at', null)->get();
         $pending_events = $this->pending_events();
-        return view('manager/home', compact('events', 'pending_events', 'search_key'));
+        return view('manager/home', compact('events', 'pending_events', 'search_key', 'collections'));
     }
 
     public function validation($events = null, $search_key = null){

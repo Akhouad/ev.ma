@@ -12,6 +12,12 @@ Route::namespace('Manager')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::prefix('manager')->middleware(App\Http\Middleware\Manager\CheckManager::class)->namespace('Manager')->group(function(){
         Route::get('settings', 'ManagerController@index')->name('settings');
+        Route::get('collections', 'CollectionController@index')->name('collections');
+        Route::post('collections/add', 'CollectionController@store')->name('add-collection');
+        Route::post('collections/{id}/delete', 'CollectionController@delete')->name('delete-collection');
+        Route::get('collections/{slug}/{id}', 'CollectionController@show')->name('collection');
+        Route::post('collections/update', 'CollectionController@update')->name('add-to-collection');
+
         Route::get('/', 'ManagerController@index')->name('manager');
         Route::get('/search', 'ManagerController@search')->name('manager-search');
         Route::get('/validation', 'ManagerController@validation')->name('validation');

@@ -27,7 +27,7 @@ class EditEvent extends FormRequest
         return [
             'name' => 'required|max:255|min:5',
             'categories' => 'required',
-            'description' => 'required|min:5|max:255',
+            'description' => 'required|min:5|max:2000',
             
             'start_date' => 'required_without_all:recurrent.date.from, recurrent.date.to|date|after:yesterday',
             'start_time' => 'required_without_all:recurrent.time.from, recurrent.time.to|date_format:H:i',

@@ -62,7 +62,7 @@
                         <nav class="dropdown-nav">
                             <ul>
                                 <li><a href="{{route('manager')}}"><i class="fa fa-cog"></i> Gérer mes événements</a></li>
-                                <li><a href=""><i class="fa fa-cog"></i> Gérer mes collections</a></li>
+                                <li><a href="{{route('collections')}}"><i class="fa fa-cog"></i> Gérer mes collections</a></li>
                             </ul>
                         </nav>
                         <div class="dropdown-footer">

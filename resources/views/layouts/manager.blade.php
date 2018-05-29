@@ -26,6 +26,7 @@
                             <li><a class="{{Route::current()->action['as'] == 'validation' ? 'active' : ''}}" href="{{route('validation')}}">Validation ({{count($pending_events)}})</a></li>
                             @endif
                             <li><a class="{{Route::current()->action['as'] == 'manager' ? 'active' : ''}}" href="{{route('manager')}}">Mes événements</a></li>
+                            <li><a class="{{Route::current()->action['as'] == 'collections' ? 'active' : ''}}" href="{{route('collections')}}">Mes collections</a></li>
                             <li><a href="{{route('settings')}}">Mon compte</a></li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Déconnexion</a>
@@ -79,6 +80,11 @@
                         {{title_case($event->name)}}
                     @endif
                     <a href="{{route('event-page', ['id' => $event->id, 'slug' => $event->slug])}}" class="ml-2" target="_blank"><i class="fa fa-external-link"></i></a>
+                </li>
+                @endif
+                @if(isset($collection))
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="{{route('collections')}}">Collections</a>
                 </li>
                 @endif
                 @if(isset($current_page))

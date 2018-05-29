@@ -14,7 +14,7 @@
     </div>
 </div>
 @else
-<div class="container">
+<div class="container" id="list">
     @if ($errors->any())
     <div class="alert alert-danger">
         <div class="alert-body">
@@ -43,18 +43,43 @@
             </form>
         </div>
     </div>
-    <h5>
-        <p>
-            @if(!isset($search_key))
-                Mes événements
-            @else
-                Résultats de la recherche: {{$search_key}}
-            @endif
-        </p>
-    </h5>
-    <div class="list-group">
+    <div class="row">
+        <div class="col-md-6">
+            <h5>
+                <p>
+                    @if(!isset($search_key))
+                        Mes événements
+                    @else
+                        Résultats de la recherche: {{$search_key}}
+                    @endif
+                </p>
+            </h5>
+        </div>
+        <div class="col-md-6 text-right">
+            <div class="dropdown collections-dropdown">
+                <button class="btn btn-sm btn-default dropdown-toggle" :class="{'disabled': items.length == 0}" v-cloak type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ajouter à une collection
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <form action="{{route('add-to-collection')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="events" ref="events">
+                        @foreach($collections as $c)
+                            <button type="submit" name="collection_id" value="{{$c->id}}" class="dropdown-item">{{$c->name}}</button>
+                        @endforeach
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-group mb-5">
         @foreach($events as $e)
-        <a href="{{route('event', ['id' => $e->id])}}" class="list-group-item">
+        <div class="list-group-item">
+            <div class="checkbox-fn">
+                <label for="">
+                    <input type="checkbox" value="{{$e->id}}">
+                </label>
+            </div>
             <span class="badge badge-{{(count($e->attendings) > 0) ? 'primary' : 'default'}} float-right">{{count($e->attendings)}} <i class="fa fa-user"></i></span>
 
             @if(!\Carbon\Carbon::parse($e->start_timestamp)->isPast())
@@ -66,11 +91,15 @@
             @if($e->status == 'pending')
             <span class="badge badge-default float-right" style="margin-right:5px">En cours de validation</span>
             @endif
-            <span class="event-name">{{$e->name}}</span>
-        </a>
+            <a href="{{route('event', ['id' => $e->id])}}"><span class="event-name">{{title_case($e->name)}}</span></a>
+        </div>
         @endforeach
     </div>
     {{$events->links()}}
 </div>
 @endif
+@endsection
+
+@section('scripts')
+<script src="{{asset('js/manager/list.js')}}"></script>
 @endsection
