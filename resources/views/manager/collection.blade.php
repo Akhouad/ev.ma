@@ -4,7 +4,7 @@
     ])
 
 @section('content')
-<div class="container">
+<div class="container" id="list">
     <div class="row">
         <div class="col-md-4">
             <div class="collection-sidebar">
@@ -24,9 +24,29 @@
             </div>
         </div>
         <div class="col-md-8">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <h5>{{title_case($collection->name)}}</h5>
+                </div>
+                <div class="col-md-6">
+                    <form action="{{route('update-collection')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="collection_id" value="{{$collection->id}}">
+                        <input type="hidden" name="events" ref="events">
+                        <button type="submit" class="btn btn-sm btn-danger float-right" v-cloak :class="{'disabled': items.length == 0}" name="update-type" value="delete">
+                            Retirer de la collection
+                        </button>
+                    </form>
+                </div>
+            </div>
             <div class="list-group">
                 @foreach($events as $e)
                 <div class="list-group-item">
+                    <div class="checkbox-fn">
+                        <label for="">
+                            <input type="checkbox" value="{{$e->id}}" class="delete">
+                        </label>
+                    </div>
                     <span class="badge badge-{{(count($e->attendings) > 0) ? 'primary' : 'default'}} float-right">{{count($e->attendings)}} <i class="fa fa-user"></i></span>
 
                     @if(!\Carbon\Carbon::parse($e->start_timestamp)->isPast())
@@ -45,4 +65,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{asset('js/manager/list.js')}}"></script>
 @endsection

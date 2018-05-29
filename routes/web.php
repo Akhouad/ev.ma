@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function(){
         Route::post('collections/add', 'CollectionController@store')->name('add-collection');
         Route::post('collections/{id}/delete', 'CollectionController@delete')->name('delete-collection');
         Route::get('collections/{slug}/{id}', 'CollectionController@show')->name('collection');
-        Route::post('collections/update', 'CollectionController@update')->name('add-to-collection');
+        Route::post('collections/update', 'CollectionController@update')->name('update-collection');
 
         Route::get('/', 'ManagerController@index')->name('manager');
         Route::get('/search', 'ManagerController@search')->name('manager-search');

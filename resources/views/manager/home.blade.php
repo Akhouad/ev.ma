@@ -61,7 +61,7 @@
                     Ajouter à une collection
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <form action="{{route('add-to-collection')}}" method="post">
+                    <form action="{{route('update-collection')}}" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="events" ref="events">
                         @foreach($collections as $c)

@@ -64,16 +64,24 @@ class CollectionController extends Controller
         $data = $request->post();
         $events_ids = explode(',', $data['events']);
         $collection = Collection::find($data['collection_id']);
-        if($collection->events == null){
-            $collection->events = serialize($events_ids);
-        }else{
+
+        if(isset($data['update-type']) && $data['update-type'] == 'delete'){
             $events = unserialize($collection->events);
-            foreach($events_ids as $event_id){ 
-                if(!in_array( $event_id, $events )){
-                    $events[] = $event_id;
+            $new_events = [];
+            foreach($events as $e){ if(!in_array($e, $events_ids)) $new_events[] = $e; }
+            $collection->events = serialize($new_events);
+        }else{
+            if($collection->events == null){
+                $collection->events = serialize($events_ids);
+            }else{
+                $events = unserialize($collection->events);
+                foreach($events_ids as $event_id){ 
+                    if(!in_array( $event_id, $events )){
+                        $events[] = $event_id;
+                    }
                 }
+                $collection->events = serialize($events);
             }
-            $collection->events = serialize($events);
         }
         $collection->save();
         return redirect(route('collection', ['id' => $collection->id, 'slug' => $collection->slug]));
