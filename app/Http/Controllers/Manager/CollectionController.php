@@ -65,12 +65,15 @@ class CollectionController extends Controller
         $events_ids = explode(',', $data['events']);
         $collection = Collection::find($data['collection_id']);
 
-        if(isset($data['update-type']) && $data['update-type'] == 'delete'){
+        // retirer de la collection
+        if(isset($data['update-type']) && $data['update-type'] == 'delete'){ 
             $events = unserialize($collection->events);
             $new_events = [];
             foreach($events as $e){ if(!in_array($e, $events_ids)) $new_events[] = $e; }
             $collection->events = serialize($new_events);
-        }else{
+        }
+        // ajouter à la collection
+        else{ 
             if($collection->events == null){
                 $collection->events = serialize($events_ids);
             }else{

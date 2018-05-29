@@ -55,7 +55,7 @@
             }
         }
 
-        @media screen and (max-width: 768px){
+        @media screen and (max-width: 992px){
             display:none;
             background-color: rgba(#fff,.9);
 
@@ -79,7 +79,7 @@
     font-size:30px;
     display:none;
     
-    @media screen and (max-width: 768px){
+    @media screen and (max-width: 992px){
         display:block
     }
 }
