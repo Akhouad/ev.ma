@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: evapp
-# Generation Time: 2018-05-23 12:53:01 +0000
+# Generation Time: 2018-05-29 12:34:38 +0000
 # ************************************************************
 
 
@@ -98,7 +98,7 @@ VALUES
 	(3,'cam 2','title camp1','test message camp1',1,0,0,0,1,1,22,'127.0.0.1','2018-05-02 10:49:54','2018-05-02 10:49:46','2018-05-02 10:49:54'),
 	(4,'camp 2222','titre camp 2','body camp 2',0,0,0,0,1,1,22,'127.0.0.1','2018-05-02 12:04:55','2018-05-02 12:04:45','2018-05-02 12:04:55'),
 	(5,'mwa campagne 2','titre mwa12','',1,0,0,0,1,1,22,'127.0.0.1','2018-05-09 15:01:31','2018-05-02 12:17:28','2018-05-09 15:01:31'),
-	(6,'camp test trumbowyg','trumbowyg','<p><strong><del>Veuillez confirmer votre inscription a notre evenement....</del></strong></p><p><strong><del><a href=\"http://ev.ma\">amine</a></del></strong></p><p><img src=\"https://artisansweb.net/wp-content/themes/llorix-one-lite/logo.png\" alt=\"\"><strong><br></strong></p>',1,0,0,0,1,1,22,'127.0.0.1',NULL,'2018-05-02 12:50:53','2018-05-02 13:43:58'),
+	(6,'Campagne Essaouira','Est Essaouira','<p>Bonjour Amine Akhouad,<br></p><p>Bienvenue a EST Essaouira</p>',0,0,0,0,1,1,22,'127.0.0.1',NULL,'2018-05-02 12:50:53','2018-05-26 21:12:08'),
 	(7,'nouvelle campagne','campagne objet','test campagne',1,0,0,0,1,1,22,'127.0.0.1','2018-05-02 13:26:00','2018-05-02 13:24:16','2018-05-02 13:26:00'),
 	(8,'camp 999','titre camp 999','<p><strong><em>salut tout le monde</em></strong></p>',0,0,0,0,1,1,22,'127.0.0.1','2018-05-02 15:18:28','2018-05-02 15:17:21','2018-05-02 15:18:28'),
 	(9,'camp 990','titre 99','',0,0,0,0,1,1,22,'127.0.0.1',NULL,'2018-05-02 15:24:11','2018-05-02 15:24:36');
@@ -307,6 +307,38 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table collections
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `collections`;
+
+CREATE TABLE `collections` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `events` text COLLATE utf8mb4_unicode_ci,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `collections` WRITE;
+/*!40000 ALTER TABLE `collections` DISABLE KEYS */;
+
+INSERT INTO `collections` (`id`, `name`, `slug`, `description`, `image`, `user_id`, `events`, `deleted_at`, `created_at`, `updated_at`)
+VALUES
+	(1,'collection 1','collection-1','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n','GcHLyvlxoZZuiQ0qx4m3l8B5J8jTh3eCYq9BXSfB.jpeg',1,'a:6:{i:0;s:2:\"34\";i:1;s:1:\"2\";i:2;s:1:\"5\";i:3;s:2:\"24\";i:4;s:2:\"23\";i:5;s:2:\"36\";}',NULL,'2018-05-29 10:57:38','2018-05-29 11:59:38'),
+	(2,'Timitars','timitars','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','LoC8D7MjTDk9yaV0v2u3G12kBxDvPUlGPtVb4KRo.jpeg',1,'a:6:{i:0;s:2:\"34\";i:1;s:1:\"2\";i:2;s:2:\"22\";i:3;s:2:\"21\";i:4;s:2:\"36\";i:5;s:2:\"37\";}',NULL,'2018-05-29 12:14:27','2018-05-29 12:21:03'),
+	(3,'maroc web awards','maroc-web-awards',NULL,NULL,4,'a:1:{i:0;s:1:\"3\";}',NULL,'2018-05-29 12:21:34','2018-05-29 12:21:42');
+
+/*!40000 ALTER TABLE `collections` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Dump of table comments
 # ------------------------------------------------------------
 
@@ -331,16 +363,20 @@ LOCK TABLES `comments` WRITE;
 
 INSERT INTO `comments` (`id`, `user_id`, `event_id`, `comment`, `rating_id`, `ip_address`, `created_at`, `updated_at`, `deleted_at`, `reported`)
 VALUES
-	(2,1,2,'test comment',2,'127.0.0.1','2018-04-29 15:28:42','2018-04-30 14:29:28',NULL,0),
+	(2,1,2,'test comment',2,'127.0.0.1','2018-04-29 15:28:42','2018-05-25 11:02:33',NULL,1),
 	(3,1,22,'commentaire 1',NULL,'127.0.0.1','2018-04-29 16:47:40','2018-05-16 11:05:56','2018-05-16 11:05:56',10),
 	(4,1,22,'commentaire 2',3,'127.0.0.1','2018-04-29 16:47:54','2018-05-02 15:26:24',NULL,0),
-	(6,4,22,'Commentaire 3 par john doe',4,'127.0.0.1','2018-04-29 16:50:35','2018-04-30 15:12:32',NULL,0),
+	(6,4,22,'Commentaire 3 par john doe',4,'127.0.0.1','2018-04-29 16:50:35','2018-05-25 09:41:22',NULL,2),
 	(7,18,22,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',5,'127.0.0.1','2018-04-29 16:53:16','2018-05-02 12:14:51',NULL,0),
 	(8,1,22,'check',NULL,'127.0.0.1','2018-04-29 19:38:25','2018-04-29 19:38:25',NULL,0),
 	(23,1,22,'comment',9,'127.0.0.1','2018-04-30 08:22:08','2018-04-30 13:59:32','2018-04-30 13:59:32',0),
 	(24,1,22,'salut',10,'127.0.0.1','2018-04-30 13:52:56','2018-04-30 13:59:32','2018-04-30 13:59:32',0),
 	(25,1,22,'salut',NULL,'127.0.0.1','2018-04-30 13:55:20','2018-04-30 13:59:32','2018-04-30 13:59:32',0),
-	(26,1,2,'test',11,'127.0.0.1','2018-05-09 15:26:06','2018-05-09 15:26:06',NULL,0);
+	(26,1,2,'test',11,'127.0.0.1','2018-05-09 15:26:06','2018-05-09 15:26:06',NULL,0),
+	(27,1,22,'final test',12,'127.0.0.1','2018-05-25 09:43:21','2018-05-25 10:37:31',NULL,1),
+	(28,4,35,'Háte de voir Eko sur scéne !!',NULL,'127.0.0.1','2018-05-26 18:30:15','2018-05-26 18:30:15',NULL,0),
+	(29,19,35,'J\'y serai bel et bien <3',13,'127.0.0.1','2018-05-26 18:31:16','2018-05-26 18:31:16',NULL,0),
+	(30,7,35,'évenement interessant :)',NULL,'127.0.0.1','2018-05-26 18:31:51','2018-05-26 18:31:51',NULL,0);
 
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -368,7 +404,6 @@ VALUES
 	(98,21,2,'2018-04-05 11:52:55','2018-04-05 11:52:55'),
 	(99,21,3,'2018-04-05 11:52:55','2018-04-05 11:52:55'),
 	(100,21,5,'2018-04-05 11:52:55','2018-04-05 11:52:55'),
-	(101,22,2,'2018-04-05 11:53:15','2018-04-05 11:53:15'),
 	(102,22,3,'2018-04-05 11:53:15','2018-04-05 11:53:15'),
 	(103,22,5,'2018-04-05 11:53:15','2018-04-05 11:53:15'),
 	(104,23,2,'2018-04-05 11:53:29','2018-04-05 11:53:29'),
@@ -390,7 +425,6 @@ VALUES
 	(157,21,2,'2018-04-11 14:22:40','2018-04-11 14:22:40'),
 	(158,21,5,'2018-04-11 14:22:40','2018-04-11 14:22:40'),
 	(159,22,2,'2018-04-13 11:36:40','2018-04-13 11:36:40'),
-	(160,22,5,'2018-04-13 11:36:40','2018-04-13 11:36:40'),
 	(161,23,10,'2018-05-08 10:21:56','2018-05-08 10:21:56'),
 	(162,23,13,'2018-05-08 10:21:56','2018-05-08 10:21:56'),
 	(163,24,3,'2018-05-08 10:29:16','2018-05-08 10:29:16'),
@@ -400,7 +434,25 @@ VALUES
 	(214,31,7,'2018-05-11 14:20:42','2018-05-11 14:20:42'),
 	(215,31,10,'2018-05-11 14:20:42','2018-05-11 14:20:42'),
 	(216,31,11,'2018-05-11 14:20:42','2018-05-11 14:20:42'),
-	(241,34,8,'2018-05-11 14:52:36','2018-05-11 14:52:36');
+	(241,34,8,'2018-05-11 14:52:36','2018-05-11 14:52:36'),
+	(242,35,5,'2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(243,35,7,'2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(244,35,11,'2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(245,36,5,'2018-05-26 18:13:06','2018-05-26 18:13:06'),
+	(246,36,7,'2018-05-26 18:13:06','2018-05-26 18:13:06'),
+	(247,36,11,'2018-05-26 18:13:06','2018-05-26 18:13:06'),
+	(248,37,5,'2018-05-26 18:14:35','2018-05-26 18:14:35'),
+	(249,37,7,'2018-05-26 18:14:35','2018-05-26 18:14:35'),
+	(250,37,11,'2018-05-26 18:14:35','2018-05-26 18:14:35'),
+	(251,38,6,'2018-05-26 18:17:38','2018-05-26 18:17:38'),
+	(252,38,9,'2018-05-26 18:17:38','2018-05-26 18:17:38'),
+	(253,38,12,'2018-05-26 18:17:38','2018-05-26 18:17:38'),
+	(254,39,2,'2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(255,39,5,'2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(256,39,6,'2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(257,40,2,'2018-05-26 18:19:51','2018-05-26 18:19:51'),
+	(258,40,3,'2018-05-26 18:19:51','2018-05-26 18:19:51'),
+	(259,40,6,'2018-05-26 18:19:51','2018-05-26 18:19:51');
 
 /*!40000 ALTER TABLE `event_categories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -497,7 +549,22 @@ VALUES
 	(237,34,38,'2018-05-11 14:52:36','2018-05-11 14:52:36'),
 	(238,34,50,'2018-05-11 14:52:36','2018-05-11 14:52:36'),
 	(239,34,51,'2018-05-11 14:52:36','2018-05-11 14:52:36'),
-	(240,34,18,'2018-05-11 14:52:36','2018-05-11 14:52:36');
+	(240,34,18,'2018-05-11 14:52:36','2018-05-11 14:52:36'),
+	(241,35,52,'2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(242,35,53,'2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(243,36,54,'2018-05-26 18:13:06','2018-05-26 18:13:06'),
+	(244,37,55,'2018-05-26 18:14:35','2018-05-26 18:14:35'),
+	(245,37,38,'2018-05-26 18:14:35','2018-05-26 18:14:35'),
+	(246,38,56,'2018-05-26 18:17:38','2018-05-26 18:17:38'),
+	(247,39,57,'2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(248,39,18,'2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(249,39,58,'2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(250,40,59,'2018-05-26 18:19:51','2018-05-26 18:19:51'),
+	(251,40,59,'2018-05-26 18:26:46','2018-05-26 18:26:46'),
+	(252,39,57,'2018-05-26 18:27:13','2018-05-26 18:27:13'),
+	(253,39,18,'2018-05-26 18:27:13','2018-05-26 18:27:13'),
+	(254,39,58,'2018-05-26 18:27:13','2018-05-26 18:27:13'),
+	(255,38,56,'2018-05-26 18:27:38','2018-05-26 18:27:38');
 
 /*!40000 ALTER TABLE `event_tags` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -551,18 +618,24 @@ LOCK TABLES `events` WRITE;
 
 INSERT INTO `events` (`id`, `name`, `slug`, `description`, `start_timestamp`, `end_timestamp`, `type_id`, `access_type`, `tickets_url`, `cover`, `cover_original`, `youtube_url`, `venue_id`, `email`, `phone`, `website`, `schedule`, `is_sponsored`, `is_editor_choice`, `organizer_id`, `attending_count`, `pin_count`, `checkin_count`, `comment_count`, `facebook`, `twitter`, `youtube`, `is_organizer_owner`, `status`, `status_date`, `published_at`, `deleted_at`, `created_at`, `updated_at`)
 VALUES
-	(2,'timitar 2017','timitar-2018','description timitar 2018','2018-04-10 10:09:43','2018-04-30 19:00:00',247,1,NULL,'FRnql7nVtBkc8VcV8pCjyyKgmWZS9wCQeyjZc16v.jpeg','MP9004424881.jpg',NULL,3,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-04-07 18:51:27','2018-05-22 10:06:37'),
+	(2,'timitar 2017','timitar-2018','description timitar 2018','2018-04-10 10:09:43','2018-04-30 19:00:00',247,1,NULL,'FRnql7nVtBkc8VcV8pCjyyKgmWZS9wCQeyjZc16v.jpeg','MP9004424881.jpg',NULL,3,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-26 18:20:19',NULL,'2018-04-07 18:51:27','2018-05-26 18:20:19'),
 	(3,'1er trophée de pétanque des etoiles \"henri salvador\"','johns-event','1ER TROPHÉE DE PÉTANQUE DES ETOILES \"HENRI SALVADOR\"','2018-04-12 10:09:17','2018-04-24 19:00:00',256,1,NULL,'XPsUSjhzbDepDvYuWee16Q0Onz7jwQsZLGSbHZy2.jpeg','MP9004424881.jpg',NULL,1,NULL,NULL,NULL,'',0,0,2,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','0000-00-00 00:00:00',NULL,'2018-04-10 11:37:00','2018-05-09 19:30:16'),
-	(4,'mwa 2018','mwa-2018','description mwa','2018-04-11 10:25:56','2018-04-27 11:00:00',247,1,NULL,'nAqiEkqWD9TzREFgZR3AWs8DBCxoQTCy18m65QJM.jpeg','MP9004424881.jpg',NULL,1,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-04-10 14:25:40','2018-05-22 10:06:45'),
-	(5,'mwa 2020','mwa-2020','description 2020','2018-04-11 08:00:00','2018-04-27 18:30:00',246,1,NULL,'WQX5bsmFtlCeNuQZfmpHCfS93zobscyEyKsVDtH6.jpeg','MP9004424881.jpg',NULL,3,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-04-11 08:36:53','2018-05-22 10:06:41'),
-	(21,'maroc web awards 2018','maroc-web-awards-2018','Nous vous avions promis un retour en BEAUTÉ ce semestre...\nChose promise chose due ! Après une 1ère édition brillamment réussie, le club Musi\'k de l\'École Nationale de Commerce et de Gestion revient plus ambitieux et prometteur en vue d\'organiser la 2ème édition de son Festival, ce dernier s’efforcera autant de maintenir les acquis de l\'édition précédente dans le but d’assurer l’avenir de la manifestation que de parfaire son enveloppe, cet événement est une belle opportunité pour tout amateur d\'art et de Musique, une occasion rêvée de partager sa passion pour la Musique et vivre des expériences musicales vertigineuses !\nL\'FUM sera le rendez-vous de différentes équipes venues des plus grandes écoles, instituts supérieurs et universités du royaume afin de se disputer les trois prix du jury et seront donc jugées pour leurs qualités techniques artistiques ainsi que leurs sensibilités musicales.\nPour cette édition, la compétition de L\'FUM aura lieu le SAMEDI 14 AVRIL au complexe culturel de Kenitra à 50Dh l\'entrée et sera présidée par un jury composé de RENOMS de la Musique marocaine ! \nRestez branchés','2018-04-27 10:10:12','2018-04-30 19:42:23',247,2,NULL,'VbZL3qrTzwncpUmZlUsf8eaYBp06DYAsq9O2JKiW.jpeg','MP9004424881.jpg',NULL,1,NULL,NULL,NULL,'',0,0,1,0,0,0,0,'https://facebook.com/a.cooldes','https://facebook.com/a.cooldes','https://facebook.com/a.cooldes',1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-04-11 14:22:40','2018-05-22 10:06:53'),
+	(4,'mwa 2018','mwa-2018','description mwa','2018-04-11 10:25:56','2018-04-27 11:00:00',247,1,NULL,'nAqiEkqWD9TzREFgZR3AWs8DBCxoQTCy18m65QJM.jpeg','MP9004424881.jpg',NULL,1,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-26 18:20:29',NULL,'2018-04-10 14:25:40','2018-05-26 18:20:29'),
+	(5,'mwa 2020','mwa-2020','description 2020','2018-04-11 08:00:00','2018-04-27 18:30:00',246,1,NULL,'WQX5bsmFtlCeNuQZfmpHCfS93zobscyEyKsVDtH6.jpeg','MP9004424881.jpg',NULL,3,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-26 18:20:24',NULL,'2018-04-11 08:36:53','2018-05-26 18:20:24'),
+	(21,'maroc web awards 2018','maroc-web-awards-2018','Nous vous avions promis un retour en BEAUTÉ ce semestre...\nChose promise chose due ! Après une 1ère édition brillamment réussie, le club Musi\'k de l\'École Nationale de Commerce et de Gestion revient plus ambitieux et prometteur en vue d\'organiser la 2ème édition de son Festival, ce dernier s’efforcera autant de maintenir les acquis de l\'édition précédente dans le but d’assurer l’avenir de la manifestation que de parfaire son enveloppe, cet événement est une belle opportunité pour tout amateur d\'art et de Musique, une occasion rêvée de partager sa passion pour la Musique et vivre des expériences musicales vertigineuses !\nL\'FUM sera le rendez-vous de différentes équipes venues des plus grandes écoles, instituts supérieurs et universités du royaume afin de se disputer les trois prix du jury et seront donc jugées pour leurs qualités techniques artistiques ainsi que leurs sensibilités musicales.\nPour cette édition, la compétition de L\'FUM aura lieu le SAMEDI 14 AVRIL au complexe culturel de Kenitra à 50Dh l\'entrée et sera présidée par un jury composé de RENOMS de la Musique marocaine ! \nRestez branchés','2018-04-27 10:10:12','2018-04-30 19:42:23',247,2,NULL,'VbZL3qrTzwncpUmZlUsf8eaYBp06DYAsq9O2JKiW.jpeg','MP9004424881.jpg',NULL,1,NULL,NULL,NULL,'',0,0,1,0,0,0,0,'https://facebook.com/a.cooldes','https://facebook.com/a.cooldes','https://facebook.com/a.cooldes',1,'pending','0000-00-00 00:00:00','2018-05-26 18:20:43',NULL,'2018-04-11 14:22:40','2018-05-26 18:20:43'),
 	(22,'world cup 2019','world-cup-2018','description world cup 2018','2018-04-27 10:10:00','2018-04-30 19:42:00',246,1,NULL,'4y8nbUgKLRrFuY3f0tZSdGjHu3kCQ2ZTRUSWm3uK.jpeg','22221781_1893998800919424_5097136805633816144_n.jpg',NULL,7,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-04-13 11:36:40','2018-05-22 10:06:49'),
-	(23,'mawazine','mawazine','mawazine description','2018-05-16 08:00:00','2018-05-30 18:00:00',256,2,NULL,'00spa6NPLewgX24ivU7fbR89YbE2VpzsIlF33azg.png','Screen Shot 2018-05-07 at 10.53.01 PM.png',NULL,9,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:07:00',NULL,'2018-05-08 10:21:56','2018-05-22 10:07:02'),
-	(24,'mawazine 2020','mawazine-2020','mawazine description 2020','2018-05-09 08:00:00','2018-05-24 18:00:00',256,2,NULL,'bJpbylPAc8LDV3Dm7ZZtv059ggsuHuJsT31HeRkq.png','Screen Shot 2018-05-07 at 10.53.01 PM.png',NULL,8,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-05-08 10:29:16','2018-05-22 10:06:58'),
+	(23,'mawazine','mawazine','mawazine description','2018-05-16 08:00:00','2018-05-30 18:00:00',256,2,NULL,'00spa6NPLewgX24ivU7fbR89YbE2VpzsIlF33azg.png','Screen Shot 2018-05-07 at 10.53.01 PM.png',NULL,9,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-26 18:21:42',NULL,'2018-05-08 10:21:56','2018-05-26 18:21:42'),
+	(24,'mawazine 2020','mawazine-2020','mawazine description 2020','2018-05-09 08:00:00','2018-05-24 18:00:00',256,2,NULL,'bJpbylPAc8LDV3Dm7ZZtv059ggsuHuJsT31HeRkq.png','Screen Shot 2018-05-07 at 10.53.01 PM.png',NULL,8,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-26 18:20:48',NULL,'2018-05-08 10:29:16','2018-05-26 18:20:48'),
 	(25,'world cup 2018','world-cup-2018','description world cup 2018','2018-05-08 08:00:00','2018-05-30 18:00:00',294,1,NULL,'WMgmOrtUlEMG9yGdsJmGiIRzOXzxTMso3HTgBvjG.jpeg','22221781_1893998800919424_5097136805633816144_n.jpg',NULL,7,NULL,NULL,NULL,'',0,0,7,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','0000-00-00 00:00:00',NULL,'2018-05-08 13:06:49','2018-05-08 13:14:07'),
-	(26,'world cup 2026','world-cup-2026','ici c\'est la description de l\'evenement world cup 2026','2025-06-19 08:00:00','2026-05-21 18:00:00',246,1,NULL,'122WnIGJfl2by24pJGGdy4ntJQbH6MR1ckRRvCjg.png','Screen Shot 2018-05-09 at 6.14.16 PM.png',NULL,7,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:07:00',NULL,'2018-05-10 22:04:52','2018-05-22 10:07:11'),
-	(31,'festival de gnaoua','festival-de-gnaoua','description du festival de gnaoua','2018-11-07 00:00:00','2018-11-30 00:00:00',256,1,NULL,'8EL8hSHDAFI1ycENs7fVV3OjZTncAhoPwEq4OYkr.jpeg','22221781_1893998800919424_5097136805633816144_n.jpg',NULL,10,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:07:00',NULL,'2018-05-11 10:06:48','2018-05-22 10:07:06'),
-	(34,'festival de merzouga','festival-de-merzouga','description du festival','0000-00-00 00:00:00','0000-00-00 00:00:00',256,1,NULL,'owzUXORtizIeWhzcVxjxhQSXpUXksn1LKmAWQ4Xf.jpeg','29101081_1753483118045690_4723733668831449476_n.jpg',NULL,11,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-22 10:06:00',NULL,'2018-05-11 14:28:52','2018-05-22 10:06:33');
+	(26,'world cup 2026','world-cup-2026','ici c\'est la description de l\'evenement world cup 2026','2025-06-19 08:00:00','2026-05-21 18:00:00',246,1,NULL,'122WnIGJfl2by24pJGGdy4ntJQbH6MR1ckRRvCjg.png','Screen Shot 2018-05-09 at 6.14.16 PM.png',NULL,7,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-22 10:07:00',NULL,'2018-05-10 22:04:52','2018-05-22 10:07:11'),
+	(31,'festival de gnaoua','festival-de-gnaoua','description du festival de gnaoua','2018-11-07 00:00:00','2018-11-30 00:00:00',256,1,NULL,'8EL8hSHDAFI1ycENs7fVV3OjZTncAhoPwEq4OYkr.jpeg','22221781_1893998800919424_5097136805633816144_n.jpg',NULL,10,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-22 10:07:00',NULL,'2018-05-11 10:06:48','2018-05-22 10:07:06'),
+	(34,'festival de merzouga','festival-de-merzouga','description du festival','0000-00-00 00:00:00','0000-00-00 00:00:00',256,1,NULL,'owzUXORtizIeWhzcVxjxhQSXpUXksn1LKmAWQ4Xf.jpeg','29101081_1753483118045690_4723733668831449476_n.jpg',NULL,11,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'pending','0000-00-00 00:00:00','2018-05-26 18:20:09',NULL,'2018-05-11 14:28:52','2018-05-26 18:20:09'),
+	(35,'Tournée en EKO','tournee-en-eko','Une bonne dose d\'humour après l’ftour, un soupçon de fantaisie, de l\'énergie à revendre, secouez très fort, c\'est le cocktail comique explosif el exhilarant que vous offre EKO sur scène.\r\n\r\nLe premier but d\'un humoriste est de distraire et faire rire, et comme le rire n\'empêche pas de réfléchir, le comique peut enrichir. Dans ce spectacle EKO nous transporte dans son univers pétillant de danse, de rires et de chant; il se métamorphose tour à tour en homme, en enfant ou en adolescent. Il interprète et raconte sa naissance, il fait voyager son public dans le monde de sa scolarisation et son adolescence, avant d\'entamer une narration comique de ses début mi- chanteur mi- humoriste. Une vie parallèle à celle de Abderrahmane l\'enfant du pays.\r\n\r\nUn univers où on sent les odeurs des remparts de la médina de Marrakech, dans un cadre satirique et décalé ou l’auto-dérision règne, il se met dans la peau des personnages et les incarne tous avec une sincérité et engagement, jusqu’à les rendre plus vrais que nature, en s’appuyant sur des histoires et anecdotes appartenant à la mémoire collective de son quartier Derb Dabachi.','2018-05-26 08:00:00','2018-05-31 22:00:00',246,2,NULL,'bKF5e24aO2ZFsJ0fIT8epwZcECgQQTDAstoVZf1c.png','7426_1526641289.png',NULL,1,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-26 18:15:00',NULL,'2018-05-26 18:11:58','2018-05-26 18:15:11'),
+	(36,'Comedy show 4','comedy-show-4','C\'est un show exceptionnel mélangeant l\'art du théâtre et le stand UP qui mis en scène les histoires et anecdotes de notre vie quotidienne dans le milieu social ou encore politique\r\n\r\nComme ils ont l\'habitude de faire , la troupe de Bombacomique vous offre un spectacle de deux heures d\'humour et de rire sans cesse.','2018-05-30 08:00:00','2018-06-08 18:00:00',256,1,NULL,'C0K7EsQvh7Jb6uZjV2bR6M8TebZ29cZ2LhcD29An.jpeg','7422_1526465465.jpg',NULL,7,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-26 18:15:00',NULL,'2018-05-26 18:13:06','2018-05-26 18:15:02'),
+	(37,'aji t\'hdem','aji-thdem','Du spectacle au festival, il n’y avait qu’un pas, que « les inqualifiables » ont franchi. Pour Ramadan 2018, l’idée est un festival humoristique qui réunit des stars de l’humour pendant plusieurs soirées pour des moments de détente, le festival sera sous forme de caravane qui sillonnera plusieurs villes du royaume : Agadir, Fès, Meknès, Oujda, Tanger, Casablanca pour venir clôturer la série à Rabat.\r\n\r\nLe festival comprendra bien entendu le spectacle Aji T\'hdm des inqualifiables, mais aussi le spectacle de Abdelkader Secteur ainsi que plusieurs grands humoristes marocains réunies dans un Gala pour clôturer l\'événement. Cela permettra au spectateur de goûter à un humour varié et multiculturel et se délecter de scénographies plus originales les unes que les autres.','2018-06-07 08:00:00','2018-06-09 20:00:00',251,1,NULL,'xCXI0vJhSpCmqu6sAbzNMQLBqMbwVFspjUwTNTJL.jpeg','7421_1526464110.jpg',NULL,3,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-26 18:15:00',NULL,'2018-05-26 18:14:35','2018-05-26 18:15:07'),
+	(38,'Jeux de société Jalil Tijani','jeux-de-societe-jalil-tijani','Après le Succès des deux dernières représentations au Studio des Arts Vivants, une nouvelle date du Spectacle JEUX DE SOCIÉTÉ est prévue le 30 Mai 2018 à 22h (Ramadan après le Ftour) \r\nLe one-man-show d’une heure et demie, écrit et interprété par le comédien Jalil Tijani, mêlant français et darija. \r\nLe jeune humoriste y dresse, à travers une galerie de personnages pleine d\'esprit et de contradictions assumées, le portrait bienveillant et hilarant d\'un Maroc dont l\'identité évolue au gré des rencontres : un fonctionnaire prêt à toutes les contorsions pour flatter son patron et obtenir une promotion, une bourgeoise coupée de la réalité et enfermée dans sa tour d\'ivoire et de commérage, un chauffeur de taxi oscillant entre clichés et éclairs de génie','2018-05-26 08:09:00','2018-06-02 01:00:00',246,1,NULL,'Q3QxvmbQGKVF1p0z0xrmghfxot9v5lRStTbA450U.jpeg','7420_1526383769.jpg',NULL,9,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-26 18:17:00',NULL,'2018-05-26 18:17:38','2018-05-26 18:27:38'),
+	(39,'Abderrahim Souiri @Sofitel Agadir','abderrahim-souiri-at-sofitel-agadir','**** Les Soirées Ramadanesques by Sofitel Agadir Royal Bay ****\r\n\r\nPendant tout le mois de Ramadan, rejoignez-nous au Riad pour profiter de nos soirées ramadanesques.\r\n\r\nCe Vendredi 18 Mai, nous vous invitons à notre première soirée en présence du grand Aberrahim Souiri. \r\n\r\nInfos et résa : H5707-FB@sofitel.com // 06 00 60 31 98 - 06 6 50 51 4','2018-05-26 09:00:00','2018-06-08 18:00:00',246,1,NULL,'2Qa5jg8W9xxPBZHLeWsq02kNJpJfBttFbH8LEH8V.jpeg','7419_1526382735.jpg',NULL,4,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-26 18:19:00',NULL,'2018-05-26 18:18:54','2018-05-26 18:27:13'),
+	(40,'Abdelkader Secteur @Aji T\'hdem','abdelkader-secteur-at-festival-aji-thdem','Du spectacle au festival, il n’y avait qu’un pas, que « les inqualifiables » ont franchi. Pour Ramadan 2018, l’idée est un festival humoristique qui réunit des stars de l’humour pendant plusieurs soirées pour des moments de détente, le festival sera sous forme de caravane qui sillonnera plusieurs villes du royaume : Agadir, Fès, Meknès, Oujda, Tanger, Casablanca pour venir clôturer la série à Rabat.\r\n\r\nLe festival comprendra bien entendu le spectacle Aji T\'hdm des inqualifiables, mais aussi le spectacle de Abdelkader Secteur ainsi que plusieurs grands humoristes marocains réunies dans un Gala pour clôturer l\'événement. Cela permettra au spectateur de goûter à un humour varié et multiculturel et se délecter de scénographies plus originales les unes que les autres.\r\n\r\nAprès une absence de plusieurs années à Rabat, Abdelkader Secteur revient au Théâtre Mohammed V le 01 Juin 2018 à 22h30 pour jouer son hilarant spectacle. Soyeux nombreux à y assister.','2018-05-26 08:00:00','2018-06-09 18:00:00',246,3,NULL,'wf3UjMyRiB8tASyRdDDtu2mOY3RrP5Rpn1w4v84I.jpeg','7414_1526304832.jpg',NULL,1,NULL,NULL,NULL,'',0,0,1,0,0,0,0,NULL,NULL,NULL,1,'published','0000-00-00 00:00:00','2018-05-26 18:19:00',NULL,'2018-05-26 18:19:51','2018-05-26 18:26:46');
 
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -667,7 +740,14 @@ VALUES
 	(93,'8EL8hSHDAFI1ycENs7fVV3OjZTncAhoPwEq4OYkr.jpeg',31,1,'2018-05-11 10:06:48','2018-05-11 10:06:48',NULL),
 	(94,'wxLCbsA0i2GhzViav0WNuJuSWhyQVUl9CIs7l8RD.jpeg',0,1,'2018-05-11 14:26:12','2018-05-11 14:26:12',NULL),
 	(95,'eqJybNGOQ7byKUkpbB8Wf1QBU0wayb7zUM56mv1D.jpeg',0,1,'2018-05-11 14:28:14','2018-05-11 14:28:14',NULL),
-	(96,'owzUXORtizIeWhzcVxjxhQSXpUXksn1LKmAWQ4Xf.jpeg',34,1,'2018-05-11 14:28:52','2018-05-11 14:28:52',NULL);
+	(96,'owzUXORtizIeWhzcVxjxhQSXpUXksn1LKmAWQ4Xf.jpeg',34,1,'2018-05-11 14:28:52','2018-05-11 14:28:52',NULL),
+	(97,'bKF5e24aO2ZFsJ0fIT8epwZcECgQQTDAstoVZf1c.png',35,1,'2018-05-26 18:11:58','2018-05-26 18:11:58',NULL),
+	(98,'C0K7EsQvh7Jb6uZjV2bR6M8TebZ29cZ2LhcD29An.jpeg',36,1,'2018-05-26 18:13:06','2018-05-26 18:13:06',NULL),
+	(99,'xCXI0vJhSpCmqu6sAbzNMQLBqMbwVFspjUwTNTJL.jpeg',37,1,'2018-05-26 18:14:34','2018-05-26 18:14:35',NULL),
+	(100,'Q3QxvmbQGKVF1p0z0xrmghfxot9v5lRStTbA450U.jpeg',38,1,'2018-05-26 18:17:38','2018-05-26 18:17:38',NULL),
+	(101,'2Qa5jg8W9xxPBZHLeWsq02kNJpJfBttFbH8LEH8V.jpeg',39,1,'2018-05-26 18:18:54','2018-05-26 18:18:54',NULL),
+	(102,'wf3UjMyRiB8tASyRdDDtu2mOY3RrP5Rpn1w4v84I.jpeg',40,1,'2018-05-26 18:19:51','2018-05-26 18:19:51',NULL),
+	(103,'4Ha0vHrBwstZ7dpjRX3kBsfPXNgGv78k4u3gIIvP.jpeg',22,1,'2018-05-26 20:36:40','2018-05-26 20:36:40',NULL);
 
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -871,7 +951,8 @@ VALUES
 	(44,'2018_05_04_120743_edit-images-table',31),
 	(45,'2018_05_07_092523_create_intervenants_table',32),
 	(46,'2018_05_07_093314_edit-intervention-table',33),
-	(47,'2018_05_07_101148_edit-intervention-table-2',34);
+	(47,'2018_05_07_101148_edit-intervention-table-2',34),
+	(48,'2018_05_29_095653_create_collections_table',35);
 
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -961,7 +1042,9 @@ VALUES
 	(6,1,22,4.5,'127.0.0.1','2018-04-29 19:39:40','2018-04-29 19:39:40'),
 	(9,1,22,2.5,'127.0.0.1','2018-04-30 08:22:08','2018-04-30 08:22:08'),
 	(10,1,22,2,'127.0.0.1','2018-04-30 13:52:56','2018-04-30 13:52:56'),
-	(11,1,2,3.5,'127.0.0.1','2018-05-09 15:26:06','2018-05-09 15:26:06');
+	(11,1,2,3.5,'127.0.0.1','2018-05-09 15:26:06','2018-05-09 15:26:06'),
+	(12,1,22,3,'127.0.0.1','2018-05-25 09:43:21','2018-05-25 09:43:21'),
+	(13,19,35,5,'127.0.0.1','2018-05-26 18:31:16','2018-05-26 18:31:16');
 
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1061,7 +1144,15 @@ VALUES
 	(47,'2026','2018-05-10 22:04:52','2018-05-10 22:04:52'),
 	(48,'gnaoua','2018-05-11 09:58:35','2018-05-11 09:58:35'),
 	(50,'sahara','2018-05-11 14:28:52','2018-05-11 14:28:52'),
-	(51,'merzouga','2018-05-11 14:28:52','2018-05-11 14:28:52');
+	(51,'merzouga','2018-05-11 14:28:52','2018-05-11 14:28:52'),
+	(52,'eko','2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(53,'sketch','2018-05-26 18:11:58','2018-05-26 18:11:58'),
+	(54,'comedy','2018-05-26 18:13:06','2018-05-26 18:13:06'),
+	(55,'aji','2018-05-26 18:14:35','2018-05-26 18:14:35'),
+	(56,'','2018-05-26 18:17:38','2018-05-26 18:17:38'),
+	(57,'souri','2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(58,'culture','2018-05-26 18:18:54','2018-05-26 18:18:54'),
+	(59,'secteur','2018-05-26 18:19:51','2018-05-26 18:19:51');
 
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1178,17 +1269,17 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `username`, `email`, `fullname`, `password`, `birthday`, `avatar`, `phone`, `city_id`, `facebook_id`, `facebook_access_token`, `confirm_email_token`, `access_token`, `is_organizer`, `is_certified_organizer`, `is_speaker`, `is_admin`, `verified`, `disabled`, `remember_token`, `created_at`, `updated_at`)
 VALUES
-	(1,'admin','akhouadme@gmail.com','Amine Akhouad','$2y$10$NvOwaOgxciX6yX9xsDQoieDocq/MP8z01ccObpMwOR7FbppByCzGW','1995-05-12','a.png','',1,'','','','',1,0,0,1,0,0,'aG0nollDC5PAfyjuvemlu37SuGWNHTVl9JIr03RGJ0meV0Z5lH33z2lZ7LTe','2018-04-02 09:24:29','2018-05-23 12:10:44'),
+	(1,'admin','akhouadme@gmail.com','Amine Akhouad','$2y$10$NvOwaOgxciX6yX9xsDQoieDocq/MP8z01ccObpMwOR7FbppByCzGW',NULL,'a.png','',1,'','','','',1,0,0,1,0,0,'3aupidcpMuOnQeegviSY9eKUFgyFGMKM4OgRotbS7yniaykxf99klbANUzPu','2018-04-02 09:24:29','2018-05-25 11:06:18'),
 	(2,'amine','agadirgroup123@gmail.com','amine akhouad 2','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'a.png','',1,'','','','',0,0,1,0,0,0,'6I8Y0KOMiDZEjHpwdW04IbelmyDC2cdya5Bndpi2KYIXD6fN4pZar0VrT0Bu','2018-04-02 09:24:29','2018-05-10 23:37:30'),
-	(4,'john','john@doe.com','john doe','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'j.png','',1,'','','','',1,0,0,0,0,0,'P0DIUEoLYSLqiJkS7HNy8iTu4YzbLLLpwJJSwweH0xyUZPAKTCajjtGuQcNj','2018-04-10 10:06:38','2018-05-11 08:15:38'),
+	(4,'john','john@doe.com','john doe','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'j.png','',1,'','','','',1,0,0,0,0,0,'YX2VfEUjPO73vggXoyIT0dtVRSxsB0Ui8AxcrXHjWuAxvTogA2CUDInsbEWr','2018-04-10 10:06:38','2018-05-11 08:15:38'),
 	(5,'samy','samy@akhouad.com','samy akhouad','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'s.png','',1,'','','','',0,0,0,0,0,0,NULL,'2018-04-10 10:16:35','2018-04-10 10:16:35'),
 	(6,'alan','alan@turin.com','alan turin','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'a.png','',1,'','','','',0,0,1,0,0,0,NULL,'2018-04-10 10:47:19','2018-05-07 13:21:04'),
-	(7,'med','med@baladi.com','med amine baladi','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'m.png','',1,'','','','',0,0,1,0,0,0,NULL,'2018-04-10 10:55:26','2018-05-07 13:21:05'),
+	(7,'med','med@baladi.com','med amine baladi','$2y$10$xXTfE8T0OmliBBaLariCN.vgWA5Ngw4BiZLKo0xzXLjGZhlWNLh8a',NULL,'m.png','',1,'','','','',0,0,1,0,0,0,'YmJexCEGYMrL10RQyrava5EqYX0L6F5bs7S2434eRWS0fXjIX2jPf30oRd1b','2018-04-10 10:55:26','2018-05-07 13:21:05'),
 	(8,'elon','elon@musk.com','elon musk','',NULL,'e.png','',1,'','','','',0,0,0,0,0,0,NULL,'2018-04-10 14:27:01','2018-04-10 14:27:01'),
 	(10,'mehdi','mehdi@doe.com','mehdi','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-04-11 09:40:09','2018-04-11 09:40:09'),
 	(11,'souah','souah@gmail.com','marouane souah','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-04-11 11:23:06','2018-05-10 23:51:04'),
 	(18,'akadme','akhouad@akad.me','amine akad','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC',NULL,'a.png','',1,'','','','',1,0,1,0,0,0,'C3lw0w3MaDyYSWgkrBZnOQa0WkvR76oRt5AThAcrlCFzWRlwBbWM6MnuZPDT','2018-04-24 17:43:32','2018-05-07 14:42:29'),
-	(19,'karim','karim@ahmadi.com','karim ahmadi','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC',NULL,'k.png','',1,'','','','',0,0,1,0,0,0,'ogvNm5XQy7dprV7B4aWdJ9DLV3YB8bCcdaRaYGWCkGGOcaFRtfjdZYAzBxZz','2018-05-03 17:31:34','2018-05-11 08:48:57'),
+	(19,'karim','karim@ahmadi.com','karim ahmadi','$2y$10$YdtyIr.Iqh4.ZxeTLl2TOu/p/U5zGtApZLUVOK3k1XJRcHf3rijEC',NULL,'k.png','',1,'','','','',0,0,1,0,0,0,'FBDTwSuARkPnSKdux5MAwNRUJSFRYPe5ZfpxnEGWqfSsTaTE5A3k1nd9UH2L','2018-05-03 17:31:34','2018-05-11 08:48:57'),
 	(21,'mehdi_19','mehdi@benatia.com','mehdi benatia','',NULL,'m.png','',0,'','','','',0,0,1,0,0,0,NULL,'2018-05-07 11:52:22','2018-05-07 13:21:18'),
 	(22,'badr_21','badr@banoun.com','badr banoun','',NULL,'b.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:56:45','2018-05-07 11:56:45'),
 	(23,'mbark_22','mbark@boussofa.com','mbark boussofa','',NULL,'m.png','',0,'','','','',0,0,0,0,0,0,NULL,'2018-05-07 11:58:05','2018-05-07 11:58:05'),
