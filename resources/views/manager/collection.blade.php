@@ -19,7 +19,7 @@
                 <p class="description">{{$collection->description}}</p>
                 <form action="{{route('delete-collection', ['id' => $collection->id])}}" method="post" class="m-2">
                     {{csrf_field()}}
-                    <button class="btn btn-sm btn-danger">Supprimer</button>
+                    <button class="btn btn-sm btn-danger">Supprimer la collection</button>
                 </form>
             </div>
         </div>
