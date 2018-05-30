@@ -47,21 +47,11 @@
                 <div class="access-type d-inline-block w-100">
                     Type d'acces: 
                     {{ ($event->access_type == 1) ? 'Gratuit' : (($event->accessType == 2) ? 'Payant' : (($event->accessType == 3) ? 'Sur Invitation' : 'Sur Réservation')) }}
-                    <a href="" class="btn btn-primary btn-sm float-md-right">Réserver</a>
+                    <form action="{{route('book-event', ['id' => $event->id, 'slug' => $event->slug])}}" method="post">
+                        {{csrf_field()}}
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Réserver</button>
+                    </form>
                 </div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-                @if(Auth::check())
-                <form action="{{route('attend-event', ['id' => $event->id, 'slug' => $event->slug])}}" method="post">
-                    {{csrf_field()}}
-                    <input type="hidden" name="event_id" value="{{$event->id}}">
-                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                </form>
-                @endif
             </div>
         </div>
         <div class="about">

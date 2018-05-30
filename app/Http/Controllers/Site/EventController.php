@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Event;
 use App\Category;
 use App\City;
+use App\Attending;
 use Auth;
 use App\EventsOption;
 
@@ -81,9 +82,10 @@ class EventController extends Controller
         return view('site.event', compact('event', 'footer_cities', 'categories'));
     }
 
-    public function attend(Request $request){
-        $data = $request->input();
-        $attend_type = $data['attend-type'];
+    public function book(Request $request){
+        $data = $request->post();
+        Attending::create(Auth::id(), $request);
+        return redirect(route('event-page', ['id' => $request->id, 'slug' => $request->slug]));
     }
 
     public function latest(Request $request, $limit){

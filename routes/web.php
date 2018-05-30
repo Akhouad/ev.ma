@@ -111,7 +111,7 @@ Route::namespace('Site')->group(function(){
         Route::get('/', 'EventController@show')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+');
         Route::post('/', 'CommentController@store')->name('event-page')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
         Route::post('/comment/report', 'CommentController@report')->name('report-comment');
-        Route::post('attend', 'EventController@attend')->name('attend-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
+        Route::post('book', 'EventController@book')->name('book-event')->where('slug', '[a-zA-Z0-9-]+')->where('id', '[0-9]+')->middleware('auth');
     });
 
     Route::get('venue/{slug}', 'VenueController@index')->name('venue')->where('id', '[a-zA-Z-._]+');
