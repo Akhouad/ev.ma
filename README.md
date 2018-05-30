@@ -1,5 +1,5 @@
 # ev.ma
-### Commands to run after cloning the project
+### Commands to run after cloning the project and generating a `.env` file
 ```
 composer install
 npm install
