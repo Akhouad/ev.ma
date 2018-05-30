@@ -22,7 +22,10 @@ class Search extends Model
             $end_date = $request->get('end_date');
 
             if($search_type == 'event'){
-                $results['events'] = Event::where('name', 'like', '%' . $key . '%')->get();
+                $results['events'] = Event::where('name', 'like', '%' . $key . '%')
+                                            ->where('deleted_at', null)
+                                            ->where('status', 'published')
+                                            ->get();
                 if($category != 'all' || $city != '109'){
                     $results['events'] = $results['events']->filter(function($e) use($category){
                         return ( $category != 'all' ) ? $e->categories->contains('category_id', $category) : true;
@@ -45,7 +48,10 @@ class Search extends Model
             return $results;
         }
         
-        $results['events'] = Event::where('name', 'like', '%' . $key . '%')->get();
+        $results['events'] = Event::where('name', 'like', '%' . $key . '%')
+                                    ->where('deleted_at', null)
+                                    ->where('status', 'published')
+                                    ->get();
         $results['users'] = User::where('fullname', 'like', '%' . $key . '%')->get();
         $results['organizers'] = Organizer::where('name', 'like', '%' . $key . '%')->get();
         return $results;

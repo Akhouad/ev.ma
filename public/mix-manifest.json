@@ -5,12 +5,12 @@
     "/css/site/app.css": "/css/site/app.css",
     "/js/manager/schedule.js": "/js/manager/schedule.js",
     "/js/manager/intervenants.js": "/js/manager/intervenants.js",
+    "/js/manager/list.js": "/js/manager/list.js",
     "/js/manager/images.js": "/js/manager/images.js",
     "/js/site/search.js": "/js/site/search.js",
     "/js/manager/email.js": "/js/manager/email.js",
     "/js/manager/comments.js": "/js/manager/comments.js",
     "/js/site/event.js": "/js/site/event.js",
     "/js/manager/common.js": "/js/manager/common.js",
-    "/js/site/home.js": "/js/site/home.js",
-    "/js/manager/list.js": "/js/manager/list.js"
+    "/js/site/home.js": "/js/site/home.js"
 }

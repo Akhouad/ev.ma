@@ -80,14 +80,21 @@
                                 <h6 class="paragraph-title">Utilisateurs trouvés:</h6>
                             </div>
                             @foreach($results['users'] as $u)
-                                <div class="col-md-2">{{$u->fullname}}</div>
+                                <div class="col-md-2">
+                                    <p><a href="{{route('user', ['username' => $u->username])}}">{{$u->fullname}}</a></p>
+                                </div>
                             @endforeach
                         @elseif( isset($results['organizers']) && count($results['organizers']) > 0 )
                             <div class="col-md-12">
                                 <h6 class="paragraph-title">Organisateurs trouvés:</h6>
                             </div>
                             @foreach($results['organizers'] as $o)
-                                <div class="col-md-2">{{$o->name}}</div>
+                            <div class="col-md-2">
+                                <a href="">
+                                    <img src="{{asset('storage/images/avatars/' . $o->user->avatar)}}" alt="" style="width:100%;border-radius:4px;">
+                                    <p class="mt-2 text-center">{{$o->name}}</p>
+                                </a>
+                            </div>
                             @endforeach
                         @endif
                         

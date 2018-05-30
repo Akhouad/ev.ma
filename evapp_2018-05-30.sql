@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: evapp
-# Generation Time: 2018-05-29 12:34:38 +0000
+# Generation Time: 2018-05-30 11:06:18 +0000
 # ************************************************************
 
 
@@ -331,9 +331,10 @@ LOCK TABLES `collections` WRITE;
 
 INSERT INTO `collections` (`id`, `name`, `slug`, `description`, `image`, `user_id`, `events`, `deleted_at`, `created_at`, `updated_at`)
 VALUES
-	(1,'collection 1','collection-1','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n','GcHLyvlxoZZuiQ0qx4m3l8B5J8jTh3eCYq9BXSfB.jpeg',1,'a:6:{i:0;s:2:\"34\";i:1;s:1:\"2\";i:2;s:1:\"5\";i:3;s:2:\"24\";i:4;s:2:\"23\";i:5;s:2:\"36\";}',NULL,'2018-05-29 10:57:38','2018-05-29 11:59:38'),
-	(2,'Timitars','timitars','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','LoC8D7MjTDk9yaV0v2u3G12kBxDvPUlGPtVb4KRo.jpeg',1,'a:6:{i:0;s:2:\"34\";i:1;s:1:\"2\";i:2;s:2:\"22\";i:3;s:2:\"21\";i:4;s:2:\"36\";i:5;s:2:\"37\";}',NULL,'2018-05-29 12:14:27','2018-05-29 12:21:03'),
-	(3,'maroc web awards','maroc-web-awards',NULL,NULL,4,'a:1:{i:0;s:1:\"3\";}',NULL,'2018-05-29 12:21:34','2018-05-29 12:21:42');
+	(1,'collection 1','collection-1','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n','GcHLyvlxoZZuiQ0qx4m3l8B5J8jTh3eCYq9BXSfB.jpeg',1,'a:4:{i:0;s:2:\"34\";i:1;s:2:\"24\";i:2;s:1:\"4\";i:3;s:1:\"5\";}',NULL,'2018-05-29 10:57:38','2018-05-29 13:59:29'),
+	(2,'Timitars','timitars','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','LoC8D7MjTDk9yaV0v2u3G12kBxDvPUlGPtVb4KRo.jpeg',1,'a:6:{i:0;s:1:\"2\";i:1;s:2:\"37\";i:2;s:2:\"24\";i:3;s:2:\"34\";i:4;s:1:\"5\";i:5;s:1:\"4\";}',NULL,'2018-05-29 12:14:27','2018-05-29 13:57:47'),
+	(3,'maroc web awards','maroc-web-awards',NULL,NULL,4,'a:1:{i:0;s:1:\"3\";}',NULL,'2018-05-29 12:21:34','2018-05-29 13:11:12'),
+	(4,'mwas','mwas',NULL,NULL,1,NULL,'2018-05-29 13:16:56','2018-05-29 13:16:52','2018-05-29 13:16:56');
 
 /*!40000 ALTER TABLE `collections` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -991,9 +992,6 @@ INSERT INTO `organizers` (`id`, `user_id`, `name`, `slug`, `avatar`, `bio`, `ema
 VALUES
 	(1,1,'Amine Akhouad','amine-akhouad','','','akhouadme@gmail.com','','','','','',0,0,'2018-04-05 00:00:00','2018-04-02 09:24:29','2018-04-02 09:24:29'),
 	(2,4,'John Doe','john-doe','','','john@doe.com','','','','','',0,0,'2018-04-10 12:36:54',NULL,NULL),
-	(4,13,'amine akad','amine-akad','m.png','','akhouad@yahoo.fr','','','','','',0,0,'2018-04-24 13:38:52','2018-04-24 12:38:52','2018-04-24 12:38:52'),
-	(5,16,'amine akad','amine-akad','m.png','','akhouad@akad.me','','','','','',0,0,'2018-04-24 18:35:28','2018-04-24 17:35:28','2018-04-24 17:35:28'),
-	(6,17,'amine akad','amine-akad','m.png','','akhouad@akad.me','','','','','',0,0,'2018-04-24 18:36:32','2018-04-24 17:36:32','2018-04-24 17:36:32'),
 	(7,18,'amine akad','amine-akad','m.png','','akhouad@akad.me','','','','','',0,0,'2018-04-24 18:43:32','2018-04-24 17:43:32','2018-04-24 17:43:32');
 
 /*!40000 ALTER TABLE `organizers` ENABLE KEYS */;

@@ -38,12 +38,6 @@
                             </div>
                         </div>
                         <div>
-                            <div class="radio-search d-inline-block" data-type="user">
-                                <input type="radio" name="search-type" id="user" value="user">
-                                <label for="user">Utilisateur</label>
-                            </div>
-                        </div>  
-                        <div>
                             <div class="radio-search d-inline-block" data-type="organizer">
                                 <input type="radio" name="search-type" id="organizer" value="organizer">
                                 <label for="organizer">Organisateur</label>

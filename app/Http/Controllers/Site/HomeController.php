@@ -23,8 +23,8 @@ class HomeController extends Controller
             if($request->get('advanced') == 'true'){
                 $validatedData = $request->validate([
                     'search' => 'required|max:255',
-                    'category' => 'required|exists:categories,id',
-                    'city' => 'required|exists:cities,id',
+                    'category' => 'required_if:search-type,event|exists:categories,id',
+                    'city' => 'required_if:search-type,event|exists:cities,id',
                     'start_date' => 'nullable|date',
                     'end_date' => 'nullable|required_with:start_date|date|after:start_date'
                 ]);
