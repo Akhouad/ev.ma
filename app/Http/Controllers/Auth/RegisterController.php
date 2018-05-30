@@ -89,7 +89,7 @@ class RegisterController extends Controller
         $user->username = $data['username'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
-        $user->avatar = substr($data['fullname'], 1, 1) . ".png";
+        $user->avatar = substr($data['fullname'], 0, 1) . ".png";
         $user->city_id = $data['city'];
         $user->save();
 
