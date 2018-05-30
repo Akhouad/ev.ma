@@ -47,7 +47,7 @@
                 <div class="access-type d-inline-block w-100">
                     Type d'acces: 
                     {{ ($event->access_type == 1) ? 'Gratuit' : (($event->accessType == 2) ? 'Payant' : (($event->accessType == 3) ? 'Sur Invitation' : 'Sur Réservation')) }}
-                    <form action="{{route('book-event', ['id' => $event->id, 'slug' => $event->slug])}}" method="post">
+                    <form class="float-right" action="{{route('book-event', ['id' => $event->id, 'slug' => $event->slug])}}" method="post">
                         {{csrf_field()}}
                         <button type="submit" class="btn btn-primary btn-sm float-right">Réserver</button>
                     </form>

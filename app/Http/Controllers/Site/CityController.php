@@ -36,11 +36,16 @@ class CityController extends Controller
                     ->where('events.deleted_at', null)
                     ->where('events.status', 'published')
                     ->get();
-        foreach($events as $e){
-            $french_months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-                            'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
-            $e->start_timestamp = explode(' ', explode('-', $e->start_timestamp)[2])[0] . ' ' . $french_months[(int)explode('-', $e->start_timestamp)[1] - 1];
+                    
+        if(count($events) > 0){
+            foreach($events as $e){
+                $french_months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                                'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+                $e->start_timestamp = explode(' ', explode('-', $e->start_timestamp)[2])[0] . ' ' . $french_months[(int)explode('-', $e->start_timestamp)[1] - 1];
+            }
+            return view('site.city', compact('events', 'footer_cities', 'categories'));
+        }else{
+            return abort(401, 'Aucun événement sur cette ville.');
         }
-        return view('site.city', compact('events', 'footer_cities', 'categories'));
     }
 }

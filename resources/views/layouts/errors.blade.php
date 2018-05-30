@@ -93,92 +93,12 @@
                 @endif
             </div>
         </div>
-        <div class="bottom-bar">
-            <div class="container">
-                <nav class="categories">
-                    <ul>
-                        @foreach($categories as $key => $c)
-                        <li>
-                            <a href="{{route('category', ['category' => $c->slug])}}">
-                                {{$c->name}}
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                    <a href="{{route('categories')}}" class="all-categories">Plus <i class="fa fa-angle-right"></i></a>
-                </nav>
-            </div>
-        </div>
     </header>
-
-    @if(isset($category) || isset($chosen_city))
-        <div class="container" style="margin-top:130px;margin-bottom:-130px">
-            <ol class="breadcrumb" style="background:transparent;padding: 0">
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{route((isset($category)) ? 'categories' : 'cities')}}">{{(isset($category)) ? 'Catégories' : 'Villes'}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{(isset($category)) ? $category->name : $chosen_city}}</li>
-            </ol>
-            <h6 class="text-light">{{(isset($category->name)) ? $category->name : $chosen_city}}</h6> 
-            <p class="text-muted">
-                Retrouvez ici votre agenda <strong>{{(isset($category->name)) ? title_case($category->name) : title_case($chosen_city)}}</strong> à ne pas rater. <br>
-                Abonnez-vous à l’agenda <strong>{{(isset($category->name)) ? title_case($category->name) : title_case($chosen_city)}}</strong> et découvrez tous les événements attendus au Maroc en {{date('Y')}} pour sortir : évènements spéciaux, rendez-vous incontournables,… .
-            </p>
-        </div>
-    @endif
-
-    @if(isset($event))
-        <div class="container" style="margin-top:130px;margin-bottom:-130px">
-            <ol class="breadcrumb" style="background:transparent;padding: 0">
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('homepage')}}">Événements</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('city', ['slug' => $event->venue->city->slug])}}">{{$event->venue->city->slug}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$event->name}}</li>
-            </ol>
-        </div>
-    @endif
 
     <div class="container" id="wrapper">
         @yield('content')
     </div>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <p>
-                        Ev.ma est le site pour trouver les bons plans, les activités, les idées insolites au Maroc. Retrouver les meilleurs événements de culture, divertissement, professionnels, technologies et sports. Tout pour profiter de votre ville.
-                    </p>
-                    <p>
-                        <a href=""><img src="{{asset('storage/images/google-play.png')}}" alt=""></a>
-                    </p>
-                    <p class="text-left">
-                        Copyright &copy; 2015-{{date('Y')}} Ev.ma - Tous droits réservés
-                    </p>
-                </div>
-                <div class="col-md-5 offset-md-2">
-                    <ul class="cities">
-                        @foreach($footer_cities as $c)
-                        <li><a href="{{route('city', ['city' => $c->slug])}}">{{$c->name}}</a></li>
-                        @endforeach
-                    </ul>
-                    <h3 class="footer-heading">a propos</h3>
-                    <ul class="footer-links">
-                        <li><a href="">Conditions</a></li>
-                        <li><a href="">Notre politique</a></li>
-                        <li><a href="">Vos données</a></li>
-                        <li><a href="">Média</a></li>
-                        <li><a href="">Photo de couverture</a></li>
-                        <li><a href="">Cookies</a></li>
-                        <li><a href="">Blog</a></li>
-                    </ul>
-                    <h3 class="footer-heading">aide</h3>
-                    <ul class="footer-links">
-                        <li><a href="">Ajoutez votre événement</a></li>
-                        <li><a href="">Compte organisateur professionnel</a></li>
-                        <li><a href="">Application mobile</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="{{asset('js/site/common.js')}}"></script>
     @yield('scripts')
 </body>
