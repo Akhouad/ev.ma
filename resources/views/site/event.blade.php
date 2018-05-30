@@ -49,7 +49,17 @@
                     {{ ($event->access_type == 1) ? 'Gratuit' : (($event->accessType == 2) ? 'Payant' : (($event->accessType == 3) ? 'Sur Invitation' : 'Sur Réservation')) }}
                     <form class="float-right" action="{{route('book-event', ['id' => $event->id, 'slug' => $event->slug])}}" method="post">
                         {{csrf_field()}}
+                        <?php $attended = false; ?>
+                        @foreach($event->attendings as $a)
+                            @if($a->user_id == Auth::id())
+                            <?php $attended = true; break; ?>
+                            @endif
+                        @endforeach
+                        @if($attended)
+                        <button type="submit" class="btn btn-primary btn-sm float-right disabled" disabled>Réservé</button>
+                        @else
                         <button type="submit" class="btn btn-primary btn-sm float-right">Réserver</button>
+                        @endif
                     </form>
                 </div>
             </div>
